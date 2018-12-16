@@ -1,5 +1,5 @@
 export default {
-  world():string {
-    return 'world';
-  }
-}
+  world(): string {
+    return "world";
+  },
+};
