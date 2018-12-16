@@ -10,7 +10,8 @@
     "no-bitwise": true,
     "no-conditional-assignment": true,
     "no-consecutive-blank-lines": false,
-    "no-console": false
+    "no-console": false,
+    "only-arrow-functions": false
   },
   "jsRules": {
     "max-line-length": {

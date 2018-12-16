@@ -1,3 +1,3 @@
-export const hello = function():string {
-  return 'hello'
-}
+export const hello = function(): string {
+  return "hello";
+};
