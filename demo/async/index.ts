@@ -24,5 +24,4 @@ async function run() {
   console.log(`result3 = ${result3}`);
 }
 
-// 运行环境
 run();
