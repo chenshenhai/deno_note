@@ -1,5 +1,3 @@
-export default {
-  world(): string {
-    return "world";
-  },
+export const world = function (): string {
+  return "world";
 };
