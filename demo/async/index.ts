@@ -1,4 +1,4 @@
-function increase(num) {
+function increase(num): object {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if( !(num >= 0) ) {
