@@ -1,13 +1,21 @@
-import { serve } from "./lib/http";
+/**
+ *  Thanks to https://github.com/lenkan/deno-http/
+ *  Copy from  https://github.com/lenkan/deno-http/
+ */
 
-const host = "127.0.0.1:8000";
-const s = serve(host);
+import { listen } from './lib/http';
 
-async function main() {
-  for await (const req of s) {
-    req.respond({ body: new TextEncoder().encode("Hello World\n") });
-  }
-}
+listen("127.0.0.1:3000", async (req, res) => {
+  const encoder = new TextEncoder("utf8");
 
-main();
-console.log(`the server is starting at ${host}`);
+  const body = encoder.encode(JSON.stringify({
+    request: req
+  }));
+
+  await res
+    .status(200, "OK")
+    .headers({
+      "Content-Type": "application/json",
+      "Content-Length": body.byteLength.toString()
+    }).send(body);
+});
