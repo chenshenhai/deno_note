@@ -3,13 +3,13 @@
  *  Copy from  https://github.com/lenkan/deno-http/
  */
 
-import { listen } from './lib/http';
+import { listen } from "./lib/http";
 
 listen("127.0.0.1:3000", async (req, res) => {
   const encoder = new TextEncoder("utf8");
 
   const body = encoder.encode(JSON.stringify({
-    request: req
+    hello: "world"
   }));
 
   await res
