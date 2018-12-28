@@ -23,14 +23,19 @@ function getHttpContext (): Uint8Array {
   return data;
 }
 
-async function server(addr: string) {
-  const listener = listen("tcp", addr);
-  console.log("listening on", addr);
-  const ctx = getHttpContext();
-  async function loop(conn: Conn) {
+async function loop(conn: Conn): Promise<void> {
+  try {
+    const ctx = getHttpContext();
     await conn.write(ctx);
     conn.close();
+  } catch (err) {
+    console.log(err);
   }
+}
+
+async function server(addr: string): Promise<void> {
+  const listener = listen("tcp", addr);
+  console.log("listening on", addr);
   while (true) {
     const connection = await listener.accept();
     loop(connection);
