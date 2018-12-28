@@ -28,8 +28,8 @@ async function loop(conn: Conn): Promise<void> {
     const ctx = getHttpContext();
     await conn.write(ctx);
     conn.close();
-  } catch (err) {
-    console.log(err);
+  } finally {
+    conn.close();
   }
 }
 
