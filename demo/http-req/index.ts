@@ -23,7 +23,7 @@ function getHttpContext (bodyStr: string): Uint8Array {
 }
 
 async function getReq(conn: Conn): Promise<string> {
-  const buffer = new Uint8Array(1024);
+  const buffer = new Uint8Array(4096);
   await conn.read(buffer);
   const headers = decoder.decode(buffer);
   const headersObj = {};
