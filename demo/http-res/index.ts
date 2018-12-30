@@ -23,7 +23,7 @@ function setRes (res: Response): Uint8Array {
 }
 
 async function loop(conn: Conn): Promise<void> {
-  const body = "{\"a\":1}";
+  const body = "<h1>hello world</h1>";
   try {
     const ctx = setRes({
       headers: [
