@@ -4,6 +4,7 @@ const CRLF = "\r\n";
 interface Response {
   headers: string[];
   body: string;
+  end: boolean;
 }
 
 function setRes (res: Response): Uint8Array {
