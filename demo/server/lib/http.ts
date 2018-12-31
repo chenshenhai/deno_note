@@ -36,25 +36,32 @@ export class Server {
       };
       const context = that.createContext(req, res);
       const middlewares = that.middlewares;
-      middlewares.forEach((cb, idx) => {
+      if (middlewares && middlewares.length > 0) {
+        middlewares.forEach((cb, idx) => {
   
-        try {
-          if (typeof cb === "function") {
-            cb(context);
+          try {
+            if (typeof cb === "function") {
+              cb(context);
+            }
+          } catch (err) {
+            that.onError(err);
           }
-        } catch (err) {
-          that.onError(err);
-        }
-
-        if (idx + 1 >= this.middlewares.length) {
-          if (!(context.res.body && typeof context.res.body === "string")) {
-            context.res.body = "404 not found";
+  
+          if (idx + 1 >= this.middlewares.length) {
+            if (!(context.res.body && typeof context.res.body === "string")) {
+              context.res.body = "404 not found";
+            }
+            const data = createResponse(context.res);
+            conn.write(data);
+            conn.close();
           }
-          const data = createResponse(context.res);
-          conn.write(data);
-          conn.close();
-        }
-      });
+        });
+      } else {
+        context.res.body = "404 not found";
+        const data = createResponse(context.res);
+        conn.write(data);
+        conn.close();
+      }
      
     };
     return handleRequest;
