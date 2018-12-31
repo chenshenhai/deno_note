@@ -2,39 +2,92 @@ import { listen, Conn } from "deno";
 import { getRequest } from "./req";
 import { createResponse } from "./res";
 
-// const encoder = new TextEncoder();
 export class Server {
-  // private middlewares: Function[];
+  private middlewares: Function[];
+  private context: {};
 
-  // private pushMiddleware(fn: Function): void{
-  //   this.middlewares.push(fn);
-  // }
+  constructor() {
+    this.middlewares = [];
+    this.context = {};
+  }
 
-  // public use(fn) {
-  //   this.middlewares.push(fn);
-  // }
+  private pushMiddleware(fn: Function): void{
+    this.middlewares.push(fn);
+  }
+
+  public use(fn: Function): void {
+    this.pushMiddleware(fn);
+  }
+
+  private createContext(req, res) {
+    const context = Object.create(this.context);
+    context.req = req;
+    context.res = res;
+    return context;
+  }
+
+  private callback() {
+    const that = this;
+    const handleRequest = async (conn: Conn) => {
+      const req = await getRequest(conn);
+      const res = {
+        headers: [],
+        body: ""
+      };
+      const context = that.createContext(req, res);
+      const middlewares = that.middlewares;
+      middlewares.forEach((cb, idx) => {
+  
+        try {
+          if (typeof cb === "function") {
+            cb(context);
+          }
+        } catch (err) {
+          that.onError(err);
+        }
+
+        if (idx + 1 >= this.middlewares.length) {
+          if (!(context.res.body && typeof context.res.body === "string")) {
+            context.res.body = "404 not found";
+          }
+          const data = createResponse(context.res);
+          conn.write(data);
+          conn.close();
+        }
+      });
+     
+    };
+    return handleRequest;
+  }
+
+  private onError(err: Error) {
+    console.log(err);
+  }
 
   public async loop(conn: Conn): Promise<void> {
     try {
-      const req : {} = await getRequest(conn);
-      const ctx = await createResponse({
-        headers: [],
-        body: JSON.stringify(req)
-      });
-      await conn.write(ctx);
-      conn.close();
+      const handleRequest = this.callback();
+      await handleRequest(conn);
     } catch(err) {
-      console.log(err);
+      this.onError(err);
       conn.close();
     }
   }
 
-  public async listen(addr: string) {
+  public async listen(addr: string, fn?: Function) {
     const listener = listen("tcp", addr);
-    console.log("listening on", addr);
-    while (true) {
-      const connection = await listener.accept();
-      this.loop(connection);
+    let err: Error = null;
+    try {
+      if (typeof fn === "function") {
+        fn();
+      }
+      while (true) {
+        const conn = await listener.accept();
+        this.loop(conn);
+      }
+    } catch (error) {
+      err = error;
+      this.onError(err);
     }
   }
 }
