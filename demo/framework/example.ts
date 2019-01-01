@@ -15,8 +15,7 @@ const addr = "127.0.0.1:3001";
 app.use(async function(ctx) {
   const {req, res} = ctx;
   const headerData = req.getHeader();
-  const { pathname } = headerData;
-  res.body = `${pathname} is not found`;
+  res.body = `${JSON.stringify(headerData)}`;
 });
 
 app.listen(addr, function(){

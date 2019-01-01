@@ -13,7 +13,8 @@ class Request {
   }
 
   public async init() {
-    await this.getReqData();
+    const reqData = await this.getReqData();
+    this.reqData = reqData || {};
   }
 
   public getMethod() {
