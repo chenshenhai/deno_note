@@ -3,18 +3,19 @@ import { Server } from "./lib/http";
 const app = new Server();
 const addr = "127.0.0.1:3001";
 
-app.use(async function(ctx) {
-  const {req, res} = ctx;
-  const { pathname } = req;
-  if (pathname === "/" || pathname === "") {
-    res.body = "<h1>hello world</h1>";
-    res.end();
-  }
-});
+// app.use(async function(ctx) {
+//   const {req, res} = ctx;
+//   const { pathname } = req;
+//   if (pathname === "/" || pathname === "") {
+//     res.body = "<h1>hello world</h1>";
+//     res.end();
+//   }
+// });
 
 app.use(async function(ctx) {
   const {req, res} = ctx;
-  const { pathname } = req;
+  const headerData = req.getHeader();
+  const { pathname } = headerData;
   res.body = `${pathname} is not found`;
 });
 

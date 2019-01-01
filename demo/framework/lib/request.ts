@@ -7,9 +7,13 @@ class Request {
   private conn: Conn;
   private reqData: {};
   
-  constructor(conn: Conn) {
+  constructor (conn: Conn) {
     this.conn = conn;
-    this.reqData = this.getReqData();
+    this.reqData = {};
+  }
+
+  public async init() {
+    await this.getReqData();
   }
 
   public getMethod() {

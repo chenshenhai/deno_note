@@ -1,6 +1,6 @@
 import { listen, Conn } from "deno";
-import { getRequest } from "./req";
-import { createResponse } from "./res";
+import Request from "./request";
+import Response from "./response";
 
 export class Server {
   private middlewares: Function[];
@@ -29,40 +29,34 @@ export class Server {
   private callback() {
     const that = this;
     const handleRequest = async (conn: Conn) => {
-      const req = await getRequest(conn);
-      const res = {
-        headers: [],
-        body: ""
-      };
+      const req = new Request(conn);
+      const res = new Response(conn);
+      await req.init();
       const context = that.createContext(req, res);
       const middlewares = that.middlewares;
-      if (middlewares && middlewares.length > 0) {
-        middlewares.forEach((cb, idx) => {
-  
-          try {
-            if (typeof cb === "function") {
-              cb(context);
+      if (res.getEndStatus() !== true) {
+        if (middlewares && middlewares.length > 0) {
+          for (let idx = 0; idx < middlewares.length; idx++) {
+            const cb = middlewares[idx];
+            if (res.getEndStatus() === true) {
+              break;
             }
-          } catch (err) {
-            that.onError(err);
-          }
-  
-          if (idx + 1 >= this.middlewares.length) {
-            if (!(context.res.body && typeof context.res.body === "string")) {
-              context.res.body = "404 not found";
+            try {
+              if (typeof cb === "function") {
+                cb(context);
+              }
+            } catch (err) {
+              that.onError(err);
             }
-            const data = createResponse(context.res);
-            conn.write(data);
-            conn.close();
+            if (idx + 1 >= this.middlewares.length) {
+              res.end();
+              break;
+            }   
           }
-        });
-      } else {
-        context.res.body = "404 not found";
-        const data = createResponse(context.res);
-        conn.write(data);
-        conn.close();
+        } else {
+          res.end();
+        }
       }
-     
     };
     return handleRequest;
   }

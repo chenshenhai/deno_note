@@ -33,7 +33,7 @@
     "no-construct": true,
     "no-consecutive-blank-lines": true,
     "no-debugger": true,
-    "no-default-export": true,
+    "no-default-export": false,
     "no-inferrable-types": false,
     "no-reference": true,
     "no-require-imports": true,
