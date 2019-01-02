@@ -1,6 +1,6 @@
 import { listen, Conn } from "deno";
-import { getRequest } from "./req";
-import { createResponse } from "./res";
+import { getRequest } from "./req.ts";
+import { createResponse } from "./res.ts";
 
 export class Server {
   private middlewares: Function[];

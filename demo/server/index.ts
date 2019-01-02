@@ -1,4 +1,4 @@
-import { Server } from "./lib/http";
+import { Server } from "./lib/http.ts";
 
 const app = new Server();
 const addr = "127.0.0.1:3001";
