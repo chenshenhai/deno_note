@@ -1,8 +1,9 @@
 import { listen, Conn } from "deno";
-import Request from "./request.ts";
-import Response from "./response.ts";
+import { Request, Req } from "./request.ts";
+import { Response, Res } from "./response.ts";
+import { Context } from "./context.ts";
 
-class Server {
+export class Server {
   private middlewares: Function[];
   private context: {};
 
@@ -19,7 +20,7 @@ class Server {
     this.pushMiddleware(fn);
   }
 
-  private createContext(req, res) {
+  private createContext(req: Req, res: Res): Context {
     const context = Object.create(this.context);
     context.req = req;
     context.res = res;
@@ -29,8 +30,8 @@ class Server {
   private callback() {
     const that = this;
     const handleRequest = async (conn: Conn) => {
-      const req = new Request(conn);
-      const res = new Response(conn);
+      const req: Req = new Request(conn);
+      const res: Res = new Response(conn);
       await req.init();
       const context = that.createContext(req, res);
       const middlewares = that.middlewares;
@@ -92,5 +93,3 @@ class Server {
     }
   }
 }
-
-export default Server;

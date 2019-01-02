@@ -3,7 +3,16 @@ import { Conn } from "deno";
 const encoder = new TextEncoder();
 const CRLF = "\r\n";
 
-class Response {
+export interface Res {
+  getEndStatus: Function;
+  setHeader: Function;
+  getHeader: Function;
+  setBody: Function;
+  getBody: Function;
+  end: Function;
+}
+
+export class Response implements Res {
   private conn: Conn;
   private headers: {};
   private body : string;
@@ -90,5 +99,3 @@ class Response {
   }
   
 }
-
-export default Response;

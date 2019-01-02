@@ -1,5 +1,5 @@
 import { cwd } from "deno";
-import Server from "./../framework/lib/http.ts";
+import { Server } from "./../framework/index.ts";
 import fileBrowser from "./lib/file_browser.ts";
 
 const app = new Server();

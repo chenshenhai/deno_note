@@ -3,18 +3,32 @@ import { Conn } from "deno";
 const decoder = new TextDecoder();
 const CRLF = "\r\n";
 
-class Request {
+export interface Req {
+  init: Function;
+  getMethod: Function;
+  getHeader: Function;
+  getCookie: Function;
+  getQuery: Function;
+  getProtocol: Function;
+}
+
+export class Request implements Req {
   private conn: Conn;
   private reqData: {};
+  private hasInitialized: boolean;
   
   constructor (conn: Conn) {
     this.conn = conn;
     this.reqData = {};
+    this.hasInitialized = false;
   }
 
   public async init() {
-    const reqData = await this.getReqData();
-    this.reqData = reqData || {};
+    if (this.hasInitialized !== true) {
+      const reqData = await this.getReqData();
+      this.reqData = reqData || {};
+      this.hasInitialized = true;
+    }
   }
 
   public getMethod() {
@@ -92,5 +106,3 @@ class Request {
     return headersObj;
   }
 }
-
-export default Request;
