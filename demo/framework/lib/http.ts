@@ -66,7 +66,7 @@ export class Server {
     console.log(err);
   }
 
-  public async loop(conn: Conn): Promise<void> {
+  private async loop(conn: Conn): Promise<void> {
     try {
       const handleRequest = this.callback();
       await handleRequest(conn);

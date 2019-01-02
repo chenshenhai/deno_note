@@ -1,19 +1,23 @@
 import {readDirSync, readFileSync} from 'deno';
-import { Context } from "./../../framework/index.ts";
+import { Context, Req, Res } from "./../../framework/index.ts";
 
-function renderDir() {
+function renderDir(req: Res, res: Res) {
   // TODO
+  return "TODO";
 }
 
-function renderFile() {
+function renderFile(req: Res, res: Res) {
   // TODO
+  return "TODO";
 }
 
 function fileBrowser(baseDir: string): Function {
   return async function(ctx: Context) {
     const {req, res} = ctx;
-    const stat = readDirSync(baseDir);
-    res.setBody(`${JSON.stringify(stat)}`);
+    const headers = req.getHeader() || {};
+    const { pathname } = headers;
+    // const stat = readDirSync(baseDir);
+    res.setBody(`${baseDir}${pathname}`);
   };
 }
 
