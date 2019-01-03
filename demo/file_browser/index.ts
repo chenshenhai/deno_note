@@ -1,4 +1,4 @@
-import { cwd } from "deno";
+import { cwd, readDirSync, readFileSync, lstatSync, FileInfo } from "deno";
 import { Server } from "./../framework/index.ts";
 import fileBrowser from "./lib/file_browser.ts";
 

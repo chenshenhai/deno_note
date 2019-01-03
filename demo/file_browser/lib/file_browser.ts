@@ -1,14 +1,16 @@
-import {readDirSync, readFileSync} from 'deno';
+import {readDirSync, readFileSync, lstatSync } from 'deno';
 import { Context, Req, Res } from "./../../framework/index.ts";
 
-function renderDir(req: Res, res: Res) {
+function renderDir( fullDirPath ) {
   // TODO
-  return "TODO";
+  const fileInfo = readDirSync(fullDirPath);
+  return JSON.stringify(fileInfo);
 }
 
-function renderFile(req: Res, res: Res) {
+function renderFile( fullFilePath ) {
   // TODO
-  return "TODO";
+  const fileInfo = readFileSync(fullFilePath);
+  return JSON.stringify(fileInfo);
 }
 
 function fileBrowser(baseDir: string): Function {
@@ -16,8 +18,19 @@ function fileBrowser(baseDir: string): Function {
     const {req, res} = ctx;
     const headers = req.getHeader() || {};
     const { pathname } = headers;
-    // const stat = readDirSync(baseDir);
-    res.setBody(`${baseDir}${pathname}`);
+    const fullPath = `${baseDir}${pathname}`;
+    let result = "File or Directory is not found!";
+    try {
+      const stat = lstatSync(fullPath);
+      if ( stat.isDirectory() === true) {
+        result = renderDir(fullPath);
+      } else if (stat.isFile() === true) {
+        result = renderFile(fullPath);
+      }
+    } catch (err) {
+      // TODO
+    }
+    res.setBody(`${result}`);
   };
 }
 

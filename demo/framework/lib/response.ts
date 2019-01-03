@@ -1,7 +1,9 @@
 import { Conn } from "deno";
 
 const encoder = new TextEncoder();
+const decoder = new TextDecoder();
 const CRLF = "\r\n";
+const defaultBody = "404 Not Found!";
 
 export interface Res {
   getEndStatus: Function;
@@ -38,40 +40,40 @@ export class Response implements Res {
   }
 
   public setBody(body: string) {
-    this.body = body || "";
+    this.body = body || defaultBody;
   }
 
   public getBody(): string {
-    const body = this.body;
+    const body = this.body || defaultBody;
     return body;
   }
   
   public end(): void {
     const conn = this.conn;
-    if (conn && conn.close && typeof conn.close === "function") {
-      const result = this.getResult();
-      this.isEnd = true;
-      this.conn.write(result);
-      this.conn.close();
+    if (this.isEnd !== true) {
+      if (conn && conn.close && typeof conn.close === "function") {
+        const result = this.getResult();
+        this.isEnd = true;
+        console.log("result.... = ", decoder.decode(result));
+        this.conn.write(result);
+        this.conn.close();
+      }
     }
   }
 
   private getResult (): Uint8Array {
-    let body = this.getBody();
-    if (!(typeof body === "string" && body.length > 0)) {
-      body = "404 Not Found!";
-    }
+    const body = this.getBody();
     const headers = this.getHeaderLines();
-    let resHeaders = this.getHeaderLines();
-    if (headers && headers.length > 0) {
-      resHeaders = headers;
+    let resHeaders = [];
+    if ( Array.isArray(headers) === true && headers.length > 0) {
+      resHeaders = [...resHeaders, ...headers];
     }
     const ctx = encoder.encode(resHeaders.join(CRLF));
     const ctxBody = encoder.encode(body);
-    const data = new Uint8Array(ctx.length + (ctxBody ? ctxBody.length : 0));
+    const data = new Uint8Array(ctx.byteLength + (ctxBody ? ctxBody.byteLength : 0));
     data.set(ctx, 0);
     if (ctxBody) {
-      data.set(ctxBody, ctx.length);
+      data.set(ctxBody, ctx.byteLength);
     }
     return data;
   }

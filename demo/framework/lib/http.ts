@@ -36,7 +36,7 @@ export class Server {
       const context = that.createContext(req, res);
       const middlewares = that.middlewares;
       if (res.getEndStatus() !== true) {
-        if (middlewares && middlewares.length > 0) {
+        if (Array.isArray(middlewares) === true && middlewares.length > 0) {
           for (let idx = 0; idx < middlewares.length; idx++) {
             const cb = middlewares[idx];
             if (res.getEndStatus() === true) {
@@ -49,7 +49,7 @@ export class Server {
             } catch (err) {
               that.onError(err);
             }
-            if (idx + 1 >= this.middlewares.length) {
+            if (idx + 1 >= middlewares.length) {
               res.end();
               break;
             }   
