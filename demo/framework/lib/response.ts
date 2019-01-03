@@ -54,7 +54,6 @@ export class Response implements Res {
       if (conn && conn.close && typeof conn.close === "function") {
         const result = this.getResult();
         this.isEnd = true;
-        console.log("result.... = ", decoder.decode(result));
         this.conn.write(result);
         this.conn.close();
       }

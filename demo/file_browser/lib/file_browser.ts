@@ -1,6 +1,8 @@
 import {readDirSync, readFileSync, lstatSync } from 'deno';
 import { Context, Req, Res } from "./../../framework/index.ts";
 
+const decoder = new TextDecoder();
+
 function renderDir( fullDirPath ) {
   // TODO
   const fileInfo = readDirSync(fullDirPath);
@@ -9,8 +11,9 @@ function renderDir( fullDirPath ) {
 
 function renderFile( fullFilePath ) {
   // TODO
-  const fileInfo = readFileSync(fullFilePath);
-  return JSON.stringify(fileInfo);
+  const bytes = readFileSync(fullFilePath);
+  const content = decoder.decode(bytes);
+  return content;
 }
 
 function fileBrowser(baseDir: string): Function {
