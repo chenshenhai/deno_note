@@ -1,5 +1,5 @@
 import {readDirSync, readFileSync, lstatSync } from 'deno';
-import { Context, Req, Res } from "./../../framework/index.ts";
+import { Context, Req, Res } from "./../framework/index.ts";
 
 const decoder = new TextDecoder();
 

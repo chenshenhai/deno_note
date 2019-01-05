@@ -1,6 +1,6 @@
 import { cwd, readDirSync, readFileSync, lstatSync, FileInfo } from "deno";
 import { Server } from "./../framework/index.ts";
-import fileBrowser from "./lib/file_browser.ts";
+import fileBrowser from "./file_browser.ts";
 
 const app = new Server();
 const addr = "127.0.0.1:3001";
