@@ -31,7 +31,7 @@ export class Server {
     const that = this;
     const handleRequest = async (conn: Conn) => {
       const req: Req = new Request(conn);
-      const res: Res = new Response(conn);
+      const res: Res = new Response(conn, req);
       await req.init();
       const context = that.createContext(req, res);
       const middlewares = that.middlewares;

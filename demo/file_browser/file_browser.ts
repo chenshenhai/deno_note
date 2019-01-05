@@ -35,7 +35,7 @@ function renderFile( fullFilePath, baseDir ) {
 function fileBrowser(baseDir: string): Function {
   return async function(ctx: Context) {
     const {req, res} = ctx;
-    const headers = req.getHeader() || {};
+    const headers = req.getHeaders() || {};
     const { pathname } = headers;
     const fullPath = `${baseDir}${pathname}`;
     let result = "File or Directory is not found!";

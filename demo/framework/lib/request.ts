@@ -6,7 +6,7 @@ const CRLF = "\r\n";
 export interface Req {
   init: Function;
   getMethod: Function;
-  getHeader: Function;
+  getHeaders: Function;
   getCookie: Function;
   getQuery: Function;
   getProtocol: Function;
@@ -36,12 +36,12 @@ export class Request implements Req {
     return reqData["method"];
   }
 
-  public getProtocol() {
+  public getProtocol(): string {
     const reqData = this.reqData;
     return reqData["protocal"];
   }
 
-  public getHeader() {
+  public getHeaders(): object {
     const reqData = this.reqData;
     const headers = Object.assign({}, reqData);
     return headers;

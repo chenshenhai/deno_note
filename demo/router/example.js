@@ -14,7 +14,7 @@ const addr = "127.0.0.1:3001";
 
 app.use(async function(ctx) {
   const {req, res} = ctx;
-  const headerData = req.getHeader();
+  const headerData = req.getHeaders();
   res.body = `${JSON.stringify(headerData)}`;
 });
 

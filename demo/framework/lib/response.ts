@@ -1,4 +1,5 @@
 import { Conn } from "deno";
+import { Req } from "./request.ts";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -8,7 +9,7 @@ const defaultBody = "404 Not Found!";
 export interface Res {
   getEndStatus: Function;
   setHeader: Function;
-  getHeader: Function;
+  getHeaders: Function;
   setBody: Function;
   getBody: Function;
   end: Function;
@@ -19,9 +20,11 @@ export class Response implements Res {
   private headers: {};
   private body : string;
   private isEnd: boolean;
+  private req: Req;
 
-  constructor(conn: Conn) {
+  constructor(conn: Conn, req: Req) {
     this.conn = conn;
+    this.req = req;
     this.isEnd = false;
   }
 
@@ -34,7 +37,7 @@ export class Response implements Res {
     this.headers = {...{}, ...this.headers, ...data};
   }
 
-  public getHeader(): {} {
+  public getHeaders(): {} {
     const headers = this.headers || {};
     return headers;
   }
@@ -50,6 +53,8 @@ export class Response implements Res {
   
   public end(): void {
     const conn = this.conn;
+    const req = this.req;
+    const headers = req.getHeaders();
     if (this.isEnd !== true) {
       if (conn && conn.close && typeof conn.close === "function") {
         const result = this.getResult();
@@ -62,7 +67,7 @@ export class Response implements Res {
 
   private getResult (): Uint8Array {
     const body = this.getBody();
-    const headers = this.getHeaderLines();
+    const headers = this.getHeadersLines();
     let resHeaders = [];
     if ( Array.isArray(headers) === true && headers.length > 0) {
       resHeaders = [...resHeaders, ...headers];
@@ -77,10 +82,10 @@ export class Response implements Res {
     return data;
   }
 
-  private getHeaderLines(): string[] {
+  private getHeadersLines(): string[] {
     const lines = [];
     const body = this.getBody();
-    const headers = this.getHeader();
+    const headers = this.getHeaders();
     const protocol = headers["headers"] || "HTTP/1.1 ";
     const contentLength = headers["Content-Length"] || `Content-Length: ${body.length}`;
     lines.push(protocol);

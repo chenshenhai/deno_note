@@ -24,7 +24,7 @@ function pathFilter(path: string, opts?: ServeOptions) {
 function staticServe(baseDir: string, options?: ServeOptions): Function {
   return async function(ctx: Context) {
     const {req, res} = ctx;
-    const headers = req.getHeader() || {};
+    const headers = req.getHeaders() || {};
     const { pathname } = headers;
     const path = pathFilter(pathname, options);
     const fullPath = `${baseDir}${path}`;
