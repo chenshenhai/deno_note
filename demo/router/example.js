@@ -14,6 +14,10 @@ router.get("/foo", async function(ctx) {
 router.get("/bar", async function(ctx) {
   ctx.res.setBody("this is bar page");
 });
+router.get("/page/:pageId/user/:userId", async function(ctx) {
+  const params = ctx.getData("router");
+  ctx.res.setBody(`${JSON.stringify(params)}`);
+});
 
 app.use(router.routes());
 
