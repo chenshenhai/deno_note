@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <h1>{{text}}</h1>
+    
+    <h4>directive:if</h4>
+    <directive: if="isShowDataList">
+      <p>show data</p>
+    </directive:>
+    <hr/>
+
+    <h4>directive:for-array</h4>
+    <directive: for-array="datalist" for-array-index="idx" for-array-item="item" >
+      <p>{{idx}}:{{item}}</p>
+    </directive:>
+    <hr/>
+
+    <h4>directive:for-json</h4>
+    <directive: for-json="datajson" for-json-key="key" for-json-value="val" >
+      <p>{{key}}:{{val}}</p>
+    </directive:>
+    <hr/>
+
+  </body>
+
+</html>
