@@ -1,5 +1,6 @@
 import { Conn } from "deno";
 import { Req } from "./request.ts";
+import { getMIME } from "./mime.ts";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -55,6 +56,11 @@ export class Response implements Res {
     const conn = this.conn;
     const req = this.req;
     const headers = req.getHeaders();
+    const { pathname } = headers;
+    const mime = getMIME(pathname);
+    this.setHeader({
+      "Content-Type": mime
+    });
     if (this.isEnd !== true) {
       if (conn && conn.close && typeof conn.close === "function") {
         const result = this.getResult();
@@ -95,7 +101,7 @@ export class Response implements Res {
     for (const key in headers) {
       const val = headers[key];
       if (key && typeof key === "string" && val && typeof val === "string") {
-        if (keywords.indexOf(key.toLocaleLowerCase()) > -1) {
+        if (keywords.indexOf(key.toLocaleLowerCase()) < 0) {
           lines.push(`${key}: ${val}`);
         }
       }
