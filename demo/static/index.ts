@@ -38,6 +38,7 @@ function staticServe(baseDir: string, options?: ServeOptions): Function {
       // TODO
     }
     res.setBody(`${result}`);
+    res.end();
   };
 }
 
