@@ -1,7 +1,7 @@
 import { listen, Conn } from "deno";
 import { Request, Req } from "./request.ts";
 import { Response, Res } from "./response.ts";
-import { Ctx } from "./context.ts";
+import { Ctx, Context } from "./context.ts";
 
 export class Server {
   private middlewares: Function[];
@@ -21,9 +21,8 @@ export class Server {
   }
 
   private createCtx(req: Req, res: Res): Ctx {
-    const context = Object.create(this.context);
-    context.req = req;
-    context.res = res;
+    const context = new Context(req, res);
+    this.context = context;
     return context;
   }
 
