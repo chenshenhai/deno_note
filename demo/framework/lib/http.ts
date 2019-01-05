@@ -50,13 +50,11 @@ export class Server {
             }
             if (idx + 1 >= middlewares.length) {
               res.end();
-              ctx.cleanData();
               break;
             }   
           }
         } else {
           res.end();
-          ctx.cleanData();
         }
       }
     };
