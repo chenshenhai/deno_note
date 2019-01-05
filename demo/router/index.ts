@@ -1,4 +1,4 @@
-import { Context, Req, Res } from "./../framework/index.ts";
+import { Ctx, Req, Res } from "./../framework/index.ts";
 
 interface Layer {
   methods: string;
@@ -60,7 +60,7 @@ export class Router implements Route {
 
   public routes() {
     const stock = this.stack;
-    return async function(ctx: Context) {
+    return async function(ctx: Ctx) {
       const req: Req = ctx.req;
       const headers = req.getHeaders();
       const currentPath = headers["pathname"] || "";

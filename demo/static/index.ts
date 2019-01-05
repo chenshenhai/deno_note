@@ -1,5 +1,5 @@
 import {readFileSync, lstatSync } from 'deno';
-import { Context, Req, Res } from "./../framework/index.ts";
+import { Ctx, Req, Res } from "./../framework/index.ts";
 
 const decoder = new TextDecoder();
 
@@ -22,7 +22,7 @@ function pathFilter(path: string, opts?: ServeOptions) {
 }
 
 function staticServe(baseDir: string, options?: ServeOptions): Function {
-  return async function(ctx: Context) {
+  return async function(ctx: Ctx) {
     const {req, res} = ctx;
     const headers = req.getHeaders() || {};
     const { pathname } = headers;

@@ -1,5 +1,5 @@
 import {readDirSync, readFileSync, lstatSync } from 'deno';
-import { Context, Req, Res } from "./../framework/index.ts";
+import { Ctx, Req, Res } from "./../framework/index.ts";
 
 const decoder = new TextDecoder();
 
@@ -33,7 +33,7 @@ function renderFile( fullFilePath, baseDir ) {
 }
 
 function fileBrowser(baseDir: string): Function {
-  return async function(ctx: Context) {
+  return async function(ctx: Ctx) {
     const {req, res} = ctx;
     const headers = req.getHeaders() || {};
     const { pathname } = headers;

@@ -1,7 +1,7 @@
 import { listen, Conn } from "deno";
 import { Request, Req } from "./request.ts";
 import { Response, Res } from "./response.ts";
-import { Context } from "./context.ts";
+import { Ctx } from "./context.ts";
 
 export class Server {
   private middlewares: Function[];
@@ -20,7 +20,7 @@ export class Server {
     this.pushMiddleware(fn);
   }
 
-  private createContext(req: Req, res: Res): Context {
+  private createCtx(req: Req, res: Res): Ctx {
     const context = Object.create(this.context);
     context.req = req;
     context.res = res;
@@ -33,7 +33,7 @@ export class Server {
       const req: Req = new Request(conn);
       const res: Res = new Response(conn, req);
       await req.init();
-      const context = that.createContext(req, res);
+      const context = that.createCtx(req, res);
       const middlewares = that.middlewares;
       if (res.getEndStatus() !== true) {
         if (Array.isArray(middlewares) === true && middlewares.length > 0) {

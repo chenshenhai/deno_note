@@ -5,7 +5,7 @@ const addr = args[1] || "127.0.0.1:3001";
 const CRLF = "\r\n";
 const encoder = new TextEncoder();
 
-function getHttpContext (): Uint8Array {
+function getHttpCtx (): Uint8Array {
   // const bodyStr = JSON.stringify({hello: "world"});
   const bodyStr = "<h1>hello world</h1>";
   const body = encoder.encode(bodyStr);
@@ -25,7 +25,7 @@ function getHttpContext (): Uint8Array {
 
 async function loop(conn: Conn): Promise<void> {
   try {
-    const ctx = getHttpContext();
+    const ctx = getHttpCtx();
     await conn.write(ctx);
     conn.close();
   } catch(err) {

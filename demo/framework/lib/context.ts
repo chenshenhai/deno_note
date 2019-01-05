@@ -5,3 +5,8 @@ export interface Context {
   req: Req;
   res: Res;
 }
+
+export interface Ctx {
+  req: Req;
+  res: Res;
+}

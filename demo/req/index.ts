@@ -5,7 +5,7 @@ const CRLF = "\r\n";
 const encoder = new TextEncoder();
 const decoder = new TextDecoder("utf-8");
 
-function getHttpContext (bodyStr: string): Uint8Array {
+function getHttpCtx (bodyStr: string): Uint8Array {
   // const bodyStr = JSON.stringify({hello: "world"});
   const body = encoder.encode(bodyStr);
   const headers = [
@@ -74,7 +74,7 @@ async function loop(conn: Conn): Promise<void> {
   try {
     const headers: string = await getReq(conn);
     const bodyStr = `${headers}`;
-    const ctx = getHttpContext(bodyStr);
+    const ctx = getHttpCtx(bodyStr);
     await conn.write(ctx);
     conn.close();
   } catch(err) {

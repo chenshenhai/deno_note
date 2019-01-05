@@ -19,7 +19,7 @@ export class Server {
     this.pushMiddleware(fn);
   }
 
-  private createContext(req, res) {
+  private createCtx(req, res) {
     const context = Object.create(this.context);
     context.req = req;
     context.res = res;
@@ -34,7 +34,7 @@ export class Server {
         headers: [],
         body: ""
       };
-      const context = that.createContext(req, res);
+      const context = that.createCtx(req, res);
       const middlewares = that.middlewares;
       if (middlewares && middlewares.length > 0) {
         middlewares.forEach((cb, idx) => {
