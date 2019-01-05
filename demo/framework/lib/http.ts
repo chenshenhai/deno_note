@@ -32,7 +32,7 @@ export class Server {
       const req: Req = new Request(conn);
       const res: Res = new Response(conn, req);
       await req.init();
-      const context = that.createCtx(req, res);
+      const ctx = that.createCtx(req, res);
       const middlewares = that.middlewares;
       if (res.getEndStatus() !== true) {
         if (Array.isArray(middlewares) === true && middlewares.length > 0) {
@@ -43,18 +43,20 @@ export class Server {
             }
             try {
               if (typeof cb === "function") {
-                cb(context);
+                cb(ctx);
               }
             } catch (err) {
               that.onError(err);
             }
             if (idx + 1 >= middlewares.length) {
               res.end();
+              ctx.cleanData();
               break;
             }   
           }
         } else {
           res.end();
+          ctx.cleanData();
         }
       }
     };
