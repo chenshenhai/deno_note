@@ -1,22 +1,21 @@
-import { Server } from "./../framework/lib/http";
-
+import { Server } from "./../framework/index.ts";
+import { Route, Router } from "./index.ts";
 const app = new Server();
 const addr = "127.0.0.1:3001";
 
-// app.use(async function(ctx) {
-//   const {req, res} = ctx;
-//   const { pathname } = req;
-//   if (pathname === "/" || pathname === "") {
-//     res.body = "<h1>hello world</h1>";
-//     res.end();
-//   }
-// });
+const router = new Router();
 
-app.use(async function(ctx) {
-  const {req, res} = ctx;
-  const headerData = req.getHeaders();
-  res.body = `${JSON.stringify(headerData)}`;
+router.get("/hello", async function(ctx) {
+  ctx.res.setBody("this is hello page");
 });
+router.get("/foo", async function(ctx) {
+  ctx.res.setBody("this is foo page");
+});
+router.get("/bar", async function(ctx) {
+  ctx.res.setBody("this is bar page");
+});
+
+app.use(router.routes());
 
 app.listen(addr, function(){
   console.log(`listening on ${addr}`);
