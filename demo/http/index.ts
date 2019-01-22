@@ -1,46 +1,57 @@
+import { listen, Conn } from "deno";
 
-import { args, listen, Conn } from "deno";
-
-const addr = args[1] || "127.0.0.1:3001";
-const CRLF = "\r\n";
-const encoder = new TextEncoder();
-
-function getHttpCtx (): Uint8Array {
-  // const bodyStr = JSON.stringify({hello: "world"});
+/**
+ * 创建响应内容
+ * @return {Uint8Array}
+ */
+function createResponse (): Uint8Array {
   const bodyStr = "<h1>hello world</h1>";
-  const body = encoder.encode(bodyStr);
-  const headers = [
-    "HTTP/1.1 ",
-    `Content-Length: ${body.length}`,
+  const CRLF = "\r\n";
+  const encoder = new TextEncoder();
+  const resHeaders = [
+    `HTTP/1.1 200`,
+    `Content-Length: ${bodyStr.length}`,
     `${CRLF}`
+  ];
+  const resBody = [
+    `${bodyStr}`,
+  ]; 
+  const res = [
+    ...resHeaders,
+    ...resBody,
   ].join(CRLF);
-  const ctx = encoder.encode(headers);
-  const data = new Uint8Array(ctx.length + (body ? body.length : 0));
-  data.set(ctx, 0);
-  if (body) {
-    data.set(body, ctx.length);
-  }
-  return data;
+  const ctx = encoder.encode(res);
+  return ctx;
 }
 
-async function loop(conn: Conn): Promise<void> {
-  try {
-    const ctx = getHttpCtx();
-    await conn.write(ctx);
-    conn.close();
-  } catch(err) {
-    console.log(err);
-    conn.close();
-  }
+/**
+ * HTTP响应操作
+ * @param conn {Conn}
+ */
+async function response(conn: Conn) {
+  // 创建响应信息
+  const ctx = createResponse();
+  // TCP连接写入响应信息
+  await conn.write(ctx);
+  conn.close();
 }
 
-async function server(addr: string): Promise<void> {
+/**
+ * HTTP服务
+ * @param addr {String}
+ */
+async function server(addr: string) {
+  // 创建TCP服务
   const listener = listen("tcp", addr);
   console.log("listening on", addr);
+  // 死循环监听TCP请求
   while (true) {
+    // 等待TCP连接
     const connection = await listener.accept();
-    loop(connection);
+    // 执行响应
+    response(connection);
   }
 }
 
+const addr = "127.0.0.1:3001";
 server(addr);
