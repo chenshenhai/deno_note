@@ -7,7 +7,8 @@
     * [2.1 快速安装]
     * [2.2 快速使用]
 * [3. 前置基础知识]
-    * [基础知识点](./note/chapter-03/01.md)
+    * [deno和Node.js](./note/chapter-03/01.md)
+    * [基础知识点](./note/chapter-03/02.md)
     * [Buffer缓冲区]
     * [Uint8Array]
     * [TextEncoder/TextDecoder]
