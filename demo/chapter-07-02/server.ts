@@ -1,9 +1,5 @@
 import { listen, Conn } from "deno";
 
-/**
- * 创建响应内容
- * @return {Uint8Array}
- */
 function createResponse (): Uint8Array {
   const bodyStr = "hello world";
   const CRLF = "\r\n";
@@ -21,31 +17,17 @@ function createResponse (): Uint8Array {
   return data;
 }
 
-/**
- * HTTP响应操作
- * @param conn {Conn}
- */
-async function response(conn: Conn) {
-  // 创建响应信息
+function response(conn: Conn) {
   const ctx = createResponse();
-  // TCP连接写入响应信息
-  await conn.write(ctx);
+  conn.write(ctx);
   conn.close();
 }
 
-/**
- * HTTP服务
- * @param addr {String}
- */
 async function server(addr: string) {
-  // 创建TCP服务
   const listener = listen("tcp", addr);
   console.log("listening on", addr);
-  // 死循环监听TCP请求
   while (true) {
-    // 等待TCP连接
     const connection = await listener.accept();
-    // 执行响应
     response(connection);
   }
 }
