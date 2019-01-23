@@ -13,7 +13,6 @@
     * [Uint8Array]
     * [TypeScript基础] 
 * [4. deno基础知识点]
-    * [deno和node.js]
     * [deno模块体系]
     * [deno常用API简析]
     * [deno常用模块简析]
