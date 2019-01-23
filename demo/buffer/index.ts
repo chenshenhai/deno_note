@@ -1,0 +1,1 @@
+const buffer = new Uint8Array(1);

@@ -7,6 +7,7 @@
     * [2.1 快速安装]
     * [2.2 快速使用]
 * [3. 前置基础知识]
+    * [基础知识点](./note/chapter-03/01.md)
     * [Buffer缓冲区]
     * [Uint8Array]
     * [TextEncoder/TextDecoder]
@@ -20,7 +21,7 @@
 * [5. 进阶学习]
     * [文件读写]
     * [目录读写]
-    * [原生deno实现数据流操作]
+    * [buffer读写操作]
     * [原生deno实现HTTP服务]
     * [原生deno处理HTTP服务请求]
     * [原生deno处理HTTP服务响应]
