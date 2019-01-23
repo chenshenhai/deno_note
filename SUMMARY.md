@@ -9,9 +9,8 @@
 * [3. 前置基础知识]
     * [deno和Node.js](./note/chapter-03/01.md)
     * [基础知识点](./note/chapter-03/02.md)
-    * [Buffer缓冲区]
-    * [Uint8Array]
     * [TextEncoder/TextDecoder]
+    * [Uint8Array]
     * [TypeScript基础] 
 * [4. deno基础知识点]
     * [deno和node.js]
@@ -41,7 +40,7 @@
     * [JSONP接口实现]
     * [实现命令行工具]
 * [7. 测试]
-    * [单元测试]
+    * [单元测试](./note/chapter-07/01.md)
     * [单元测试进阶]
     * [自动化测试]
 * [8. 发布模块]
