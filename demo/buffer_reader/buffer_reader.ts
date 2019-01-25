@@ -2,24 +2,22 @@
 // Copyright (c) 2018 Daniel Lenksjö. All rights reserved.
 // 参考源码: https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
 
-import { Buffer, Reader } from "deno";
+import { Reader } from "deno";
 
-const encoder = new TextEncoder();
 const decoder = new TextDecoder();
+const CR = "\r".charCodeAt(0);
+const LF = "\n".charCodeAt(0);
 
-interface BufReader {
+export interface BufReader {
   readLine(): Promise<string>;
 }
 
-class BufferReader implements BufReader {
+export class BufferReader implements BufReader {
   private _reader: Reader;
   private _size = 1024;
   private _eof = false;
   private _index = 0;
   private _chunk: Uint8Array = new Uint8Array(0);
-
-  private _CR = "\r".charCodeAt(0);
-  private _LF = "\n".charCodeAt(0);
 
   constructor(reader: Reader, size?: number) {
     this._reader = reader;
@@ -52,7 +50,7 @@ class BufferReader implements BufReader {
   }
 
   private _isCRLF(buf): boolean {
-    return buf.byteLength === 2 && buf[0] === this._CR && buf[1] === this._LF;
+    return buf.byteLength === 2 && buf[0] === CR && buf[1] === LF;
   }
 
   private get _current() {
@@ -80,15 +78,3 @@ class BufferReader implements BufReader {
     return isNeedRead;
   }
 }
-
-async function main() {
-  const str = `hello\r\nworld\r\n!\r\n\r\n`;
-  const stream = encoder.encode(str);
-  const buf = new Buffer(stream);
-  const bufReader : BufReader = new BufferReader(buf);
-  console.log(await bufReader.readLine());
-  console.log(await bufReader.readLine());
-  console.log(await bufReader.readLine());
-}
-
-main();
