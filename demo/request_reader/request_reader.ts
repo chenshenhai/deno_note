@@ -8,12 +8,11 @@ const decoder = new TextDecoder();
 const CR = "\r".charCodeAt(0);
 const LF = "\n".charCodeAt(0);
 
-export interface BufReader {
+export interface ReqReader {
   readLine(): Promise<string>;
-  isFinished(): boolean;
 }
 
-export class BufferReader implements BufReader {
+export class RequestReader implements ReqReader {
   private _reader: Reader;
   private _size = 1024;
   private _eof = false;
@@ -28,10 +27,6 @@ export class BufferReader implements BufReader {
     this._chunk = new Uint8Array(this._size);
   }
 
-  isFinished(): boolean {
-    return this._eof;
-  }
-
   async readLine (): Promise<string>  {
     let lineBuf = new Uint8Array(0);
     while(!this._eof || this._chunk.length > 0) {
@@ -44,6 +39,7 @@ export class BufferReader implements BufReader {
           return decoder.decode(lineBuf);
         }
       }
+
       const result = await this._readChunk();
       if (!result) {
         break;
@@ -63,22 +59,17 @@ export class BufferReader implements BufReader {
 
   private async _readChunk(): Promise<boolean> {
     let isNeedRead = false;
-    
     if (this._eof === true) {
       return isNeedRead;
     }
     const chunk = new Uint8Array(this._size);
     const result = await this._reader.read(chunk);
-  
     if (result.eof === true || result.nread === 0) {
       this._eof = true;
-      return isNeedRead;
     } else {
       isNeedRead = true;
     }
-
     const remainIndex = chunk.byteLength - this._index;
-    
     const newChunk = new Uint8Array(remainIndex + result.nread);
     newChunk.set(this._chunk.subarray(this._index), 0);
     newChunk.set(chunk.subarray(0, result.nread), remainIndex);
@@ -86,5 +77,4 @@ export class BufferReader implements BufReader {
     this._chunk = newChunk;
     return isNeedRead;
   }
-
 }

@@ -7,9 +7,9 @@ async function main() {
   const stream = encoder.encode(str);
   const buf = new Buffer(stream);
   const bufReader : BufReader = new BufferReader(buf);
-  console.log(await bufReader.readLine());
-  console.log(await bufReader.readLine());
-  console.log(await bufReader.readLine());
+  while(!bufReader.isFinished()) {
+    console.log(await bufReader.readLine());
+  }
 }
 
 main();
