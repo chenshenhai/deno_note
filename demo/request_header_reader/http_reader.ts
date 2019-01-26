@@ -41,6 +41,16 @@ export class HttpReader implements ConnReader {
     this._search = null;
   }
 
+  async getGeneral() {
+    await this._initHeaderFristLineInfo();
+    return {
+      method: this._method,
+      protocol: this._protocol,
+      pathname: this._pathname,
+      search: this._search,
+    };
+  }
+
   async getHeaders(): Promise<Headers> {
     if (this._headers) {
       return this._headers;
@@ -95,7 +105,7 @@ export class HttpReader implements ConnReader {
     // example "GET /index/html?a=1 HTTP/1.1";
     const firstLine = await this._readLine();
     const regMatch = /([A-Z]{1,}){1,}\s(.*)\s(.*)/;
-    const strList : object = firstLine.match(regMatch);
+    const strList : object = firstLine.match(regMatch) || [];
     const method : string = strList[1] || "";
     const href : string = strList[2] || "";
     const protocol : string = strList[3] || "";

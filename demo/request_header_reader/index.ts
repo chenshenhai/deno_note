@@ -24,7 +24,8 @@ async function response(conn: Conn) {
   for(const key of headers.keys()) {
     headerObj[key] = headers.get(key); 
   }
-  const ctx = createResponse(JSON.stringify(headerObj));
+  const generalObj = await httpReader.getGeneral();
+  const ctx = createResponse(JSON.stringify({ general: generalObj, headers: headerObj }));
   conn.write(ctx);
   conn.close();
 }
