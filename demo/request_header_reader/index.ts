@@ -1,7 +1,7 @@
 import { listen, Conn } from "deno";
+import { ConnReader, HttpReader } from "./http_reader.ts";
 
-function createResponse (): Uint8Array {
-  const bodyStr = "hello world";
+function createResponse (bodyStr: string): Uint8Array {
   const CRLF = "\r\n";
   const encoder = new TextEncoder();
   const ctxBody = encoder.encode(bodyStr);
@@ -17,8 +17,14 @@ function createResponse (): Uint8Array {
   return data;
 }
 
-function response(conn: Conn) {
-  const ctx = createResponse();
+async function response(conn: Conn) {
+  const httpReader = new HttpReader(conn);
+  const headers: Headers = await httpReader.getHeaders();
+  const headerObj = {};
+  for(const key of headers.keys()) {
+    headerObj[key] = headers.get(key); 
+  }
+  const ctx = createResponse(JSON.stringify(headerObj));
   conn.write(ctx);
   conn.close();
 }
@@ -27,8 +33,8 @@ async function server(addr: string) {
   const listener = listen("tcp", addr);
   console.log("listening on", addr);
   while (true) {
-    const connection = await listener.accept();
-    response(connection);
+    const conn = await listener.accept();
+    await response(conn);
   }
 }
 
