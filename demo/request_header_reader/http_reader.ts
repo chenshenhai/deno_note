@@ -95,6 +95,7 @@ export class HttpReader implements ConnReader {
       const value = line.substring(index);
       headers.append(key, value);
     }
+    this._headers = headers;
     return headers;
   }
 
@@ -160,7 +161,7 @@ export class HttpReader implements ConnReader {
     const chunk = new Uint8Array(this._size);
     const result = await this._conn.read(chunk);
   
-    if (result.eof === true || result.nread === 0) {
+    if (result.eof === true || result.nread === 0 || result.nread < this._size) {
       this._eof = true;
       return isNeedRead;
     } else {

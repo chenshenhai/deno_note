@@ -70,6 +70,8 @@ export class BufferReader implements BufReader {
     const chunk = new Uint8Array(this._size);
     const result = await this._reader.read(chunk);
   
+    console.log("result = ", result);
+
     if (result.eof === true || result.nread === 0) {
       this._eof = true;
       return isNeedRead;
