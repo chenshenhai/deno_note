@@ -25,7 +25,24 @@ async function response(conn: Conn) {
     headerObj[key] = headers.get(key); 
   }
   const generalObj = await requestReader.getGeneral();
-  const ctx = createResponse(JSON.stringify({ general: generalObj, headers: headerObj }));
+  const {method, pathname} = generalObj;
+  let ctxBody = `
+    <html>
+      <body>
+        <form method="POST" action="/">
+          <p>userName</p>
+          <input name="nickName" /><br/>
+          <p>email</p>
+          <input name="email" /><br/>
+          <button type="submit">submit</button>
+        </form>
+      </body>
+    </html>
+  `;
+  if (method === "POST") {
+    ctxBody = JSON.stringify({ general: generalObj, headers: headerObj });
+  }
+  const ctx = createResponse(ctxBody);
   conn.write(ctx);
   conn.close();
 }

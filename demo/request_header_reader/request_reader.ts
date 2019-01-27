@@ -16,7 +16,7 @@ export interface ConnReader {
   getHeaders(): Promise<Headers>;
 }
 
-export class HttpReader implements ConnReader {
+export class RequestReader implements ConnReader {
   private _conn: Conn;
   private _size = 1024;
   private _eof = false;
@@ -161,7 +161,7 @@ export class HttpReader implements ConnReader {
     const chunk = new Uint8Array(this._size);
     const result = await this._conn.read(chunk);
   
-    if (result.eof === true || result.nread === 0 || result.nread < this._size) {
+    if (result.eof === true || result.nread === 0) {
       this._eof = true;
       return isNeedRead;
     } else {
@@ -175,6 +175,11 @@ export class HttpReader implements ConnReader {
     newChunk.set(chunk.subarray(0, result.nread), remainIndex);
     this._index = 0;
     this._chunk = newChunk;
+
+    if (result.nread < this._size) {
+      this._eof = true;
+    }
+
     return isNeedRead;
   }
 
