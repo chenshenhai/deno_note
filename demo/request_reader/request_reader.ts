@@ -54,7 +54,7 @@ export class RequestReader implements ConnReader {
   }
 
   async getHeaders(): Promise<Headers> {
-    if (this._headers !== null) {
+    if (this._headers) {
       return this._headers;
     }
     const headers = new Headers();
@@ -101,20 +101,24 @@ export class RequestReader implements ConnReader {
     return headers;
   }
 
-  async getBody() {
-    if (this._body !== null) {
+  async getBody(): Promise<Uint8Array> {
+    if (this._body) {
       return this._body;
     }
     const general = await this.getGeneral();
     const headers = await this.getHeaders();
     let body = new Uint8Array(0);
-    while( !this.isFinished() ) {
-      const newChunk = await this._readLineChunk();
-      const newBody = new Uint8Array(body.byteLength + newChunk.byteLength);
+    while(!this.isFinished() || this._current.byteLength > 0) {
+      const lineChunk = await this._readLineChunk();
+      const newBody = new Uint8Array(body.byteLength + lineChunk.byteLength);
       newBody.set(body, 0);
-      newBody.set(newChunk, body.byteLength);
+      newBody.set(lineChunk, body.byteLength);
       body = newBody;
+      if (this.isFinished()) {
+        break;
+      }
     }
+    this._body = body;
     return body;
   }
 
@@ -141,6 +145,7 @@ export class RequestReader implements ConnReader {
   private isFinished(): boolean {
     return this._eof;
   }
+
   private async _readLine (): Promise<string>  {
     const lineChunk = await this._readLineChunk();
     const line = decoder.decode(lineChunk);
@@ -184,7 +189,7 @@ export class RequestReader implements ConnReader {
     const chunk = new Uint8Array(this._size);
     const result = await this._conn.read(chunk);
   
-    if (result.eof === true || result.nread === 0 || result.nread < this._size) {
+    if (result.eof === true || result.nread === 0) {
       this._eof = true;
       return isNeedRead;
     } else {
@@ -198,6 +203,11 @@ export class RequestReader implements ConnReader {
     newChunk.set(chunk.subarray(0, result.nread), remainIndex);
     this._index = 0;
     this._chunk = newChunk;
+
+    if (result.nread < this._size) {
+      this._eof = true;
+    }
+
     return isNeedRead;
   }
 
