@@ -108,13 +108,13 @@ export class RequestReader implements ConnReader {
     const general = await this.getGeneral();
     const headers = await this.getHeaders();
     let body = new Uint8Array(0);
-    while(!this.isFinished() || this._current.byteLength > 0) {
+    while(!this.isFinished()) {
       const lineChunk = await this._readLineChunk();
       const newBody = new Uint8Array(body.byteLength + lineChunk.byteLength);
       newBody.set(body, 0);
       newBody.set(lineChunk, body.byteLength);
       body = newBody;
-      if (this.isFinished()) {
+      if (this._eof ) {
         break;
       }
     }
@@ -143,7 +143,7 @@ export class RequestReader implements ConnReader {
   }
 
   private isFinished(): boolean {
-    return this._eof;
+    return this._eof && !(this._current.byteLength > 0);
   }
 
   private async _readLine (): Promise<string>  {
