@@ -124,6 +124,11 @@ export class RequestReader implements ConnReader {
   }
 
   private async _readLine (): Promise<string>  {
+    const lineChunk = await this._readLineChunk();
+    const line = decoder.decode(lineChunk);
+    return line;
+  }
+  private async _readLineChunk (): Promise<Uint8Array>  {
     let lineBuf = new Uint8Array(0);
     while(!this._eof || this._chunk.length > 0) {
       const current = this._current;
@@ -132,7 +137,7 @@ export class RequestReader implements ConnReader {
         if (this._isCRLF(buf) === true) {
           lineBuf = current.subarray(0, i);
           this._index += i + 2;
-          return decoder.decode(lineBuf);
+          return lineBuf;
         }
       }
       const result = await this._readChunk();
@@ -141,7 +146,7 @@ export class RequestReader implements ConnReader {
       }
     }
 
-    return decoder.decode(this._current);
+    return this._current;
   }
 
   private _isCRLF(buf): boolean {
