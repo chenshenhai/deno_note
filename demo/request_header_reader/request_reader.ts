@@ -158,19 +158,14 @@ export class RequestReader implements ConnReader {
   }
 
   private async _readChunk(): Promise<boolean> {
-    let isNeedRead = false;
-    
-    if (this._eof === true) {
-      return isNeedRead;
+    if (this._eof) {
+      return false;
     }
     const chunk = new Uint8Array(this._size);
     const result = await this._conn.read(chunk);
-  
-    if (result.eof === true || result.nread === 0) {
+    
+    if (result.eof === true) {
       this._eof = true;
-      return isNeedRead;
-    } else {
-      isNeedRead = true;
     }
 
     const remainIndex = chunk.byteLength - this._index;
@@ -181,11 +176,7 @@ export class RequestReader implements ConnReader {
     this._index = 0;
     this._chunk = newChunk;
 
-    if (result.nread < this._size) {
-      this._eof = true;
-    }
-
-    return isNeedRead;
+    return result.nread > 0;
   }
 
 }
