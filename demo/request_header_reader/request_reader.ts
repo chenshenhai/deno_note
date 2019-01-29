@@ -119,10 +119,6 @@ export class RequestReader implements ConnReader {
     this._search = search;
   }
 
-  private isFinished(): boolean {
-    return this._eof;
-  }
-
   private async _readLine (): Promise<string>  {
     const lineChunk = await this._readLineChunk();
     const line = decoder.decode(lineChunk);
