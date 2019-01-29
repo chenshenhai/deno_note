@@ -28,7 +28,8 @@ export class RequestReader implements ConnReader {
   private _protocol: string | null;
   private _pathname: string | null;
   private _search: string | null;
-  private _body: Uint8Array | null;
+
+  private _bodyStream: Uint8Array | null;
 
   constructor(conn: Conn, size?: number) {
     this._conn = conn;
@@ -40,7 +41,9 @@ export class RequestReader implements ConnReader {
     this._protocol = null;
     this._pathname = null;
     this._search = null;
-    this._body = null;
+
+    this._headers = null;
+    this._bodyStream = null;
   }
 
   async getGeneral() {
@@ -101,25 +104,23 @@ export class RequestReader implements ConnReader {
     return headers;
   }
 
-  async getBody(): Promise<Uint8Array> {
-    if (this._body) {
-      return this._body;
-    }
-    const general = await this.getGeneral();
+  async getBodyStream() {
     const headers = await this.getHeaders();
-    let body = new Uint8Array(0);
-    while(!this.isFinished()) {
-      const lineChunk = await this._readLineChunk();
-      const newBody = new Uint8Array(body.byteLength + lineChunk.byteLength);
-      newBody.set(body, 0);
-      newBody.set(lineChunk, body.byteLength);
-      body = newBody;
-      if (this._eof ) {
-        break;
-      }
+    const contentLength = parseInt(headers.get("content-length") || "0", 10);
+    const current = this._current;
+    const curtentLength = current.length;
+    let bodyStream = new Uint8Array(0);
+    if ( contentLength < curtentLength ) {
+      bodyStream = current;
+    } else {
+      const remianingLength = contentLength - curtentLength;
+      const remainingChunk = new Uint8Array(remianingLength);
+      await this._conn.read(remainingChunk);
+      bodyStream = new Uint8Array(contentLength);
+      bodyStream.set(current, 0);
+      bodyStream.set(remainingChunk, current.length);
     }
-    this._body = body;
-    return body;
+    return bodyStream;
   }
 
   private async _initHeaderFristLineInfo() {
@@ -140,10 +141,6 @@ export class RequestReader implements ConnReader {
     this._protocol = protocol;
     this._pathname = pathname;
     this._search = search;
-  }
-
-  private isFinished(): boolean {
-    return this._eof && !(this._current.byteLength > 0);
   }
 
   private async _readLine (): Promise<string>  {
@@ -181,19 +178,14 @@ export class RequestReader implements ConnReader {
   }
 
   private async _readChunk(): Promise<boolean> {
-    let isNeedRead = false;
-    
-    if (this._eof === true) {
-      return isNeedRead;
+    if (this._eof) {
+      return false;
     }
     const chunk = new Uint8Array(this._size);
     const result = await this._conn.read(chunk);
-  
-    if (result.eof === true || result.nread === 0) {
+    
+    if (result.eof === true) {
       this._eof = true;
-      return isNeedRead;
-    } else {
-      isNeedRead = true;
     }
 
     const remainIndex = chunk.byteLength - this._index;
@@ -204,11 +196,6 @@ export class RequestReader implements ConnReader {
     this._index = 0;
     this._chunk = newChunk;
 
-    if (result.nread < this._size) {
-      this._eof = true;
-    }
-
-    return isNeedRead;
+    return result.nread > 0;
   }
-
 }

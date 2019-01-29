@@ -30,7 +30,7 @@ async function response(conn: Conn) {
   }
   
   const generalObj = await requestReader.getGeneral();
-  const bodyBuf = await requestReader.getBody();
+  const bodyBuf = await requestReader.getBodyStream();
   const {method, pathname} = generalObj;
   let ctxBody = `
     <html>
