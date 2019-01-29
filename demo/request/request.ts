@@ -10,13 +10,22 @@ import { Conn } from "deno";
 const decoder = new TextDecoder();
 const CR = "\r".charCodeAt(0);
 const LF = "\n".charCodeAt(0);
-const COLON = ":".charCodeAt(0);
+// const COLON = ":".charCodeAt(0);
 
-export interface ConnReader {
-  getHeaders(): Promise<Headers>;
+export interface ReqGeneral {
+  method: string;
+  pathname: string;
+  protocol: string;
+  search: string;
 }
 
-export class RequestReader implements ConnReader {
+export interface Request {
+  getHeaders(): Promise<Headers>;
+  getGeneral(): Promise<ReqGeneral>;
+  getBodyStream(): Promise<Uint8Array>;
+}
+
+export class RequestReader implements Request {
   private _conn: Conn;
   private _size = 1024;
   private _eof = false;
@@ -46,7 +55,7 @@ export class RequestReader implements ConnReader {
     this._bodyStream = null;
   }
 
-  async getGeneral() {
+  async getGeneral(): Promise<ReqGeneral> {
     await this._initHeaderFristLineInfo();
     return {
       method: this._method,
@@ -105,6 +114,9 @@ export class RequestReader implements ConnReader {
   }
 
   async getBodyStream() {
+    if (this._bodyStream) {
+      return this._bodyStream;
+    }
     const headers = await this.getHeaders();
     const contentLength = parseInt(headers.get("content-length") || "0", 10);
     const current = this._current;
@@ -120,6 +132,7 @@ export class RequestReader implements ConnReader {
       bodyStream.set(current, 0);
       bodyStream.set(remainingChunk, current.length);
     }
+    this._bodyStream = bodyStream;
     return bodyStream;
   }
 

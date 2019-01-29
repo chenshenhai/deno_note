@@ -1,7 +1,5 @@
 import { listen, Conn } from "deno";
-import { ConnReader, RequestReader } from "./request_reader.ts";
-
-const decoder = new TextDecoder();
+import { Request, RequestReader } from "./request.ts";
 
 function createResponse (bodyStr: string): Uint8Array {
   const CRLF = "\r\n";
@@ -20,36 +18,14 @@ function createResponse (bodyStr: string): Uint8Array {
 }
 
 async function response(conn: Conn) {
-  const requestReader = new RequestReader(conn);
+  const requestReader: Request = new RequestReader(conn);
   const headers: Headers = await requestReader.getHeaders();
   const headerObj = {};
-  if (headers) {
-    for(const key of headers.keys()) {
-      headerObj[key] = headers.get(key); 
-    }
+  for(const key of headers.keys()) {
+    headerObj[key] = headers.get(key); 
   }
-  
   const generalObj = await requestReader.getGeneral();
-  const bodyBuf = await requestReader.getBodyStream();
-  const {method, pathname} = generalObj;
-  let ctxBody = `
-    <html>
-      <body>
-        <form method="POST" action="/">
-          <p>userName</p>
-          <input name="nickName" /><br/>
-          <p>email</p>
-          <input name="email" /><br/>
-          <button type="submit">submit</button>
-        </form>
-      </body>
-    </html>
-  `;
-  if (method === "POST") {
-    const body = decoder.decode(bodyBuf);
-    ctxBody = JSON.stringify({ general: generalObj, headers: headerObj, body });
-  }
-  const ctx = createResponse(ctxBody);
+  const ctx = createResponse(JSON.stringify({ general: generalObj, headers: headerObj }));
   conn.write(ctx);
   conn.close();
 }
