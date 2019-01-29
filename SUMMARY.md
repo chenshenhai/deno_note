@@ -9,9 +9,8 @@
 * [3. 前置基础知识]
     * [deno和Node.js](./note/chapter-03/01.md)
     * [基础知识点](./note/chapter-03/02.md)
-    * [TextEncoder/TextDecoder]
-    * [Uint8Array]
-    * [TypeScript基础] 
+    * [TypeScript基础]
+    * [TypeScript最严格模式]
 * [4. deno基础知识点]
     * [deno模块体系]
     * [deno常用API简析]
