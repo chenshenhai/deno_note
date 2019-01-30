@@ -12,6 +12,7 @@
     * [TypeScript基础]
     * [TypeScript最严格模式]
 * [4. deno基础知识点]
+    * [deno常用命令简介](./note/chapter-04/01.md)
     * [deno模块体系]
     * [deno常用API简析]
     * [deno常用模块简析]
