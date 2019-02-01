@@ -1,4 +1,4 @@
-# 大深海deno开发笔记
+# deno进阶开发笔记
 
 * [1. 致读者]
     * [1.1 本书初衷](./note/chapter_01/01.md)
@@ -10,7 +10,6 @@
     * [deno和Node.js](./note/chapter_03/01.md)
     * [基础知识点](./note/chapter_03/02.md)
     * [TypeScript基础]
-    * [TypeScript最严格模式]
 * [4. deno基础知识点]
     * [deno常用命令简介](./note/chapter_04/01.md)
     * [deno模块体系](./note/chapter_04/02.md)
@@ -22,10 +21,15 @@
     * [单元测试](./note/chapter_05/01.md)
     * [单元测试进阶](./note/chapter_05/02.md)
     * [集成测试]
-    * [文件读写]
-    * [目录读写]
-    * [buffer进阶读操作]
-    * [buffer进阶写操作]
+    * [文件操作]
+    * [目录操作]
+    * [TCP 操作]
+    * [URL 操作]
+    * [run 进程操作]
+    * [os/ploform 系统操作]
+    * [env 全局变量操作]
+    * [fetch 服务端请求操作]
+    * [Buffer进阶读写操作]
     * [原生deno实现简单HTTP服务]
     * [原生deno处理HTTP服务请求]
     * [原生deno处理HTTP服务响应]
