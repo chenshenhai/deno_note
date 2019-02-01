@@ -4,8 +4,8 @@
     * [1.1 本书初衷](./note/chapter-01/01.md)
     * [1.2 参考资料](./note/chapter-01/02.md)
 * [2. 快速开始]
-    * [2.1 快速安装]
-    * [2.2 快速使用]
+    * [2.1 快速安装](./note/chapter-02/01.md)
+    * [2.2 快速使用](./note/chapter-02/02.md)
 * [3. 前置基础知识]
     * [deno和Node.js](./note/chapter-03/01.md)
     * [基础知识点](./note/chapter-03/02.md)
@@ -13,7 +13,8 @@
     * [TypeScript最严格模式]
 * [4. deno基础知识点]
     * [deno常用命令简介](./note/chapter-04/01.md)
-    * [deno模块体系]
+    * [deno模块体系](./note/chapter-04/02.md)
+    * [deno模块开发规范]
     * [deno常用API简析]
     * [deno常用模块简析]
     * [deno官方标准模块简析]
