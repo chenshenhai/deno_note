@@ -8,7 +8,8 @@ async function main() {
   const buf = new Buffer(stream);
   const bufReader : BufReader = new BufferReader(buf);
   while(!bufReader.isFinished()) {
-    console.log(await bufReader.readLine());
+    const line = await bufReader.readLine();
+    console.log("======= line ====== ", line);
   }
 }
 

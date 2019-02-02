@@ -8,28 +8,33 @@ const decoder = new TextDecoder();
 const CR = "\r".charCodeAt(0);
 const LF = "\n".charCodeAt(0);
 
+const MAX_BUFFER_SIZE = 4096;
+const MIN_BUFFER_SIZE = 4;
+const DEFAULT_BUFFER_SIZE = 256
+
 export interface BufReader {
   readLine(): Promise<string>;
   isFinished(): boolean;
 }
 
 export class BufferReader implements BufReader {
+
   private _reader: Reader;
-  private _size = 1024;
+  private _size = DEFAULT_BUFFER_SIZE;
   private _eof = false;
-  private _index = 0;
+  private _currentReadIndex = 0;
   private _chunk: Uint8Array = new Uint8Array(0);
 
   constructor(reader: Reader, size?: number) {
     this._reader = reader;
-    if (size > 0) {
+    if (size <= MAX_BUFFER_SIZE && size >= MIN_BUFFER_SIZE) {
       this._size = size;
     }
-    this._chunk = new Uint8Array(this._size);
+    this._chunk = new Uint8Array(0);
   }
 
   isFinished(): boolean {
-    return this._eof;
+    return this._eof && this._current.byteLength === 0;
   }
 
   async readLine (): Promise<string>  {
@@ -37,10 +42,13 @@ export class BufferReader implements BufReader {
     while(!this._eof || this._chunk.length > 0) {
       const current = this._current;
       for (let i = 0; i < current.byteLength; i++) {
+        if (current.byteLength <= 0) {
+          continue;
+        }
         const buf = current.subarray(i, i + 2);
         if (this._isCRLF(buf) === true) {
           lineBuf = current.subarray(0, i);
-          this._index += i + 2;
+          this._currentReadIndex += i + 2;
           return decoder.decode(lineBuf);
         }
       }
@@ -50,7 +58,9 @@ export class BufferReader implements BufReader {
       }
     }
 
-    return decoder.decode(this._current);
+    const result = this._current;
+    this._chunk = new Uint8Array(0);
+    return decoder.decode(result);
   }
 
   private _isCRLF(buf): boolean {
@@ -58,7 +68,7 @@ export class BufferReader implements BufReader {
   }
 
   private get _current() {
-    return this._chunk.subarray(this._index);
+    return this._chunk.subarray(this._currentReadIndex);
   }
 
   private async _readChunk(): Promise<boolean> {
@@ -69,8 +79,6 @@ export class BufferReader implements BufReader {
     }
     const chunk = new Uint8Array(this._size);
     const result = await this._reader.read(chunk);
-  
-    console.log("result = ", result);
 
     if (result.eof === true || result.nread === 0) {
       this._eof = true;
@@ -79,12 +87,16 @@ export class BufferReader implements BufReader {
       isNeedRead = true;
     }
 
-    const remainIndex = chunk.byteLength - this._index;
-    
-    const newChunk = new Uint8Array(remainIndex + result.nread);
-    newChunk.set(this._chunk.subarray(this._index), 0);
-    newChunk.set(chunk.subarray(0, result.nread), remainIndex);
-    this._index = 0;
+   
+    let remainLength = 0;
+    if (this._chunk.byteLength > 0 ) {
+      remainLength = this._chunk.byteLength - this._currentReadIndex
+    }
+
+    const newChunk = new Uint8Array(remainLength + result.nread);
+    newChunk.set(this._chunk.subarray(this._currentReadIndex), 0);
+    newChunk.set(chunk.subarray(0, result.nread), remainLength);
+    this._currentReadIndex = 0;
     this._chunk = newChunk;
     return isNeedRead;
   }
