@@ -1,5 +1,5 @@
 import { Buffer } from "deno";
-import { BufReader, BufferReader } from "./buffer_reader.ts";
+import { BufReader, BufferReader } from "./mod.ts";
 
 const encoder = new TextEncoder();
 async function main() {
