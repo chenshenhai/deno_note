@@ -8,11 +8,6 @@
 import { Conn } from "deno";
 import { BufReader, BufferReader } from "./../buffer_reader/mod.ts";
 
-const decoder = new TextDecoder();
-const CR = "\r".charCodeAt(0);
-const LF = "\n".charCodeAt(0);
-// const COLON = ":".charCodeAt(0);
-
 export interface ReqGeneral {
   method: string;
   pathname: string;
@@ -28,11 +23,7 @@ export interface Request {
 
 export class RequestReader implements Request {
   private _bufferReader: BufReader;
-  private _conn: Conn;
   private _size = 1024;
-  private _eof = false;
-  private _index = 0;
-  private _chunk: Uint8Array = new Uint8Array(0);
   
   private _headers: Headers;
   private _method: string | null;
@@ -43,12 +34,10 @@ export class RequestReader implements Request {
   private _bodyStream: Uint8Array | null;
 
   constructor(conn: Conn, size?: number) {
-    this._conn = conn;
     if (size > 0) {
       this._size = size;
     }
     this._bufferReader = new BufferReader(conn, this._size);
-    this._chunk = new Uint8Array(this._size);
     this._method = null;
     this._protocol = null;
     this._pathname = null;
@@ -122,19 +111,6 @@ export class RequestReader implements Request {
     }
     const headers = await this.getHeaders();
     const contentLength = parseInt(headers.get("content-length") || "0", 10);
-    // const current = this._current;
-    // const curtentLength = current.length;
-    // let bodyStream = new Uint8Array(0);
-    // if ( contentLength < curtentLength ) {
-    //   bodyStream = current;
-    // } else {
-    //   const remianingLength = contentLength - curtentLength;
-    //   const remainingChunk = new Uint8Array(remianingLength);
-    //   await this._conn.read(remainingChunk);
-    //   bodyStream = new Uint8Array(contentLength);
-    //   bodyStream.set(current, 0);
-    //   bodyStream.set(remainingChunk, current.length);
-    // }
     const bodyStream = await this._bufferReader.readCustomChunk(contentLength);
     this._bodyStream = bodyStream;
     return bodyStream;
@@ -161,59 +137,7 @@ export class RequestReader implements Request {
   }
 
   private async _readLine (): Promise<string>  {
-    // const lineChunk = await this._readLineChunk();
-    // const line = decoder.decode(lineChunk);
-    // return line;
     return await this._bufferReader.readLine();
   }
-  private async _readLineChunk (): Promise<Uint8Array>  {
-    let lineBuf = new Uint8Array(0);
-    while(!this._eof || this._chunk.length > 0) {
-      const current = this._current;
-      for (let i = 0; i < current.byteLength; i++) {
-        const buf = current.subarray(i, i + 2);
-        if (this._isCRLF(buf) === true) {
-          lineBuf = current.subarray(0, i);
-          this._index += i + 2;
-          return lineBuf;
-        }
-      }
-      const result = await this._readChunk();
-      if (!result) {
-        break;
-      }
-    }
-
-    return this._current;
-  }
-
-  private _isCRLF(buf): boolean {
-    return buf.byteLength === 2 && buf[0] === CR && buf[1] === LF;
-  }
-
-  private get _current() {
-    return this._chunk.subarray(this._index);
-  }
-
-  private async _readChunk(): Promise<boolean> {
-    if (this._eof) {
-      return false;
-    }
-    const chunk = new Uint8Array(this._size);
-    const result = await this._conn.read(chunk);
-    
-    if (result.eof === true) {
-      this._eof = true;
-    }
-
-    const remainIndex = chunk.byteLength - this._index;
-    
-    const newChunk = new Uint8Array(remainIndex + result.nread);
-    newChunk.set(this._chunk.subarray(this._index), 0);
-    newChunk.set(chunk.subarray(0, result.nread), remainIndex);
-    this._index = 0;
-    this._chunk = newChunk;
-
-    return result.nread > 0;
-  }
+  
 }
