@@ -4,25 +4,24 @@
   </head>
   <body>
     <h1>{{text}}</h1>
-    
-    <h4>directive:if</h4>
-    <directive: if="isShowDataList">
-      <p>show data</p>
-    </directive:>
-    <hr/>
 
     <h4>directive:for-array</h4>
-    <directive: for-array="datalist" for-array-index="idx" for-array-item="item" >
-      <p>{{idx}}:{{item}}</p>
-    </directive:>
-    <hr/>
+    #if( datalist && datalist.length > 0 )
+      <ul>
+      #foreach(datalist).indexAs(i)
+        <li>{{i}}:{{datalist[i]}}</li>
+      #/foreach
+      </ul>
+    #/if
 
-    <h4>directive:for-json</h4>
-    <directive: for-json="datajson" for-json-key="key" for-json-value="val" >
-      <p>{{key}}:{{val}}</p>
-    </directive:>
-    <hr/>
-
+    #if( datajson)
+      <ul>
+      #foreach(datajson).keyAs(k)
+        <li>{{k}}:{{datajson[k]}}</li>
+      #/foreach
+      </ul>
+    #/if
+    
   </body>
 
 </html>
