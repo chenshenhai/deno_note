@@ -2,9 +2,10 @@ const funcParamKey = "__DATA__";
 
 function compileToFunctionStr (tpl) {
   const tplCode = tpl;
-  const regTpl = /#if[\s]{0,}\(([^\)]+)?\)|#elseif[\s]{0,}\(([^\)]+)?\)|#foreach[\s]{0,}\(([^\)]+)?\)\.indexAs\(([^\)]+)?\)|#foreach[\s]{0,}\(([^\)]+)?\)\.keyAs\(([^\)]+)?\)|{{([^}}]+)?}}|#\/if|#\/foreach/ig;
+  const regTpl = /#if[\s]{0,}\(([^\)]+)?\)|#elseif[\s]{0,}\(([^\)]+)?\)|#else|\(([^\)]+)?\)|#foreach[\s]{0,}\(([^\)]+)?\)\.indexAs\(([^\)]+)?\)|#foreach[\s]{0,}\(([^\)]+)?\)\.keyAs\(([^\)]+)?\)|{{([^}}]+)?}}|#\/if|#\/foreach/ig;
   const regDirectEnd = /#\/if|#\/foreach/i;
   const regDirectIf = /#if[\s]{0,}\(([^\)]+)?\)/i;
+  const regDirectElse = /#else[\s]{0,}/i;
   const regDirectElseif = /#elseif[\s]{0,}\(([^\)]+)?\)/i;
   const regDirectForArray = /#foreach[\s]{0,}\(([^\)]+)?\)\.indexAs\(([^\)]+)?\)/i;
   const regDirectForJSON = /#foreach[\s]{0,}\(([^\)]+)?\)\.keyAs\(([^\)]+)?\)/i;
@@ -25,7 +26,9 @@ function compileToFunctionStr (tpl) {
       funcCodeStr += `\r\n if ( ${regDirectIf.exec(currentExec)[1]} ) {`;
       directiveStock.push("if");
     } else if (regDirectElseif.test(currentExec) === true) {
-      funcCodeStr += `\r\n else if ( ${regDirectIf.exec(currentExec)[1]} ) {`;
+      funcCodeStr += `\r\n } else if ( ${regDirectElseif.exec(currentExec)[1]} ) {`;
+    } else if (regDirectElse.test(currentExec) === true) {
+      funcCodeStr += `\r\n } else {`;
     } else if (regDirectForArray.test(currentExec) === true) {
       const forArrayName = regDirectForArray.exec(currentExec)[1];
       const forArrayIndexName = regDirectForArray.exec(currentExec)[2] || "idx";

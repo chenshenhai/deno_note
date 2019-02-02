@@ -12,6 +12,10 @@
         <li>{{i}}:{{datalist[i]}}</li>
       #/foreach
       </ul>
+    #elseif( showOthers === true )
+      <p> others </p>
+    #else
+      <p> default </p>
     #/if
 
     #if( datajson)
@@ -21,7 +25,7 @@
       #/foreach
       </ul>
     #/if
-    
+
   </body>
 
 </html>
