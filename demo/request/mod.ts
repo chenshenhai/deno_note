@@ -6,6 +6,7 @@
 // 参考源码: https://github.com/denoland/deno_std/blob/master/textproto/mod.ts
 
 import { Conn } from "deno";
+import { BufReader, BufferReader } from "./../buffer_reader/mod.ts";
 
 const decoder = new TextDecoder();
 const CR = "\r".charCodeAt(0);
@@ -26,6 +27,7 @@ export interface Request {
 }
 
 export class RequestReader implements Request {
+  private _bufferReader: BufReader;
   private _conn: Conn;
   private _size = 1024;
   private _eof = false;
@@ -45,6 +47,7 @@ export class RequestReader implements Request {
     if (size > 0) {
       this._size = size;
     }
+    this._bufferReader = new BufferReader(conn, this._size);
     this._chunk = new Uint8Array(this._size);
     this._method = null;
     this._protocol = null;
@@ -119,19 +122,20 @@ export class RequestReader implements Request {
     }
     const headers = await this.getHeaders();
     const contentLength = parseInt(headers.get("content-length") || "0", 10);
-    const current = this._current;
-    const curtentLength = current.length;
-    let bodyStream = new Uint8Array(0);
-    if ( contentLength < curtentLength ) {
-      bodyStream = current;
-    } else {
-      const remianingLength = contentLength - curtentLength;
-      const remainingChunk = new Uint8Array(remianingLength);
-      await this._conn.read(remainingChunk);
-      bodyStream = new Uint8Array(contentLength);
-      bodyStream.set(current, 0);
-      bodyStream.set(remainingChunk, current.length);
-    }
+    // const current = this._current;
+    // const curtentLength = current.length;
+    // let bodyStream = new Uint8Array(0);
+    // if ( contentLength < curtentLength ) {
+    //   bodyStream = current;
+    // } else {
+    //   const remianingLength = contentLength - curtentLength;
+    //   const remainingChunk = new Uint8Array(remianingLength);
+    //   await this._conn.read(remainingChunk);
+    //   bodyStream = new Uint8Array(contentLength);
+    //   bodyStream.set(current, 0);
+    //   bodyStream.set(remainingChunk, current.length);
+    // }
+    const bodyStream = await this._bufferReader.readCustomChunk(contentLength);
     this._bodyStream = bodyStream;
     return bodyStream;
   }
@@ -157,9 +161,10 @@ export class RequestReader implements Request {
   }
 
   private async _readLine (): Promise<string>  {
-    const lineChunk = await this._readLineChunk();
-    const line = decoder.decode(lineChunk);
-    return line;
+    // const lineChunk = await this._readLineChunk();
+    // const line = decoder.decode(lineChunk);
+    // return line;
+    return await this._bufferReader.readLine();
   }
   private async _readLineChunk (): Promise<Uint8Array>  {
     let lineBuf = new Uint8Array(0);

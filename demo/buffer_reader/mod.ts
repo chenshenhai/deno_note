@@ -66,15 +66,13 @@ export class BufferReader implements BufReader {
   }
 
   async readCustomChunk(size: number): Promise<Uint8Array>{
-    let customLength = MIN_BUFFER_SIZE;
-    if (size >= customLength) {
-      customLength = size;
+    let customLength = size;
+    if (size < 0) {
+      customLength = 0;
     }
     const current = this._current;
     const currentLength = current.length;
     let customChunk = new Uint8Array(0);
-
-    console.log('customLength === ' , customLength);
 
     if ( customLength < currentLength ) {
       customChunk = current.subarray(0, customLength);
