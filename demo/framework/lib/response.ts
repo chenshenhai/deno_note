@@ -1,5 +1,5 @@
 import { Conn } from "deno";
-import { Req } from "./request.ts";
+import { Req } from "./mod.ts";
 import { getMIME } from "./mime.ts";
 
 const encoder = new TextEncoder();

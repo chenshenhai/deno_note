@@ -1,4 +1,4 @@
-import { Req } from "./request.ts";
+import { Req } from "./mod.ts";
 import { Res } from "./response.ts";
 
 export interface Ctx {

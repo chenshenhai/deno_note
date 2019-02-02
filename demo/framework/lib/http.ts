@@ -1,5 +1,5 @@
 import { listen, Conn } from "deno";
-import { Request, Req } from "./request.ts";
+import { Request, Req } from "./mod.ts";
 import { Response, Res } from "./response.ts";
 import { Ctx, Context } from "./context.ts";
 
