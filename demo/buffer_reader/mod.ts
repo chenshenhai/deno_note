@@ -14,6 +14,7 @@ const DEFAULT_BUFFER_SIZE = 256
 
 export interface BufReader {
   readLine(): Promise<string>;
+  readCustomChunk(size: number): Promise<Uint8Array>;
   isFinished(): boolean;
 }
 
@@ -37,6 +38,7 @@ export class BufferReader implements BufReader {
     return this._eof && this._current.byteLength === 0;
   }
 
+  
   async readLine (): Promise<string>  {
     let lineBuf = new Uint8Array(0);
     while(!this._eof || this._chunk.length > 0) {
@@ -61,6 +63,33 @@ export class BufferReader implements BufReader {
     const result = this._current;
     this._chunk = new Uint8Array(0);
     return decoder.decode(result);
+  }
+
+  async readCustomChunk(size: number): Promise<Uint8Array>{
+    let customLength = MIN_BUFFER_SIZE;
+    if (size >= customLength) {
+      customLength = size;
+    }
+    const current = this._current;
+    const currentLength = current.length;
+    let customChunk = new Uint8Array(0);
+
+    console.log('customLength === ' , customLength);
+
+    if ( customLength < currentLength ) {
+      customChunk = current.subarray(0, customLength);
+      this._currentReadIndex = customLength;
+    } else {
+      const remianingLength = customLength - currentLength;
+      const remainingChunk = new Uint8Array(remianingLength);
+      await this._reader.read(remainingChunk);
+      customChunk = new Uint8Array(customLength);
+      customChunk.set(current, 0);
+      customChunk.set(remainingChunk, current.length);
+    }
+    this._chunk = new Uint8Array(0);
+    this._currentReadIndex = 0;
+    return customChunk;
   }
 
   private _isCRLF(buf): boolean {
