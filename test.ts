@@ -6,6 +6,11 @@ const decoder = new TextDecoder();
 const testUnitRunList = [
   {
     args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    cwd: "./demo/buffer_reader/",
+    stdout: "piped"
+  },
+  {
+    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/request/",
     stdout: "piped"
   },
