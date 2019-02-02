@@ -34,9 +34,9 @@ test(async function server() {
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {
-    console.log(err);
     // 关闭测试服务
     closeHTTPServer();
+    throw new Error(err);
   }
 });
 

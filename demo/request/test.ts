@@ -60,9 +60,9 @@ test(async function serverGetRequest() {
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {
-    console.log(err);
     // 关闭测试服务
     closeHTTPServer();
+    throw new Error(err);
   }
 });
 
@@ -102,9 +102,9 @@ test(async function serverPostRequest() {
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {
-    console.log(err);
     // 关闭测试服务
     closeHTTPServer();
+    throw new Error(err);
   }
 });
 

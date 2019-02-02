@@ -1,15 +1,18 @@
 import { listen, Conn } from "deno";
 import { Response, ResponseWriter } from "./mod.ts";
 
+const decoder = new TextDecoder();
+
+
 async function server(addr: string) {
   const listener = listen("tcp", addr);
-  console.log("listening on", addr);
+  console.log(`listening on ${addr} \r\n`,);
   while (true) {
     const conn = await listener.accept();
-    const response: Response = new ResponseWriter(conn);
-    response.setBody("hello world");
-    response.setStatus(200);
-    response.end();
+    const res: Response = new ResponseWriter(conn);
+    res.setBody("hello world");
+    res.setStatus(200);
+    res.end();
   }
 }
 
