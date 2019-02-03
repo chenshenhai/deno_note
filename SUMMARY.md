@@ -27,7 +27,7 @@
     * [os/ploform 系统操作]
     * [env 全局变量操作]
     * [fetch 服务端请求操作]
-    * [Buffer进阶读写操作]
+    * [Buffer进阶读操作]
     * [原生deno实现简单HTTP服务]
     * [原生deno处理HTTP服务请求]
     * [原生deno处理HTTP服务响应]
