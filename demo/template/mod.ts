@@ -1,6 +1,6 @@
 const funcParamKey = "__DATA__";
 
-function compileToFunctionStr (tpl) {
+function compileToFunctionContentStr (tpl) {
   const tplCode = tpl;
   const regTpl = /#if[\s]{0,}\(([^\)]+)?\)|#elseif[\s]{0,}\(([^\)]+)?\)|#else|\(([^\)]+)?\)|#foreach[\s]{0,}\(([^\)]+)?\)\.indexAs\(([^\)]+)?\)|#foreach[\s]{0,}\(([^\)]+)?\)\.keyAs\(([^\)]+)?\)|{{([^}}]+)?}}|#\/if|#\/foreach/ig;
   const regDirectEnd = /#\/if|#\/foreach/i;
@@ -73,13 +73,28 @@ function compileToFunctionStr (tpl) {
   return funcCodeStr;
 }
 
+function compileToFunctionInlineDataStr (data: object): string  {
+  const resultList = [];
+  if (Object.prototype.toString.call(data).toLocaleLowerCase() === '[object object]') {
+    const keys: string [] = Object.keys(data);
+    keys.forEach(function(key) {
+      if (typeof key === "string" && key.length > 0) {
+        resultList.push(`const ${key} = ${funcParamKey}.${key}; \r\n`);
+      }
+    })
+  }
+  const resultStr = resultList.join('\r\n');
+  return resultStr;
+}
+
 const template = {
   compile (tpl, data) {
-    const funcStr = compileToFunctionStr(tpl);
-    // const func = new Function(funcParamKey, funcStr.replace(/[\r\t\r\n]/g, ""));
-    console.log('funcStr = \r\n', funcStr)
-    // const html = func(data);
-    const html = ''
+    const funcDataStr = compileToFunctionInlineDataStr(data);
+    const funcContentStr = compileToFunctionContentStr(tpl);
+    const funcStr = [funcDataStr, funcContentStr].join('\r\n');
+    const func = new Function(funcParamKey, funcStr.replace(/[\r\t\r\n]/g, ""));
+    const html = func(data);
+    // const html = ''
     return html;
   }
 };
