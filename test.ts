@@ -20,6 +20,11 @@ const testUnitRunList = [
     stdout: "piped"
   },
   {
+    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    cwd: "./demo/router/",
+    stdout: "piped"
+  },
+  {
     args: ["deno", "test.ts", ".", "--cors"],
     cwd: "./demo/template/",
     stdout: "piped"
