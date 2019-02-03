@@ -29,6 +29,7 @@ class Application {
     const handleRequest = async (conn: Conn) => {
       const ctx = that._createContext(conn);
       const _middlewares = that._middlewares;
+      ctx.res.setBody("404 Not Found!");
       compose(_middlewares)(ctx).then(function(){
         ctx.res.end();
       }).catch(function(err) {

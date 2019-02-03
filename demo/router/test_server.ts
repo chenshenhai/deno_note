@@ -7,15 +7,15 @@ const router = new Router();
 
 router.get("/hello", async function(ctx) {
   ctx.res.setStatus(200);
-  ctx.res.setBody("this is hello page");
+  ctx.res.setBody("page_hello");
 });
 router.get("/foo", async function(ctx) {
   ctx.res.setStatus(200);
-  ctx.res.setBody("this is foo page");
+  ctx.res.setBody("page_foo");
 });
 router.get("/bar", async function(ctx) {
   ctx.res.setStatus(200);
-  ctx.res.setBody("this is bar page");
+  ctx.res.setBody("page_bar");
 });
 router.get("/page/:pageId/user/:userId", async function(ctx) {
   const params = ctx.getData("router");
