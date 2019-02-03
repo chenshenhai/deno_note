@@ -1,5 +1,3 @@
-import { Ctx, Req, Res } from "./../framework/index.ts";
-
 interface Layer {
   methods: string;
   path: string;
@@ -76,15 +74,15 @@ export interface Route {
 
 export class Router implements Route {
 
-  private stack: Layer[];
+  private _stack: Layer[];
 
   constructor() {
-    this.stack = [];
+    this._stack = [];
   }
 
   private register(methods, path, middleware) {
     const layer = new RouteLayer(methods, path, middleware);
-    this.stack.push(layer);
+    this._stack.push(layer);
   }
 
   public get(path, middleware) {
@@ -108,15 +106,16 @@ export class Router implements Route {
   }
 
   public routes() {
-    const stock = this.stack;
-    return async function(ctx: Ctx) {
-      const req: Req = ctx.req;
-      const headers = req.getHeaders();
-      const currentPath = headers["pathname"] || "";
-      const method = req.getMethod();
+    const stack = this._stack;
+    return async function(ctx, next) {
+      const req = ctx.req;
+      const gen = await req.getGeneral();
+      const headers = await req.getHeaders();
+      const currentPath = gen.pathname || "";
+      const method = gen.method;
       let route;
-      for (let i = 0; i < stock.length; i++) {
-        const item: Layer = stock[i];
+      for (let i = 0; i < stack.length; i++) {
+        const item: Layer = stack[i];
         if (item.pathRegExp.test(currentPath) && item.methods.indexOf(method) >= 0) {
           route = item.middleware;
           const pathParams = item.getParams(currentPath);
@@ -126,7 +125,7 @@ export class Router implements Route {
       }
 
       if (typeof route === "function") {
-        route(ctx);
+        await route(ctx, next);
         return;
       }
     };

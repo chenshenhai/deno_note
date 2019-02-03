@@ -6,6 +6,7 @@ const addr = "127.0.0.1:3001";
 
 app.use(async function(ctx, next) {
   ctx.res.setBody("hello world!");
+  ctx.res.setStatus(200);
 });
 
 app.listen(addr);
