@@ -1,8 +1,8 @@
 import { cwd, } from "deno";
-import { Server } from "./../framework/index.ts";
-import staticServe from "./index.ts";
+import { Application } from "./../web/mod.ts";
+import { staticServe } from "./mod.ts";
 
-const app = new Server();
+const app = new Application();
 const addr = "127.0.0.1:3001";
 const baseDir = [cwd(), "public"].join("/");
 
