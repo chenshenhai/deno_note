@@ -19,6 +19,7 @@ export interface Request {
   getHeaders(): Promise<Headers>;
   getGeneral(): Promise<ReqGeneral>;
   getBodyStream(): Promise<Uint8Array>;
+  isFinish(): boolean;
 }
 
 export class RequestReader implements Request {
@@ -103,6 +104,10 @@ export class RequestReader implements Request {
     }
     this._headers = headers;
     return headers;
+  }
+
+  isFinish(): boolean {
+    return this._bodyStream !== null;
   }
 
   async getBodyStream() {

@@ -20,16 +20,18 @@ function createResponse (bodyStr: string): Uint8Array {
 }
 
 async function response(conn: Conn) {
-  const requestReader: Request = new RequestReader(conn);
-  const headers: Headers = await requestReader.getHeaders();
+  const req: Request = new RequestReader(conn);
+  const beforeFinish = req.isFinish();
+  const headers: Headers = await req.getHeaders();
   const headerObj = {};
   for(const key of headers.keys()) {
     headerObj[key] = headers.get(key); 
   }
-  const generalObj = await requestReader.getGeneral();
-  const bodyStream = await requestReader.getBodyStream();
+  const generalObj = await req.getGeneral();
+  const bodyStream = await req.getBodyStream();
+  const afterFinish = req.isFinish();
   const body: string = decoder.decode(bodyStream);
-  const ctx = createResponse(JSON.stringify({ general: generalObj, headers: headerObj, body }));
+  const ctx = createResponse(JSON.stringify({ general: generalObj, headers: headerObj, body, beforeFinish, afterFinish }));
   conn.write(ctx);
   conn.close();
 }

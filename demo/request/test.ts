@@ -54,7 +54,9 @@ test(async function serverGetRequest() {
         "content-test":"helloworld",
         "host":"127.0.0.1:3001"
       }, 
-      "body": ""
+      "body": "",
+      "beforeFinish": false,
+      "afterFinish": true,
     }
     assert(equal(json, acceptResult));
     // 关闭测试服务
@@ -96,8 +98,10 @@ test(async function serverPostRequest() {
           "host": "127.0.0.1:3001",
           "content-length": "23"
       },
-      "body": "formData1=1&formData1=2"
-  }
+      "body": "formData1=1&formData1=2",
+      "beforeFinish": false,
+      "afterFinish": true
+    }
     assert(equal(json, acceptResult));
     // 关闭测试服务
     closeHTTPServer();
