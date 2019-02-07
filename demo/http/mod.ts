@@ -50,5 +50,5 @@ async function server(addr: string) {
   }
 }
 
-const addr = "127.0.0.1:3001";
+const addr = "127.0.0.1:3000";
 server(addr);
