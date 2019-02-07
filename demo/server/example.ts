@@ -1,8 +1,6 @@
 import { listen, Conn, } from "deno";
 
-import { BufReader, BufState, BufWriter } from "https://raw.githubusercontent.com/denoland/deno_std/v0.2.8/io/bufio.ts";
-import { TextProtoReader } from "https://raw.githubusercontent.com/denoland/deno_std/v0.2.8/textproto/mod.ts";
-
+import { BufWriter } from "https://raw.githubusercontent.com/denoland/deno_std/v0.2.8/io/bufio.ts";
 import { RequestReader } from "./../request/mod.ts";
 
 interface Deferred {
@@ -36,13 +34,16 @@ interface Response {
   status: number;
 }
 
+// class SReq {
+//   constructor()
+// }
+
 class ServerRequest {
   url: string;
   method: string;
   proto: string;
   headers: Headers;
   conn: Conn;
-  r: BufReader;
   w: BufWriter;
 
   async respond(r: Response): Promise<void> {
@@ -78,7 +79,7 @@ class ServerRequest {
 }
 
 
-function serveConn(env: ServeEnv, conn: Conn, bufr?: BufReader) {
+function serveConn(env: ServeEnv, conn: Conn) {
 
   // const request = new ResponseReader(conn);
   // request.getHeaders().then(function(headers) {
@@ -90,7 +91,7 @@ function serveConn(env: ServeEnv, conn: Conn, bufr?: BufReader) {
   //   }
   // })
 
-  readRequest(conn, bufr).then(function([req, err]){
+  readRequest(conn).then(function([req, err]){
     if (err) {
       conn.close();
       return;
@@ -133,7 +134,7 @@ export async function* serve(addr: string) {
       yield req;
       // Continue read more from conn when user is done with the current req
       // Moving this here makes it easier to manage
-      serveConn(env, req.conn, req.r);
+      serveConn(env, req.conn);
     }
   }
   listener.close();
@@ -153,29 +154,33 @@ export async function listenAndServe(
 
 async function readRequest(
   c: Conn,
-  bufr?: BufReader
-): Promise<[ServerRequest, BufState]> {
-  if (!bufr) {
-    bufr = new BufReader(c);
-  }
+): Promise<[ServerRequest, any]> {
   const bufw = new BufWriter(c);
   const req = new ServerRequest();
   req.conn = c;
-  req.r = bufr!;
   req.w = bufw;
-  const tp = new TextProtoReader(bufr!);
+  const reqReader = new RequestReader(c);
 
-  let s: string;
-  let err: BufState;
+  let err: any;
 
-  // First line: GET /index.html HTTP/1.0
-  [s, err] = await tp.readLine();
+  try {
+    const gen = await reqReader.getGeneral();
+    req.method = gen.method;
+    req.url = gen.pathname;
+    req.proto = gen.protocol;
+  } catch (e) {
+    err = e;
+  }
+
   if (err) {
     return [null, err];
   }
-  [req.method, req.url, req.proto] = s.split(" ", 3);
-
-  [req.headers, err] = await tp.readMIMEHeader();
+  
+  try {
+    req.headers = await reqReader.getHeaders();
+  } catch (e) {
+    err = e;
+  }
 
   return [req, err];
 }
@@ -183,7 +188,7 @@ async function readRequest(
 
 const addr = "127.0.0.1:3001"
 listenAndServe(addr, async req => {
-  const bodyBuf = new TextEncoder().encode("hello deno_note web.ts");
+  const bodyBuf = new TextEncoder().encode("hello deno_note 001 web.ts");
   const headers = new Headers();
   headers.set("content-length", `${bodyBuf.byteLength}`);
   const rs = {
