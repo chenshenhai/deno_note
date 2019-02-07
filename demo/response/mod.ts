@@ -60,6 +60,12 @@ export class ResponseWriter implements Response {
     }
   }
 
+  async write() {
+    const resStream = this.createReqStream();
+    const conn = this._conn;
+    await conn.write(resStream);
+  }
+
   end() {
     const resStream = this.createReqStream();
     const conn = this._conn;
