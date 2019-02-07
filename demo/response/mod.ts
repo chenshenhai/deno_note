@@ -6,10 +6,12 @@ const CRLF = "\r\n";
 
 export interface Response {
   setHeaders(key: string, val: string): boolean;
+  getHeaders(): Headers;
   setStatus(code: number): boolean;
+  getStatus(): number;
   setBody(body: string): boolean;
   getBody(): string;
-  end();
+  write(): Promise<number>;
 }
 
 export class ResponseWriter implements Response {
@@ -36,6 +38,10 @@ export class ResponseWriter implements Response {
     }
   }
 
+  getHeaders() {
+    return this._headers;
+  }
+
   setBody(body: string) {
     try {
       this._body = body;
@@ -45,6 +51,10 @@ export class ResponseWriter implements Response {
       return false;
     }
   }
+
+  getStatus() {
+    return this._status;
+  } 
 
   getBody(): string {
     return this._body;
@@ -63,14 +73,8 @@ export class ResponseWriter implements Response {
   async write() {
     const resStream = this.createReqStream();
     const conn = this._conn;
-    await conn.write(resStream);
-  }
-
-  end() {
-    const resStream = this.createReqStream();
-    const conn = this._conn;
-    conn.write(resStream);
-    conn.close();
+    const n = await conn.write(resStream);
+    return n;
   }
 
   private createReqStream() {

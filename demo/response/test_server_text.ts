@@ -12,7 +12,8 @@ async function server(addr: string) {
     const res: Response = new ResponseWriter(conn);
     res.setBody("hello world");
     res.setStatus(200);
-    res.end();
+    await res.write();
+    conn.close();
   }
 }
 
