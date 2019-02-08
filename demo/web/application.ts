@@ -25,6 +25,10 @@ class Application {
       try {
         const sctx = new SafeContext(ctx);
         await compose(middlewares)(sctx);
+        const body = sctx.res.getBody();
+        if (!(body && typeof body === "string" && body.length > 0)) {
+          sctx.res.setBody("404 Not Found!");
+        }
         await ctx.res.flush();
       } catch (err) {
         that._onError(err, ctx);
