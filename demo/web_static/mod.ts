@@ -41,6 +41,7 @@ function serve(baseDir: string, options?: ServeOptions): Function {
         // throw new Error(err);
       }
       res.setBody(`${result}`);
+      res.setFinish();
     }
   };
 }
