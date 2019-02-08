@@ -6,3 +6,5 @@ createServer(addr, async ctx => {
   ctx.res.setStatus(200);
   await ctx.res.flush();
 });
+
+console.log("helloworld");

@@ -72,12 +72,11 @@ async function* serve(addr: string) {
   listener.close();
 }
 
-async function createServer(
+async function createHTTP(
   addr: string,
   handler: (ctx) => void
 ) {
   const server = serve(addr);
-
   for await (const ctx of server) {
     await handler(ctx);
   }
@@ -108,5 +107,31 @@ async function loopContext(c: Conn): Promise<[Context, any]> {
 }
 
 
-export { createServer };
+export class Server {
+  private _handler: (ctx: Context) => Promise<void>;
+  private _isInitialized: boolean = false;
+  private _isListening: boolean = false;
+
+  createServer(handler) {
+    if (this._isInitialized !== true) {
+      this._handler = handler;
+      this._isInitialized = true;
+      return this;
+    } else {
+      throw new Error('The http service has been initialized');
+    }
+  }
+
+  listen(addr, callback) {
+    if (this._isListening !== true) {
+      const handler = this._handler;
+      createHTTP(addr, handler);
+      callback();
+      this._isInitialized = true;
+    } else {
+      throw new Error('The http service is already listening');
+    }
+  }
+}
+
 

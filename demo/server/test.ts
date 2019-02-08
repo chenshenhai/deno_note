@@ -2,7 +2,6 @@
 import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
 import { run } from "deno";
 
-const decoder = new TextDecoder();
 const testSite = "http://127.0.0.1:3001";
 // 启动测试服务
 
@@ -16,24 +15,24 @@ async function startHTTPServer() {
   const buffer = httpServer.stdout;
   const chunk = new Uint8Array(2);
   await buffer.read(chunk);
-  console.log("\r\n The testing text_server has started \r\n");
+  console.log("http server is starting");
 }
 
 function closeHTTPServer() {
   httpServer.close();
   httpServer.stdout.close();
-  console.log("\r\n The testing text_server has closed \r\n");
 }
 
-
-test(async function serverTextResponse() {
+test(async function server() {
   try {
     // 等待服务启动
     await startHTTPServer();
-    const res = await fetch(`${testSite}`);
-    const text = await res.text();
-    const acceptResult = "hello server.ts";
-    assert(equal(text, acceptResult));
+    const res1 = await fetch(`${testSite}/hello`);
+    const result1 = await res1.text();
+    console.log(`\r\n result1=${result1} \r\n`);
+
+    assert(equal(1, 1));
+    // assert(equal(result1, "page_hello"));
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {
@@ -42,7 +41,6 @@ test(async function serverTextResponse() {
     throw new Error(err);
   }
 });
-
 
 // 启动测试
 runTests();
