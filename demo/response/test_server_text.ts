@@ -12,7 +12,7 @@ async function server(addr: string) {
     const res: Response = new ResponseWriter(conn);
     res.setBody("hello world");
     res.setStatus(200);
-    await res.write();
+    await res.flush();
     conn.close();
   }
 }

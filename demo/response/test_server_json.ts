@@ -15,7 +15,7 @@ async function server(addr: string) {
     }
     res.setBody(JSON.stringify(data));
     res.setStatus(200);
-    await res.write();
+    await res.flush();
     conn.close();
   }
 }

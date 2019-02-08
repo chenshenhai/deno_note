@@ -11,7 +11,7 @@ export interface Response {
   getStatus(): number;
   setBody(body: string): boolean;
   getBody(): string;
-  write(): Promise<number>;
+  flush(): Promise<number>;
 }
 
 export class ResponseWriter implements Response {
@@ -70,7 +70,7 @@ export class ResponseWriter implements Response {
     }
   }
 
-  async write() {
+  async flush() {
     const resStream = this.createReqStream();
     const conn = this._conn;
     const n = await conn.write(resStream);

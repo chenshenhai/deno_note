@@ -9,7 +9,7 @@ async function server(addr: string) {
     const response: Response = new ResponseWriter(conn);
     response.setBody("hello world");
     response.setStatus(200);
-    const num = await response.write();
+    const num = await response.flush();
     conn.close();
   }
 }
