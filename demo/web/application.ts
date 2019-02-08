@@ -1,5 +1,5 @@
 import { listen, Conn, exit } from "deno";
-import { Context } from "./../server/context.ts";
+import { Context, SafeContext } from "./context.ts";
 import { Server } from "./../server/mod.ts";
 import { compose } from "./compose.ts";
 
@@ -21,15 +21,16 @@ class Application {
     const server = this._server;
     server.createServer(async function(ctx) {
       const middlewares = that._middlewares;
-      compose(middlewares)(ctx).then(function() {
-        ctx.res.flush();
-      }).catch(function(err){
+      
+      try {
+        const sctx = new SafeContext(ctx);
+        await compose(middlewares)(sctx);
+        await ctx.res.flush();
+      } catch (err) {
         that._onError(err, ctx);
-      })
+      }
     }); 
-    server.listen(addr, function() {
-      console.log('the server is starting');
-    })
+    server.listen(addr, fn);
   }
 
  
