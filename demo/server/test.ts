@@ -28,11 +28,9 @@ test(async function server() {
     // 等待服务启动
     await startHTTPServer();
     const res1 = await fetch(`${testSite}/hello`);
-    const result1 = await res1.text();
-    console.log(`\r\n result1=${result1} \r\n`);
-
-    assert(equal(1, 1));
-    // assert(equal(result1, "page_hello"));
+    const result = await res1.text();
+    const expectResult = "hello server";
+    assert(equal(result, expectResult));
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {

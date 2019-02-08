@@ -19,6 +19,11 @@ const testUnitRunList = [
     cwd: "./demo/response/",
     stdout: "piped"
   },
+  {
+    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    cwd: "./demo/server/",
+    stdout: "piped"
+  },
   // {
   //   args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
   //   cwd: "./demo/router/",
