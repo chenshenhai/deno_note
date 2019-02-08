@@ -103,6 +103,12 @@ async function loopContext(c: Conn): Promise<[Context, any]> {
     err = e;
   }
 
+  try {
+    await ctx.req.getBodyStream();
+  } catch (e) {
+    err = e;
+  }
+
   return [ctx, err];
 }
 

@@ -25,6 +25,14 @@ router.get("/page/:pageId/user/:userId", async function(ctx) {
 
 app.use(router.routes());
 
+app.use(async function(ctx, next) {
+  console.log('action before');
+  ctx.res.setBody("hello web_router!");
+  await next();
+  console.log('action after');
+});
+
+
 app.listen(addr, function(){
   console.log(`listening on ${addr}`);
 });

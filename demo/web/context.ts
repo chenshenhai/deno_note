@@ -73,12 +73,41 @@ class SafeResponse {
 
 class SafeContext {
   private _ctx: Context;
+  private _dataMap: object = {};
   public req: SafeRequest;
   public res: SafeResponse;
   constructor(ctx: Context) {
     this._ctx = ctx;
     this.req = new SafeRequest(ctx.req);
     this.res = new SafeResponse(ctx.res);
+  }
+
+  public setData(key: string, val: any) {
+    if (!this._dataMap) {
+      this._dataMap = {};
+    }
+    this._dataMap[key] = val;
+  }
+
+  public getData(key: string) {
+    const dataMap = this._dataMap || {};
+    const val = dataMap[key];
+    return val;
+  }
+
+  public cleanData() {
+    this._dataMap = {};
+  }
+
+  public hasData(key: string) {
+    const dataMap = this._dataMap || {};
+    return dataMap.hasOwnProperty(key);
+  }
+
+  public deleteData(key: string) {
+    if (this._dataMap) {
+      delete this._dataMap[key];
+    }
   }
 }
 
