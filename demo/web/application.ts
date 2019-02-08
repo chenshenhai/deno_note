@@ -1,76 +1,51 @@
 import { listen, Conn, exit } from "deno";
-import { Context } from "./context.ts";
+import { Context } from "./../server/context.ts";
+import { Server } from "./../server/mod.ts";
 import { compose } from "./compose.ts";
 
 class Application {
   private _middlewares: Function[];
-  private _context?: Context;
+  private _server?: Server;
 
   constructor() {
     this._middlewares = [];
-  }
-
-  private _pushMiddleware(fn: Function): void{
-    this._middlewares.push(fn);
+    this._server = new Server();
   }
 
   public use(fn: Function): void {
     this._pushMiddleware(fn);
   }
 
-  private _createContext(conn: Conn): Context {
-    const _context = new Context(conn);
-    this._context = _context;
-    return _context;
-  }
-
-  private _callback() {
+  public async listen(addr: string, fn?: Function) {
     const that = this;
-    const handleRequest = async (conn: Conn) => {
-      const ctx = that._createContext(conn);
-      const _middlewares = that._middlewares;
-      ctx.res.setBody("404 Not Found!");
-      compose(_middlewares)(ctx).then(function(){
-        ctx.res.end();
-      }).catch(function(err) {
-        that._onError(err)
-      });
-    };
-    return handleRequest;
+    const server = this._server;
+    server.createServer(async function(ctx) {
+      const middlewares = that._middlewares;
+      compose(middlewares)(ctx).then(function() {
+        ctx.res.flush();
+      }).catch(function(err){
+        that._onError(err, ctx);
+      })
+    }); 
+    server.listen(addr, function() {
+      console.log('the server is starting');
+    })
   }
 
-  private _onError(err: Error) {
+ 
+  private async _onError(err: Error, ctx: Context) {
     console.log(err);
-    const ctx = this._context;
     if (ctx instanceof Context) {
       ctx.res.setBody(err.stack);
       ctx.res.setStatus(500);
-      ctx.res.end();
+      await ctx.res.flush();
     } else {
       exit(1);
     }
   }
 
-  private async _loop(conn: Conn): Promise<void> {
-    const handleRequest = this._callback();
-    await handleRequest(conn);
-  }
-
-  public async listen(addr: string, fn?: Function) {
-    const listener = listen("tcp", addr);
-    let err: Error = null;
-    try {
-      if (typeof fn === "function") {
-        fn();
-      }
-      while (true) {
-        const conn = await listener.accept();
-        await this._loop(conn);
-      }
-    } catch (error) {
-      err = error;
-      this._onError(err);
-    }
+  private _pushMiddleware(fn: Function): void{
+    this._middlewares.push(fn);
   }
 }
 

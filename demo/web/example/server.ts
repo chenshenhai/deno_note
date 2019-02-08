@@ -9,4 +9,6 @@ app.use(async function(ctx, next) {
   ctx.res.setStatus(200);
 });
 
-app.listen(addr);
+app.listen(addr, function() {
+  console.log("the web is starting")
+});
