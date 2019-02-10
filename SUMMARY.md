@@ -20,7 +20,7 @@
     * [单元测试进阶](./note/chapter_05/02.md)
     * [集成测试](./note/chapter_05/03.md)
     * [文件操作](./note/chapter_05/04.md)
-    * [目录操作]
+    * [目录操作](./note/chapter_05/05.md)
     * [Buffer进阶读操作]
     * [原生deno实现简单HTTP服务]
     * [原生deno处理HTTP服务请求]
