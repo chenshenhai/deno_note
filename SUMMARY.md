@@ -18,15 +18,9 @@
 * [5. 进阶学习]
     * [单元测试](./note/chapter_05/01.md)
     * [单元测试进阶](./note/chapter_05/02.md)
-    * [集成测试]
-    * [文件操作]
+    * [集成测试](./note/chapter_05/03.md)
+    * [文件操作](./note/chapter_05/04.md)
     * [目录操作]
-    * [TCP 操作]
-    * [URL 操作]
-    * [run 进程操作]
-    * [os/ploform 系统操作]
-    * [env 全局变量操作]
-    * [fetch 服务端请求操作]
     * [Buffer进阶读操作]
     * [原生deno实现简单HTTP服务]
     * [原生deno处理HTTP服务请求]
