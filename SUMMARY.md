@@ -8,8 +8,8 @@
     * [2.2 快速使用](./note/chapter_02/02.md)
 * [3. 前置基础知识]
     * [deno和Node.js](./note/chapter_03/01.md)
-    * [基础知识点](./note/chapter_03/02.md)
-    * [TypeScript基础]
+    * [缓冲区基础知识点](./note/chapter_03/02.md)
+    * [TypeScript基础](./note/chapter_03/03.md)
 * [4. deno基础知识点]
     * [deno常用命令简介](./note/chapter_04/01.md)
     * [deno模块体系](./note/chapter_04/02.md)
