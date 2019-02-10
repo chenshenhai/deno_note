@@ -13,7 +13,6 @@
 * [4. deno基础知识点]
     * [deno常用命令简介](./note/chapter_04/01.md)
     * [deno模块体系](./note/chapter_04/02.md)
-    * [deno模块开发规范](./note/chapter_04/03.md)
     * [deno常用API简介]
 * [5. 进阶学习]
     * [单元测试](./note/chapter_05/01.md)
