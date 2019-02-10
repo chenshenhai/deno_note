@@ -1,4 +1,4 @@
-import { test, assert, equal } from "https://deno.land/x/testing/mod.ts";
+import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
 import { add, addAsync } from "./mod.ts";
 
 test(function example() {
@@ -12,3 +12,5 @@ test(async function exampleAsync() {
   assert(equal(result, 3));
   assert.equal({ result }, { result: 3 });
 });
+
+runTests();
