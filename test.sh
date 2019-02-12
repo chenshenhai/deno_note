@@ -1,2 +1,2 @@
 
-deno --allow-run --allow-net test.ts
+deno --allow-all test.ts

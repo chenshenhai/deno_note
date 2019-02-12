@@ -5,4 +5,4 @@ install:
   - export PATH="$HOME/.deno/bin:$PATH"
 
 script:
-  - sh test.sh
+  - deno --allow-all test.ts
