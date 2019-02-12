@@ -14,15 +14,16 @@ async function startHTTPServer() {
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
-  const chunk = new Uint8Array(2);
+  const chunk = new Uint8Array(1024);
   await buffer.read(chunk);
-  console.log("\r\n The testing server has started \r\n");
+  console.log(decoder.decode(chunk));
+  // console.log("\r\n The testing server has started \r\n");
 }
 
 function closeHTTPServer() {
   httpServer.close();
   httpServer.stdout.close();
-  console.log("\r\n The testing server has closed \r\n");
+  // console.log("\r\n The testing server has closed \r\n");
 }
 
 test(async function serverGetRequest() {
