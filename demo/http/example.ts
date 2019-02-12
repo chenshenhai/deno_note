@@ -4,21 +4,17 @@ import { listen, Conn } from "deno";
  * 创建响应内容
  * @return {Uint8Array}
  */
-function createResponse (): Uint8Array {
-  const bodyStr = "hello world";
+function createResponse (bodyStr: string): Uint8Array {
   const CRLF = "\r\n";
   const encoder = new TextEncoder();
-  const resHeaders = [
+  const resLines = [
     `HTTP/1.1 200`,
     `content-length: ${bodyStr.length}`,
-    CRLF
+    '',
+    bodyStr
   ];
-  const ctxHeader = encoder.encode(resHeaders.join(CRLF));
-  const ctxBody = encoder.encode(bodyStr);
-  const data = new Uint8Array(ctxHeader.byteLength + ctxBody.byteLength);
-  data.set(ctxHeader, 0);
-  data.set(ctxBody, ctxHeader.byteLength);
-  return data;
+  const res = encoder.encode(resLines.join(CRLF));
+  return res;
 }
 
 /**
@@ -27,9 +23,9 @@ function createResponse (): Uint8Array {
  */
 async function response(conn: Conn) {
   // 创建响应信息
-  const ctx = createResponse();
+  const res = createResponse("hello world");
   // TCP连接写入响应信息
-  await conn.write(ctx);
+  await conn.write(res);
   conn.close();
 }
 
@@ -50,5 +46,5 @@ async function server(addr: string) {
   }
 }
 
-const addr = "127.0.0.1:3000";
+const addr = "127.0.0.1:3001";
 server(addr);
