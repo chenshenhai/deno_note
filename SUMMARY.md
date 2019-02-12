@@ -24,7 +24,7 @@
     * [原生deno实现简单HTTP服务](./note/chapter_05/07.md)
     * [原生deno处理HTTP服务请求]
     * [原生deno处理HTTP服务响应]
-    * [原生deno实现稳定HTTP服务]
+    * [原生deno实现稳定HTTP服务](./note/chapter_05/10.md)
     * [原生deno实现文件浏览器]
 * [6. 高阶学习]
     * [中间件式框架简单实现]

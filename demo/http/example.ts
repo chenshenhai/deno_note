@@ -2,6 +2,7 @@ import { listen, Conn } from "deno";
 
 /**
  * 创建响应内容
+ * @param {string} bodyStr
  * @return {Uint8Array}
  */
 function createResponse (bodyStr: string): Uint8Array {
@@ -31,7 +32,7 @@ async function response(conn: Conn) {
 
 /**
  * HTTP服务
- * @param addr {String}
+ * @param addr {string}
  */
 async function server(addr: string) {
   // 创建TCP服务
