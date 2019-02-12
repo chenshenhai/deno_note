@@ -11,18 +11,18 @@ let httpServer;
 async function startHTTPServer() {
   httpServer = run({
     args: ["deno", "--allow-net", "./demo/request/test_server.ts", ".", "--cors"],
-    stdout: "piped"
+    // stdout: "piped"
   });
-  const buffer = httpServer.stdout;
-  const chunk = new Uint8Array(1024);
-  await buffer.read(chunk);
-  console.log(decoder.decode(chunk));
+  // const buffer = httpServer.stdout;
+  // const chunk = new Uint8Array(1024);
+  // await buffer.read(chunk);
+  // console.log(decoder.decode(chunk));
   // console.log("\r\n The testing server has started \r\n");
 }
 
 function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout.close();
+  // httpServer.stdout.close();
   // console.log("\r\n The testing server has closed \r\n");
 }
 
@@ -30,6 +30,7 @@ test(async function serverGetRequest() {
   try {
     // 等待服务启动
     await startHTTPServer();
+    await new Promise(res => setTimeout(res, 1000));
     const res = await fetch(`${testSite}/page/test.html?a=1&b=2`, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors",
@@ -74,6 +75,7 @@ test(async function serverPostRequest() {
   try {
     // 等待服务启动
     await startHTTPServer();
+    await new Promise(res => setTimeout(res, 1000));
     const res = await fetch(`${testSite}/page/test.html?a=1&b=2`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, cors, *same-origin
