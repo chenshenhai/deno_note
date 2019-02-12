@@ -26,10 +26,12 @@ function closeHTTPServer() {
   // console.log("\r\n The testing server has closed \r\n");
 }
 
+startHTTPServer();
+
 test(async function serverGetRequest() {
   try {
     // 等待服务启动
-    await startHTTPServer();
+    // await startHTTPServer();
     await new Promise(res => setTimeout(res, 1000));
     const res = await fetch(`${testSite}/page/test.html?a=1&b=2`, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -62,7 +64,7 @@ test(async function serverGetRequest() {
     }
     assert(equal(json, acceptResult));
     // 关闭测试服务
-    closeHTTPServer();
+    // closeHTTPServer();
   } catch (err) {
     // 关闭测试服务
     closeHTTPServer();
@@ -74,7 +76,7 @@ test(async function serverGetRequest() {
 test(async function serverPostRequest() {
   try {
     // 等待服务启动
-    await startHTTPServer();
+    // await startHTTPServer();
     await new Promise(res => setTimeout(res, 1000));
     const res = await fetch(`${testSite}/page/test.html?a=1&b=2`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
