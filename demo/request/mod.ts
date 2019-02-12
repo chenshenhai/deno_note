@@ -1,13 +1,14 @@
-// Based on https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
-// Based on https://github.com/denoland/deno_std/blob/master/textproto/mod.ts
-// license that can be found in the LICENSE file.
 
 // 参考源码: https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
 // 参考源码: https://github.com/denoland/deno_std/blob/master/textproto/mod.ts
 
 import { Conn } from "deno";
+// 这里借用前面 buffer读数据的操作类
 import { BufReader, BufferReader } from "./../buffer_reader/mod.ts";
 
+/**
+ * 请求通用信息接口
+ */
 export interface ReqGeneral {
   method: string;
   pathname: string;
@@ -15,6 +16,9 @@ export interface ReqGeneral {
   search: string;
 }
 
+/**
+ * 请求报文接口
+ */
 export interface Request {
   getHeaders(): Promise<Headers>;
   getGeneral(): Promise<ReqGeneral>;
@@ -23,14 +27,14 @@ export interface Request {
 }
 
 export class RequestReader implements Request {
-  private _bufferReader: BufReader;
-  private _size = 1024;
+  private _bufferReader: BufReader; // 内置buffer阅读器
+  private _size = 1024; // 内置读数据缓冲区默认大小为 1024
   
-  private _headers: Headers;
-  private _method: string | null;
-  private _protocol: string | null;
-  private _pathname: string | null;
-  private _search: string | null;
+  private _headers: Headers; // HTTP头部信息
+  private _method: string | null; // HTTP请求行，方法信息
+  private _protocol: string | null; // HTTP请求行，协议信息
+  private _pathname: string | null; // HTTP请求行，请求路径
+  private _search: string | null;  // HTTP请求参数
 
   private _bodyStream: Uint8Array | null;
 
@@ -48,6 +52,10 @@ export class RequestReader implements Request {
     this._bodyStream = null;
   }
 
+  /**
+   * 读取通用信息，也就是HTTP请求行信息
+   * @returns {Promise<ReqGeneral>}
+   * */
   async getGeneral(): Promise<ReqGeneral> {
     await this._initHeaderFristLineInfo();
     return {
@@ -58,6 +66,10 @@ export class RequestReader implements Request {
     };
   }
 
+  /**
+   * 读取头部信息
+   * @returns {Promise<Headers>}
+   * */
   async getHeaders(): Promise<Headers> {
     if (this._headers) {
       return this._headers;
@@ -110,7 +122,11 @@ export class RequestReader implements Request {
     return this._bodyStream !== null;
   }
 
-  async getBodyStream() {
+  /**
+   * 读取请求体信息
+   * @returns {Promise<Uint8Array>}
+   * */
+  async getBodyStream(): Promise<Uint8Array> {
     if (this._bodyStream) {
       return this._bodyStream;
     }
@@ -121,6 +137,9 @@ export class RequestReader implements Request {
     return bodyStream;
   }
 
+  /**
+   * 初始化 HTTP请求行信息
+   * */
   private async _initHeaderFristLineInfo() {
     if (this._method !== null || this._pathname !== null || this._protocol !== null) {
       return;

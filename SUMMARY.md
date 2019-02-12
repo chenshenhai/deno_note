@@ -22,8 +22,8 @@
     * [目录操作](./note/chapter_05/05.md)
     * [Buffer进阶读操作](./note/chapter_05/06.md)
     * [原生deno实现简单HTTP服务](./note/chapter_05/07.md)
-    * [原生deno处理HTTP服务请求]
-    * [原生deno处理HTTP服务响应]
+    * [原生deno处理HTTP请求](./note/chapter_05/08.md)
+    * [原生deno处理HTTP响应]
     * [原生deno实现稳定HTTP服务](./note/chapter_05/10.md)
     * [原生deno实现文件浏览器]
 * [6. 高阶学习]
