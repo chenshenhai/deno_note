@@ -1,4 +1,4 @@
-// !/usr/bin/env deno --allow-run --allow-net test.ts
+#! /usr/bin/env deno --allow-run --allow-net test.ts
 import { run, RunOptions } from "deno";
 
 const decoder = new TextDecoder();
