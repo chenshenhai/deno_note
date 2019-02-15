@@ -36,7 +36,6 @@ function serveContext(env: ContextEnv, conn: Conn, ctx?: Context) {
       env.deferred.resolve();
     }
   })
-
 }
 
 async function* serve(addr: string) {
