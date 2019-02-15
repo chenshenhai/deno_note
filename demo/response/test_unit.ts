@@ -1,6 +1,7 @@
 // !/usr/bin/env deno --allow-run --allow-net
 import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
 import { run } from "deno";
+import {BufferReader} from "./../buffer_reader/mod.ts";
 
 const decoder = new TextDecoder();
 const testSite = "http://127.0.0.1:3001";
@@ -15,15 +16,17 @@ async function startTextServer() {
     stdout: "piped"
   });
   const buffer = textServer.stdout;
-  const chunk = new Uint8Array(2);
-  await buffer.read(chunk);
-  console.log("\r\n The testing text_server has started \r\n");
+  const bufReader = new BufferReader(buffer);
+  const line = await bufReader.readLine();
+  assert.equal("listening on 127.0.0.1:3001", line)
+  // console.log(`#${line}#\r\n`);
+  // console.log("\r\n The testing text_server has started \r\n");
 }
 
 function closeTextServer() {
   textServer.close();
   textServer.stdout.close();
-  console.log("\r\n The testing text_server has closed \r\n");
+  // console.log("\r\n The testing text_server has closed \r\n");
 }
 
 async function startJSONServer() {
@@ -32,15 +35,16 @@ async function startJSONServer() {
     stdout: "piped"
   });
   const buffer = jsonServer.stdout;
-  const chunk = new Uint8Array(2);
-  await buffer.read(chunk);
-  console.log("\r\n The testing json_server has started \r\n");
+  const bufReader = new BufferReader(buffer);
+  const line = await bufReader.readLine();
+  assert.equal("listening on 127.0.0.1:3001", line)
+  // console.log("\r\n The testing json_server has started \r\n");
 }
 
 function closeJSONServer() {
   jsonServer.close();
   jsonServer.stdout.close();
-  console.log("\r\n The testing json_server has closed \r\n");
+  // console.log("\r\n The testing json_server has closed \r\n");
 }
 
 test(async function serverTextResponse() {

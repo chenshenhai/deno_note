@@ -6,7 +6,7 @@ const decoder = new TextDecoder();
 
 async function server(addr: string) {
   const listener = listen("tcp", addr);
-  console.log(`listening on ${addr} \r\n`,);
+  console.log(`listening on ${addr}\r\n`,);
   while (true) {
     const conn = await listener.accept();
     const res: Response = new ResponseWriter(conn);
