@@ -19,14 +19,11 @@ async function startTextServer() {
   const bufReader = new BufferReader(buffer);
   const line = await bufReader.readLine();
   assert.equal("listening on 127.0.0.1:3001", line)
-  // console.log(`#${line}#\r\n`);
-  // console.log("\r\n The testing text_server has started \r\n");
 }
 
 function closeTextServer() {
   textServer.close();
   textServer.stdout.close();
-  // console.log("\r\n The testing text_server has closed \r\n");
 }
 
 async function startJSONServer() {
@@ -38,13 +35,11 @@ async function startJSONServer() {
   const bufReader = new BufferReader(buffer);
   const line = await bufReader.readLine();
   assert.equal("listening on 127.0.0.1:3001", line)
-  // console.log("\r\n The testing json_server has started \r\n");
 }
 
 function closeJSONServer() {
   jsonServer.close();
   jsonServer.stdout.close();
-  // console.log("\r\n The testing json_server has closed \r\n");
 }
 
 test(async function serverTextResponse() {
