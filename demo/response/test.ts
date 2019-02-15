@@ -28,7 +28,7 @@ function closeTextServer() {
 
 async function startJSONServer() {
   jsonServer = run({
-    args: ["deno", "--allow-net", "./demo/response/test_server_json.ts", ".", "--cors"],
+    args: ["deno", "--allow-net", "./test_server_json.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = jsonServer.stdout;
@@ -78,3 +78,5 @@ test(async function serverJSONResponse() {
     throw new Error(err);
   }
 });
+
+runTests();
