@@ -5,42 +5,42 @@ const decoder = new TextDecoder();
 
 const testUnitRunList = [
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/buffer_reader/",
     stdout: "piped"
   },
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/request/",
     stdout: "piped"
   },
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/response/",
     stdout: "piped"
   },
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/server/",
     stdout: "piped"
   },
   {
-    args: ["deno", "test.ts", ".", "--cors"],
+    args: ["deno", "--recompile", "test.ts", ".", "--cors"],
     cwd: "./demo/template/",
     stdout: "piped"
   },
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/web/",
     stdout: "piped"
   },
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/web_router/",
     stdout: "piped"
   },
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/web_static/",
     stdout: "piped"
   },
