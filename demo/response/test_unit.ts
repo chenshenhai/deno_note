@@ -1,4 +1,4 @@
-#! /usr/bin/env deno --allow-run --allow-net
+// !/usr/bin/env deno --allow-run --allow-net
 import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
 import { run } from "deno";
 
@@ -11,7 +11,7 @@ let jsonServer;
 
 async function startTextServer() {
   textServer = run({
-    args: ["deno", "--allow-net", "./test_server_text.ts", ".", "--cors"],
+    args: ["deno", "--allow-net", "./demo/response/test_server_text.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = textServer.stdout;
@@ -28,7 +28,7 @@ function closeTextServer() {
 
 async function startJSONServer() {
   jsonServer = run({
-    args: ["deno", "--allow-net", "./test_server_json.ts", ".", "--cors"],
+    args: ["deno", "--allow-net", "./demo/response/test_server_json.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = jsonServer.stdout;
@@ -79,6 +79,3 @@ test(async function serverJSONResponse() {
     throw new Error(err);
   }
 });
-
-// 启动测试
-runTests();
