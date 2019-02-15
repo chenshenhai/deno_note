@@ -14,7 +14,7 @@
     * [deno常用命令简介](./note/chapter_04/01.md)
     * [deno模块体系](./note/chapter_04/02.md)
     * [deno常用API简介]
-* [5. 进阶学习]
+* [5. 基础进阶学习]
     * [单元测试](./note/chapter_05/01.md)
     * [单元测试进阶](./note/chapter_05/02.md)
     * [集成测试](./note/chapter_05/03.md)
@@ -23,21 +23,19 @@
     * [Buffer进阶读操作](./note/chapter_05/06.md)
     * [原生deno实现简单HTTP服务](./note/chapter_05/07.md)
     * [原生deno处理HTTP请求](./note/chapter_05/08.md)
-    * [原生deno处理HTTP响应]
+    * [原生deno处理HTTP响应](./note/chapter_05/09.md)
     * [原生deno实现稳定HTTP服务](./note/chapter_05/10.md)
     * [原生deno实现文件浏览器]
-* [6. 高阶学习]
+* [6. WEB进阶开发]
     * [中间件式框架简单实现]
     * [中间件-路由实现]
     * [中间件-静态资源实现]
-    * [HTTP中间件式框架扩展功能实现]
-    * [中间件-queryString解析实现]
-    * [中间件-Form解析实现]
     * [HTML模板编译实现]
-    * [中间件-模板扩展实现]
-    * [中间件-JSONP实现]
     * [文件同步上传功能实现]
     * [文件异步上传功能实现]
+* [7. 工具类开发]
+    * [CLI功能实现]
+    * [MySQL通信]
 * [8. 发布模块]
     * [GitHub发布模块]
     * [其他发布方式]

@@ -4,6 +4,16 @@ const decoder = new TextDecoder();
 const encoder = new TextEncoder();
 const CRLF = "\r\n";
 
+// 响应码对应信息
+const statusMap = {
+  "200": "OK",
+  "404": "Not Found",
+  "500": "Server Error",
+  "unknown": "Unknown Error"
+  // TODO ....
+  // 其他状态码信息
+}
+
 export interface Response {
   setHeaders(key: string, val: string): boolean;
   getHeaders(): Headers;
@@ -24,6 +34,12 @@ export class ResponseWriter implements Response {
     this._conn = conn;
   }
 
+  /**
+   * 设置响应头信息
+   * @param {string} key 响应头信息 key
+   * @param {string} val 响应头信息 值
+   * @return {boolean} 是否设置成功
+   * */
   setHeaders(key: string, val: string): boolean {
     try {
       if (this._headers.has(key)) {
@@ -38,10 +54,19 @@ export class ResponseWriter implements Response {
     }
   }
 
+  /**
+   * 获取所有响应头信息
+   * @return {Headers}
+   * */
   getHeaders() {
     return this._headers;
   }
 
+  /**
+   * 设置响应体信息
+   * @param {string} body 响应体信息
+   * @return {boolean} 是否设置成功
+   * */
   setBody(body: string) {
     try {
       this._body = body;
@@ -52,14 +77,27 @@ export class ResponseWriter implements Response {
     }
   }
 
+  /**
+   * 获取所有响应状态码
+   * @return {number}
+   * */
   getStatus() {
     return this._status;
   } 
 
+  /**
+   * 获取请求体
+   * @return {string}
+   * */
   getBody(): string {
     return this._body;
   }
 
+  /**
+   * 设置状态码
+   * @param {number} status
+   * @return {boolean} 是否设置成功
+   * */
   setStatus(status: number) {
     try {
       this._status = status;
@@ -70,9 +108,14 @@ export class ResponseWriter implements Response {
     }
   }
 
+  /**
+   * 响应信息写入对话
+   * @return {number} 对话写入的长度
+   * */
   async flush() {
     const resStream = this.createReqStream();
     const conn = this._conn;
+    // TODO: 需要优化循环判断返回长度是否等于写入的数据
     const n = await conn.write(resStream);
     return n;
   }
@@ -84,7 +127,8 @@ export class ResponseWriter implements Response {
     headers.set("content-length", `${bodyStream.byteLength}`);
     const resLines = [];
     const status = this._status;
-    resLines.push(`HTTP/1.1 ${status} OK`);
+    // TODO: HTTP目前写死 1.1版本
+    resLines.push(`HTTP/1.1 ${status} ${statusMap[`${status || 'unknown'}`]}`);
     for ( const key of headers.keys() ) {
       const val = headers.get(key) || "";
       resLines.push(`${key}:${val}`);
