@@ -11,5 +11,5 @@ const staticMiddleware = staticServe(baseDir, {prefix: `/static-file`});
 app.use(staticMiddleware);
 
 app.listen(addr, function(){
-  console.log(`listening on ${addr}`);
+  console.log(`listening on ${addr}\r\n`);
 });

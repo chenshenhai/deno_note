@@ -9,5 +9,5 @@ server.createServer(async ctx => {
   await ctx.res.flush();
 }) 
 server.listen(addr, function() {
-  console.log('the server is starting');
+  console.log(`listening on ${addr}\r\n`,);
 })

@@ -26,5 +26,5 @@ router.get("/page/:pageId/user/:userId", async function(ctx) {
 app.use(router.routes());
 
 app.listen(addr, function(){
-  console.log(`listening on ${addr}`);
+  console.log(`listening on ${addr}\r\n`,);
 });

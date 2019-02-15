@@ -1,6 +1,7 @@
 // !/usr/bin/env deno --allow-run --allow-net
 import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
 import { run } from "deno";
+import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const decoder = new TextDecoder();
 const testSite = "http://127.0.0.1:3001";
@@ -14,15 +15,14 @@ async function startHTTPServer() {
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
-  const chunk = new Uint8Array(2);
-  await buffer.read(chunk);
-  console.log("\r\n The testing server has started \r\n");
+  const bufReader = new BufferReader(buffer);
+  const line = await bufReader.readLine();
+  assert.equal("listening on 127.0.0.1:3001", line)
 }
 
 function closeHTTPServer() {
   httpServer.close();
   httpServer.stdout.close();
-  console.log("\r\n The testing server has closed \r\n");
 }
 
 test(async function serverGetRequest() {
