@@ -39,11 +39,11 @@ const testUnitRunList = [
   //   cwd: "./demo/web_router/",
   //   stdout: "piped"
   // },
-  // {
-  //   args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-  //   cwd: "./demo/web_static/",
-  //   stdout: "piped"
-  // },
+  {
+    args: ["deno", "--allow-run", "--allow-net", "--allow-read", "test.ts", ".", "--cors"],
+    cwd: "./demo/web_static/",
+    stdout: "piped"
+  },
 ]
 
 async function runUnitTest(opts: RunOptions): Promise<string> {
