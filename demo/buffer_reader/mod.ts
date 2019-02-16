@@ -94,7 +94,7 @@ export class BufferReader implements BufReader {
     const currentLength = current.length;
     let customChunk = new Uint8Array(0);
 
-    if ( customLength < currentLength ) {
+    if ( customLength <= currentLength ) {
       customChunk = current.subarray(0, customLength);
       this._currentReadIndex = customLength;
     } else {
