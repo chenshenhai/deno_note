@@ -4,21 +4,21 @@ import { run, RunOptions } from "deno";
 const decoder = new TextDecoder();
 
 const testUnitRunList = [
-  {
-    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-    cwd: "./demo/buffer_reader/",
-    stdout: "piped"
-  },
+  // {
+  //   args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+  //   cwd: "./demo/buffer_reader/",
+  //   stdout: "piped"
+  // },
   {
     args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./demo/request/",
     stdout: "piped"
   },
-  {
-    args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-    cwd: "./demo/response/",
-    stdout: "piped"
-  },
+  // {
+  //   args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+  //   cwd: "./demo/response/",
+  //   stdout: "piped"
+  // },
   // {
   //   args: ["deno", "--recompile", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
   //   cwd: "./demo/server/",

@@ -18,11 +18,13 @@ async function startHTTPServer() {
   const bufReader = new BufferReader(buffer);
   const line = await bufReader.readLine();
   assert.equal("listening on 127.0.0.1:3001", line)
+  console.log('\r\nstart http server\r\n')
 }
 
 function closeHTTPServer() {
   httpServer.close();
   httpServer.stdout.close();
+  console.log('\r\nclose http server\r\n')
 }
 
 test(async function serverGetRequest() {
