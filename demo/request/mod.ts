@@ -132,7 +132,10 @@ export class RequestReader implements Request {
     }
     const headers = await this.getHeaders();
     const contentLength = parseInt(headers.get("content-length") || "0", 10);
-    const bodyStream = await this._bufferReader.readCustomChunk(contentLength);
+    let bodyStream = new TextEncoder().encode('');
+    if (contentLength > 0) {
+      bodyStream = await this._bufferReader.readCustomChunk(contentLength);
+    }
     this._bodyStream = bodyStream;
     return bodyStream;
   }
