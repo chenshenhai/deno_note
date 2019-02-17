@@ -15,7 +15,9 @@
     * [4.2 deno模块体系](./note/chapter_04/02.md)
     * [4.3 deno平台API](./note/chapter_04/03.md)
     * [4.4 deno系统API](./note/chapter_04/04.md)
-    * [4.4 deno文件操作API](./note/chapter_04/05.md)
+    * [4.5 deno文件操作API](./note/chapter_04/05.md)
+    * [4.6 deno目录操作API](./note/chapter_04/06.md)
+    * [4.7 deno删除操作API](./note/chapter_04/07.md)
     * [4.x deno其他常用API]
 * [5 基础进阶学习]
     * [5.1 单元测试](./note/chapter_05/01.md)
