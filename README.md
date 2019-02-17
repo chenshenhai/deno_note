@@ -19,7 +19,7 @@
 ## 关于作者
 - [关于作者(我)](https://chenshenhai.github.io)
 - [关于作者(我) GitHub](https://github.com/chenshenhai)
-- 本书笔记内容不定时更新，如果想第一时间知道本书进展，可以 `watch` 本项目 或者 [关注公众号](./note/chapter_01/01.md#关注本书)。
+- 本书笔记内容不定时更新，如果想第一时间知道本书进展，可以 `watch` 本项目 或者 [关注公众号](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_01/01.md#关注本书)。
 
 ## 免责声明
 
@@ -28,30 +28,31 @@
 ## 目录
 
 * 1 致读者
-    * [1.1 本书初衷](./note/chapter_01/01.md)
-    * [1.2 参考资料](./note/chapter_01/02.md)
+    * [1.1 本书初衷](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_01/01.md)
+    * [1.2 参考资料](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_01/02.md)
 * 2 快速开始
-    * [2.1 快速安装](./note/chapter_02/01.md)
-    * [2.2 快速使用](./note/chapter_02/02.md)
+    * [2.1 快速安装](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_02/01.md)
+    * [2.2 快速使用](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_02/02.md)
 * 3 前置基础知识
-    * [3.1 deno和Node.js](./note/chapter_03/01.md)
-    * [3.2 缓冲区基础知识点](./note/chapter_03/02.md)
-    * [3.3 TypeScript基础](./note/chapter_03/03.md)
+    * [3.1 deno和Node.js](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/01.md)
+    * [3.2 缓冲区基础知识点](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/02.md)
+    * [3.3 TypeScript基础](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/03.md)
 * 4 deno基础知识点
-    * [4.1 deno常用命令简介](./note/chapter_04/01.md)
-    * [4.2 deno模块体系](./note/chapter_04/02.md)
-    * [4.3 deno常用API简介] `// TODO`
+    * [4.1 deno常用命令简介](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/01.md)
+    * [4.2 deno模块体系](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/02.md)
+    * [4.3 deno平台API|platform](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/03.md)
+    * [4.x deno常用API] `// TODO`
 * 5 基础进阶学习
-    * [5.1 单元测试](./note/chapter_05/01.md)
-    * [5.2 单元测试进阶](./note/chapter_05/02.md)
-    * [5.3 集成测试](./note/chapter_05/03.md)
-    * [5.4 文件/目录操作](./note/chapter_05/04.md)
-    * [5.5 Buffer进阶读操作](./note/chapter_05/06.md)
+    * [5.1 单元测试](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/01.md)
+    * [5.2 单元测试进阶](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/02.md)
+    * [5.3 集成测试](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/03.md)
+    * [5.4 文件/目录操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/04.md)
+    * [5.5 Buffer进阶读操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/06.md)
     * [5.6 Buffer进阶写操作] `// TODO`
-    * [5.7 原生deno实现简单HTTP服务](./note/chapter_05/07.md)
-    * [5.8 原生deno处理HTTP请求](./note/chapter_05/08.md)
-    * [5.9 原生deno处理HTTP响应](./note/chapter_05/09.md)
-    * [5.10 原生deno实现稳定HTTP服务](./note/chapter_05/10.md)
+    * [5.7 原生deno实现简单HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/07.md)
+    * [5.8 原生deno处理HTTP请求](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/08.md)
+    * [5.9 原生deno处理HTTP响应](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/09.md)
+    * [5.10 原生deno实现稳定HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/10.md)
 * 6 WEB进阶开发
     * [6.1 中间件式框架简单实现]  `// TODO`
     * [6.2 中间件-路由实现]  `// TODO`
