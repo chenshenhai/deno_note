@@ -1,4 +1,4 @@
-// !/usr/bin/env deno --allow-run --allow-net
+#!/usr/bin/env deno --allow-run --allow-net
 import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
 import { run } from "deno";
 
