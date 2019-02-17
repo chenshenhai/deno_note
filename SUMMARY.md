@@ -13,8 +13,9 @@
 * [4 deno基础知识点]
     * [4.1 deno常用命令简介](./note/chapter_04/01.md)
     * [4.2 deno模块体系](./note/chapter_04/02.md)
-    * [4.3 deno平台API|platform](./note/chapter_04/03.md)
-    * [4.3 deno系统API|os]
+    * [4.3 deno平台API](./note/chapter_04/03.md)
+    * [4.4 deno系统API](./note/chapter_04/04.md)
+    * [4.x deno其他常用API]
 * [5 基础进阶学习]
     * [5.1 单元测试](./note/chapter_05/01.md)
     * [5.2 单元测试进阶](./note/chapter_05/02.md)

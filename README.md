@@ -40,7 +40,8 @@
 * 4 deno基础知识点
     * [4.1 deno常用命令简介](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/01.md)
     * [4.2 deno模块体系](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/02.md)
-    * [4.3 deno平台API|platform](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/03.md)
+    * [4.3 deno平台API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/03.md)
+    * [4.4 deno系统API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/04.md)
     * [4.x deno常用API] `// TODO`
 * 5 基础进阶学习
     * [5.1 单元测试](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/01.md)
