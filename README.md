@@ -12,21 +12,21 @@
 
 ## 目录
 
-* 1. 致读者
+* 1 致读者
     * [1.1 本书初衷](./note/chapter_01/01.md)
     * [1.2 参考资料](./note/chapter_01/02.md)
-* 2. 快速开始
+* 2 快速开始
     * [2.1 快速安装](./note/chapter_02/01.md)
     * [2.2 快速使用](./note/chapter_02/02.md)
-* 3. 前置基础知识
+* 3 前置基础知识
     * [deno和Node.js](./note/chapter_03/01.md)
     * [缓冲区基础知识点](./note/chapter_03/02.md)
     * [TypeScript基础](./note/chapter_03/03.md)
-* 4. deno基础知识点
+* 4 deno基础知识点
     * [deno常用命令简介](./note/chapter_04/01.md)
     * [deno模块体系](./note/chapter_04/02.md)
     * [deno常用API简介]
-* 5. 基础进阶学习
+* 5 基础进阶学习
     * [单元测试](./note/chapter_05/01.md)
     * [单元测试进阶](./note/chapter_05/02.md)
     * [集成测试](./note/chapter_05/03.md)
@@ -36,17 +36,17 @@
     * [原生deno处理HTTP请求](./note/chapter_05/08.md)
     * [原生deno处理HTTP响应](./note/chapter_05/09.md)
     * [原生deno实现稳定HTTP服务](./note/chapter_05/10.md)
-* 6. WEB进阶开发
+* 6 WEB进阶开发
     * [中间件式框架简单实现] // TODO
     * [中间件-路由实现] // TODO
     * [中间件-静态资源实现] // TODO
     * [HTML模板编译实现] // TODO
     * [文件同步上传功能实现] // TODO
     * [文件异步上传功能实现] // TODO
-* 7. 工具类开发
+* 7 工具类开发
     * [CLI功能实现] // TODO
     * [MySQL通信]  // TODO
-* 8. 发布模块
+* 8 发布模块
     * [GitHub发布模块版本] // TODO
     * [其他发布方式] // TODO
 
