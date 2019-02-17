@@ -1,4 +1,4 @@
-# deno进阶开发笔记
+# deno进阶开发笔记 (不定时更新)
 
 [![Build Status](https://travis-ci.com/chenshenhai/deno_note.svg?token=XYNG2F1URZ4nW1TzoJNC&branch=master)](https://travis-ci.com/chenshenhai/deno_note)
 [![Build Status](https://dev.azure.com/chenshenhai/chenshenhai/_apis/build/status/chenshenhai.deno_note?branchName=master)](https://dev.azure.com/chenshenhai/chenshenhai/_build/latest?definitionId=1&branchName=master)
@@ -14,10 +14,11 @@
 
 - 从实际 `工程应用` 层面去学习`Deno`的使用
 - 以 `TDD` 开发模式结合集成测试保证 例子demo适应各种生产环境
-- 本书笔记内容不定时更新，如果想第一时间知道本书进展，可以 `watch` 本项目 或者 [关注我公众号](./note/chapter_01/01.md#本书目的)。
+
 
 ## 关于作者
 - [关于作者(我)](https://chenshenhai.github.io)
+- 本书笔记内容不定时更新，如果想第一时间知道本书进展，可以 `watch` 本项目 或者 [关注我公众号](./note/chapter_01/01.md#关注本书)。
 
 ## 目录
 
