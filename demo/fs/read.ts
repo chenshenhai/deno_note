@@ -1,14 +1,9 @@
 import {readFileSync} from 'deno';
 
-async function read(path: string): Promise<string> {
-  const decoder = new TextDecoder("utf-8");
-  const bytes = readFileSync(path);
-  const text = decoder.decode(bytes);
-  return text;
-}
-
 async function main(): Promise<void> {
-  const text = await read("./assets/index.txt");
+  const decoder = new TextDecoder("utf-8");
+  const bytes = readFileSync("./assets/index.txt");
+  const text = decoder.decode(bytes);
   console.log(text);
 }
 

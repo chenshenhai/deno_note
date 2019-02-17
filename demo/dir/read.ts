@@ -1,12 +1,7 @@
 import {readDirSync, FileInfo} from 'deno';
 
-async function read(path: string): Promise<FileInfo[]> {
-  const result = readDirSync(path);
-  return result;
-}
-
-async function main(): Promise<void> {
-  const rs = await read("./assets/");
+function main(): void {
+  const rs:FileInfo[] = readDirSync("./assets/");
   console.log(rs);
 }
 
