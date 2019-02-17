@@ -42,9 +42,9 @@
     * [4.2 deno模块体系](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/02.md)
     * [4.3 deno平台API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/03.md)
     * [4.4 deno系统API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/04.md)
-    * [4.5 deno文件操作API](https://github.com/chenshenhai/deno_note/blob/master/note/note/chapter_04/05.md)
-    * [4.6 deno目录操作API](https://github.com/chenshenhai/deno_note/blob/master/note/note/chapter_04/06.md)
-    * [4.7 deno删除操作API](https://github.com/chenshenhai/deno_note/blob/master/note/note/chapter_04/07.md)
+    * [4.5 deno文件操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/05.md)
+    * [4.6 deno目录操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/06.md)
+    * [4.7 deno删除操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/07.md)
     * [4.x deno其他常用API] `// TODO`
 * 5 基础进阶学习
     * [5.1 单元测试](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/01.md)
