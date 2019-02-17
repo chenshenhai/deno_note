@@ -1,4 +1,4 @@
-# deno进阶开发笔记 (不定时更新)
+# Deno进阶开发笔记 (不定时更新)
 
 [![Build Status](https://travis-ci.com/chenshenhai/deno_note.svg?token=XYNG2F1URZ4nW1TzoJNC&branch=master)](https://travis-ci.com/chenshenhai/deno_note)
 [![Build Status](https://dev.azure.com/chenshenhai/chenshenhai/_apis/build/status/chenshenhai.deno_note?branchName=master)](https://dev.azure.com/chenshenhai/chenshenhai/_build/latest?definitionId=1&branchName=master)
