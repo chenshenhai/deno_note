@@ -24,7 +24,7 @@
     * [5.2 单元测试进阶](./note/chapter_05/02.md)
     * [5.3 集成测试](./note/chapter_05/03.md)
     * [5.4 文件/目录操作](./note/chapter_05/04.md)
-    * [5.5 Buffer进阶读操作](./note/chapter_05/06.md)
+    * [5.5 Buffer进阶读操作](./note/chapter_05/05.md)
     * [5.6 Buffer进阶写操作] 
     * [5.7 原生deno实现简单HTTP服务](./note/chapter_05/07.md)
     * [5.8 原生deno处理HTTP请求](./note/chapter_05/08.md)

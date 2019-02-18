@@ -51,7 +51,7 @@
     * [5.2 单元测试进阶](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/02.md)
     * [5.3 集成测试](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/03.md)
     * [5.4 文件/目录操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/04.md)
-    * [5.5 Buffer进阶读操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/06.md)
+    * [5.5 Buffer进阶读操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/05.md)
     * [5.6 Buffer进阶写操作] `// TODO`
     * [5.7 原生deno实现简单HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/07.md)
     * [5.8 原生deno处理HTTP请求](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/08.md)
