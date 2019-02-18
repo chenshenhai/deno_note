@@ -1,3 +1,10 @@
+/**
+ * 中间件操作引擎
+ * 处理洋葱模型中间件流程具体讲解可以看
+ * https://github.com/chenshenhai/koajs-design-note/blob/master/note/chapter01/05.md
+ * 
+ * @param middleware {AsyncFunction[]}
+ */
 export const compose = function (middleware: Function[]) {
   if (!Array.isArray(middleware)) {
     throw new TypeError('Middleware stack must be an array!');

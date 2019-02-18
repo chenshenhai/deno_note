@@ -58,7 +58,7 @@
     * [5.9 原生deno处理HTTP响应](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/09.md)
     * [5.10 原生deno实现稳定HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/10.md)
 * 6 WEB进阶开发
-    * [6.1 中间件式框架简单实现]  `// TODO`
+    * [6.1 中间件式框架简单实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/01.md)
     * [6.2 中间件-路由实现]  `// TODO`
     * [6.3 中间件-静态资源实现]  `// TODO`
     * [6.4 HTML模板编译实现]  `// TODO`
