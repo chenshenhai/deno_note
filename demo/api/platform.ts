@@ -1,6 +1,4 @@
-import { platform } from "deno";
-
-console.log(platform);
+console.log(Deno.platform);
 
 // export: 
 /* 
