@@ -1,5 +1,3 @@
-import { Buffer } from "deno";
-
 const decoder = new TextDecoder();
 const encoder = new TextEncoder();
 
@@ -14,7 +12,7 @@ const LF = "\n".charCodeAt(0);
 // 待按行读取的数据流
 const stream = encoder.encode(str);
 // 待按行读取的数据缓存
-const reader = new Buffer(stream);
+const reader = new Deno.Buffer(stream);
 const size = 8;
 
 // 用来读取的数据的缓冲区

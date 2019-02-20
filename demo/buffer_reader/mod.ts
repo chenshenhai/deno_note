@@ -2,7 +2,6 @@
 // Copyright (c) 2018 Daniel Lenksjö. All rights reserved.
 // 参考源码: https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
 
-import { Reader } from "deno";
 
 const decoder = new TextDecoder();
 
@@ -26,7 +25,7 @@ export interface BufReader {
 
 export class BufferReader implements BufReader {
 
-  private _reader: Reader;
+  private _reader: Deno.Reader;
   private _size = DEFAULT_BUFFER_SIZE;
   // 数据读取是否到结尾
   private _eof = false;
@@ -35,7 +34,7 @@ export class BufferReader implements BufReader {
   // 用来读取的数据的缓冲区
   private _chunk: Uint8Array = new Uint8Array(0);
 
-  constructor(reader: Reader, size?: number) {
+  constructor(reader: Deno.Reader, size?: number) {
     this._reader = reader;
     if (size <= MAX_BUFFER_SIZE && size >= MIN_BUFFER_SIZE) {
       this._size = size;

@@ -1,11 +1,9 @@
-import { Reader, Buffer } from "deno";
-
 const decoder = new TextDecoder();
 const encoder = new TextEncoder();
 
 const str = `hello\r\nworld\r\n!\r\n`;
 const stream = encoder.encode(str);
-const reader = new Buffer(stream);
+const reader = new Deno.Buffer(stream);
 const chunk: Uint8Array = new Uint8Array(8);
 
 async function main() {
