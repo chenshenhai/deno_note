@@ -1,4 +1,3 @@
-import { listen, Conn } from "deno";
 
 /**
  * helloworld HTTP服务
@@ -6,15 +5,15 @@ import { listen, Conn } from "deno";
  */
 async function server(addr: string) {
   // 创建TCP服务
-  const listener = listen("tcp", addr);
+  const listener = Deno.listen("tcp", addr);
   console.log("listening on", addr);
   // 死循环监听TCP请求
   while (true) {
     // 等待TCP连接
-    const conn: Conn = await listener.accept();
+    const conn: Deno.Conn = await listener.accept();
     // 执行响应
     const CRLF = "\r\n";
-    const bodyStr = "hello world";
+    const bodyStr = "hello world!";
     const res = [
       `HTTP/1.1 200`,
       `content-length: ${bodyStr.length}`,

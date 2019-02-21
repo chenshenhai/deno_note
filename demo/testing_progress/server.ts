@@ -1,5 +1,3 @@
-import { listen, Conn } from "deno";
-
 function createResponse (): Uint8Array {
   const bodyStr = "hello world";
   const CRLF = "\r\n";
@@ -17,14 +15,14 @@ function createResponse (): Uint8Array {
   return data;
 }
 
-function response(conn: Conn) {
+function response(conn: Deno.Conn) {
   const ctx = createResponse();
   conn.write(ctx);
   conn.close();
 }
 
 async function server(addr: string) {
-  const listener = listen("tcp", addr);
+  const listener = Deno.listen("tcp", addr);
   console.log("listening on", addr);
   while (true) {
     const connection = await listener.accept();
