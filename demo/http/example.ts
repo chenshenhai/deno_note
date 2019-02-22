@@ -1,5 +1,3 @@
-import { listen, Conn } from "deno";
-
 /**
  * 创建响应内容
  * @param {string} bodyStr
@@ -22,7 +20,7 @@ function createResponse (bodyStr: string): Uint8Array {
  * HTTP响应操作
  * @param conn {Conn}
  */
-async function response(conn: Conn) {
+async function response(conn: Deno.Conn) {
   // 创建响应信息
   const res = createResponse("hello world");
   // TCP连接写入响应信息
@@ -36,7 +34,7 @@ async function response(conn: Conn) {
  */
 async function server(addr: string) {
   // 创建TCP服务
-  const listener = listen("tcp", addr);
+  const listener = Deno.listen("tcp", addr);
   console.log("listening on", addr);
   // 死循环监听TCP请求
   while (true) {
