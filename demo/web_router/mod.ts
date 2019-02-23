@@ -1,3 +1,6 @@
+/**
+ * 路由层接口
+ */
 interface Layer {
   method: string;
   path: string;
@@ -6,12 +9,15 @@ interface Layer {
   getParams: Function;
 }
 
+/**
+ * 路由层
+ */
 class RouteLayer implements Layer {
-  public method: string;
-  public path: string;
-  public middleware: Function;
-  public pathRegExp: RegExp;
-  private pathParamKeyList: string[];
+  public method: string;  // 路由方法 GET|POST|PUT|PATCH
+  public path: string;  // 路由路径规则
+  public middleware: Function;  // 路由方法中间件
+  public pathRegExp: RegExp;  // 路由路径正则
+  private pathParamKeyList: string[]; // 路由解析动态参数关键字
   constructor(method, path, middleware) {
     this.path = path;
     this.method = method;
@@ -22,6 +28,14 @@ class RouteLayer implements Layer {
     this.initPathToRegExpConfig(path);
   }
 
+  /**
+   * 获取实例请求路径中关键字的数据
+   * 例如 this.path = "page/:pid/user/:uid"
+   *     actionPath =  "page/001/user/abc"
+   * 返回  {pid: "001", uid: "abcs"}
+   * @param actionPath {string}
+   * @return {object}
+   */
   public getParams(actionPath: string) {
     const result = {};
     const pathRegExp = this.pathRegExp;
@@ -38,6 +52,11 @@ class RouteLayer implements Layer {
     return result;
   }
 
+  /**
+   * 将路由规则转成正则配置
+   * @param path {string}
+   * @return {RegExp}
+   */
   private initPathToRegExpConfig(path: string) {
     const pathItemRegExp = /\/([^\/]{2,})/ig;
     const paramKeyRegExp = /^\/\:[0-9a-zA-Z\_]/i;
@@ -64,12 +83,15 @@ class RouteLayer implements Layer {
   }
 }
 
+/**
+ * 路由接口
+ */
 export interface Route {
-  get: Function;
-  post: Function;
-  delete: Function;
-  put: Function;
-  patch: Function;
+  get: Function;  // 注册 GET 请求方法
+  post: Function;  // 注册 POST 请求方法
+  delete: Function;  // 注册 DELETE 请求方法
+  put: Function;  // 注册 PUT 请求方法
+  patch: Function;  // 注册 PATCH 请求方法
 }
 
 /**
@@ -94,26 +116,54 @@ export class Router implements Route {
     this._stack.push(layer);
   }
 
+  /**
+   * 注册 GET请求路由
+   * @param path {string} 路由规则
+   * @param middleware {Function} 路由中间件方法
+   */
   public get(path, middleware) {
     this.register("GET", path, middleware);
   }
 
+  /**
+   * 注册 POST请求路由
+   * @param path {string} 路由规则
+   * @param middleware {Function} 路由中间件方法
+   */
   public post(path, middleware) {
     this.register("POST", path, middleware);
   }
 
+  /**
+   * 注册 DELETE请求路由
+   * @param path {string} 路由规则
+   * @param middleware {Function} 路由中间件方法
+   */
   public delete(path, middleware) {
     this.register("DELETE", path, middleware);
   }
 
+  /**
+   * 注册 PUT请求路由
+   * @param path {string} 路由规则
+   * @param middleware {Function} 路由中间件方法
+   */
   public put(path, middleware) {
     this.register("PUT", path, middleware);
   }
 
+  /**
+   * 注册 PATCH请求路由
+   * @param path {string} 路由规则
+   * @param middleware {Function} 路由中间件方法
+   */
   public patch(path, middleware) {
     this.register("PATCH", path, middleware);
   }
 
+  /**
+   * @return {Function} 返回路由顶级中间件
+   */
   public routes() {
     const stack = this._stack;
     return async function(ctx, next) {
@@ -135,7 +185,7 @@ export class Router implements Route {
 
       if (typeof route === "function") {
         await route(ctx, next);
-        return;
+        // return;
       }
     };
   }
