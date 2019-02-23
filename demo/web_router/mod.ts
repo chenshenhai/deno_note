@@ -1,5 +1,5 @@
 interface Layer {
-  methods: string;
+  method: string;
   path: string;
   pathRegExp: RegExp;
   middleware: Function;
@@ -7,14 +7,14 @@ interface Layer {
 }
 
 class RouteLayer implements Layer {
-  public methods: string;
+  public method: string;
   public path: string;
   public middleware: Function;
   public pathRegExp: RegExp;
   private pathParamKeyList: string[];
-  constructor(methods, path, middleware) {
+  constructor(method, path, middleware) {
     this.path = path;
-    this.methods = methods;
+    this.method = method;
     this.middleware = middleware;
     this.pathParamKeyList = [];
     this.pathRegExp = new RegExp(path);
@@ -72,6 +72,9 @@ export interface Route {
   patch: Function;
 }
 
+/**
+ * 路由中间件
+ */
 export class Router implements Route {
 
   private _stack: Layer[];
@@ -80,8 +83,14 @@ export class Router implements Route {
     this._stack = [];
   }
 
-  private register(methods, path, middleware) {
-    const layer = new RouteLayer(methods, path, middleware);
+  /**
+   * 注册路由
+   * @param method {string} 路由的方法名称
+   * @param path {string} 路由路径，例如 /page/hello 或 /page/:pid/user/:uid
+   * @param middleware {Function} 路由的执行方法 function(ctx, next) { //... }
+   */
+  private register(method, path, middleware) {
+    const layer = new RouteLayer(method, path, middleware);
     this._stack.push(layer);
   }
 
@@ -116,7 +125,7 @@ export class Router implements Route {
       let route;
       for (let i = 0; i < stack.length; i++) {
         const item: Layer = stack[i];
-        if (item.pathRegExp.test(currentPath) && item.methods.indexOf(method) >= 0) {
+        if (item.pathRegExp.test(currentPath) && item.method.indexOf(method) >= 0) {
           route = item.middleware;
           const pathParams = item.getParams(currentPath);
           ctx.setData("router", pathParams);

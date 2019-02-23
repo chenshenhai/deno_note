@@ -15,7 +15,7 @@ const statusMap = {
 }
 
 export interface Response {
-  setHeaders(key: string, val: string): boolean;
+  setHeader(key: string, val: string): boolean;
   getHeaders(): Headers;
   setStatus(code: number): boolean;
   getStatus(): number;
@@ -40,7 +40,7 @@ export class ResponseWriter implements Response {
    * @param {string} val 响应头信息 值
    * @return {boolean} 是否设置成功
    * */
-  setHeaders(key: string, val: string): boolean {
+  setHeader(key: string, val: string): boolean {
     try {
       if (this._headers.has(key)) {
         this._headers.set(key, val);

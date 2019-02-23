@@ -29,7 +29,7 @@ class SafeRequest {
  * 封装安全的HTTP响应操作类
  * 重新封装 4个原有Response的方法
  * 保证响应结束后，禁止进行响应数据的设置，或者写操作
- *  setHeaders(key: string, val: string): boolean;
+ *  setHeader(key: string, val: string): boolean;
  *  getHeaders(): Headers;
  *  setStatus(code: number): boolean;
  *  getStatus(): number;
@@ -47,12 +47,12 @@ class SafeResponse {
     this._res = res;
   }
 
-  setHeaders(key: string, val: string): boolean {
+  setHeader(key: string, val: string): boolean {
     if (this.isFinish() === true) {
       // 响应结束了，不再进行设置操作
       return false;
     }
-    return this._res.setHeaders(key, val);
+    return this._res.setHeader(key, val);
   }
   getHeaders(): Headers {
     return this._res.getHeaders();

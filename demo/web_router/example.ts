@@ -5,6 +5,20 @@ const addr = "127.0.0.1:3001";
 
 const router = new Router();
 
+router.get("/index", async function(ctx) {
+  ctx.res.setBody(`
+  <ul>
+    <li><a href="/hello">/hello</a></li>
+    <li><a href="/foo">/foo</a></li>
+    <li><a href="/bar">/bar</a></li>
+    <li><a href="/page/p001/user/u002">/page/p001/user/u002</a></li>
+    <li><a href="/page/p002/user/u_abcd">/page/p002/user/u_abcd</a></li>
+  </ul>
+  `);
+  ctx.res.setHeader('content-type', 'text/html')
+  ctx.res.setStatus(200);
+});
+
 router.get("/hello", async function(ctx) {
   ctx.res.setStatus(200);
   ctx.res.setBody("this is hello page");

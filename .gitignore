@@ -66,3 +66,4 @@ demo/*/package-lock.json
 _book/
 demo/*/dist/
 info.md
+note/tpl.md
