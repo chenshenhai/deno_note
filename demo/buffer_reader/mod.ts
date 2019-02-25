@@ -14,7 +14,7 @@ const MAX_BUFFER_SIZE = 4096;
 const MIN_BUFFER_SIZE = 4;
 const DEFAULT_BUFFER_SIZE = 256
 
-export interface BufReader {
+interface BufReader {
   // 读取一行
   readLine(): Promise<string>;
   // 读取自定义块
