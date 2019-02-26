@@ -1,4 +1,4 @@
-# deno进阶开发笔记
+# Deno进阶开发笔记
 
 * [1 致读者]
     * [1.1 本书初衷](./note/chapter_01/01.md)
@@ -7,19 +7,19 @@
     * [2.1 快速安装](./note/chapter_02/01.md)
     * [2.2 快速使用](./note/chapter_02/02.md)
 * [3 前置基础知识]
-    * [3.1 deno和Node.js](./note/chapter_03/01.md)
+    * [3.1 Deno和Node.js](./note/chapter_03/01.md)
     * [3.2 缓冲区基础知识点](./note/chapter_03/02.md)
     * [3.3 TypeScript基础](./note/chapter_03/03.md)
-* [4 deno基础知识点]
-    * [4.1 deno常用命令简介](./note/chapter_04/01.md)
-    * [4.2 deno模块体系](./note/chapter_04/02.md)
+* [4 Deno基础知识点]
+    * [4.1 Deno常用命令简介](./note/chapter_04/01.md)
+    * [4.2 Deno模块体系](./note/chapter_04/02.md)
     * [4.3 window全局API](./note/chapter_04/03.md)
-    * [4.4 deno平台API](./note/chapter_04/04.md)
-    * [4.5 deno系统API](./note/chapter_04/05.md)
-    * [4.6 deno文件操作API](./note/chapter_04/06.md)
-    * [4.7 deno目录操作API](./note/chapter_04/07.md)
-    * [4.8 deno删除操作API](./note/chapter_04/08.md)
-    * [4.x deno其他常用API]
+    * [4.4 Deno平台API](./note/chapter_04/04.md)
+    * [4.5 Deno系统API](./note/chapter_04/05.md)
+    * [4.6 Deno文件操作API](./note/chapter_04/06.md)
+    * [4.7 Deno目录操作API](./note/chapter_04/07.md)
+    * [4.8 Deno删除操作API](./note/chapter_04/08.md)
+    * [4.x Deno其他常用API]
 * [5 基础进阶学习]
     * [5.1 单元测试](./note/chapter_05/01.md)
     * [5.2 单元测试进阶](./note/chapter_05/02.md)

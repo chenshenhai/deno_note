@@ -34,19 +34,19 @@
     * [2.1 快速安装](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_02/01.md)
     * [2.2 快速使用](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_02/02.md)
 * 3 前置基础知识
-    * [3.1 deno和Node.js](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/01.md)
+    * [3.1 Deno和Node.js](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/01.md)
     * [3.2 缓冲区基础知识点](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/02.md)
     * [3.3 TypeScript基础](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/03.md)
-* 4 deno基础知识点
-    * [4.1 deno常用命令简介](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/01.md)
-    * [4.2 deno模块体系](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/02.md)
+* 4 Deno基础知识点
+    * [4.1 Deno常用命令简介](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/01.md)
+    * [4.2 Deno模块体系](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/02.md)
     * [4.3 window全局API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/03.md)
-    * [4.4 deno平台API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/04.md)
-    * [4.5 deno系统API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/05.md)
-    * [4.6 deno文件操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/06.md)
-    * [4.7 deno目录操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/07.md)
-    * [4.8 deno删除操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/08.md)
-    * [4.x deno其他常用API] `// TODO`
+    * [4.4 Deno平台API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/04.md)
+    * [4.5 Deno系统API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/05.md)
+    * [4.6 Deno文件操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/06.md)
+    * [4.7 Deno目录操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/07.md)
+    * [4.8 Deno删除操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/08.md)
+    * [4.x Deno其他常用API] `// TODO`
 * 5 基础进阶学习
     * [5.1 单元测试](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/01.md)
     * [5.2 单元测试进阶](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/02.md)
@@ -75,7 +75,7 @@
 
 ## 前言
 
-- deno自2018年6月诞生，引发JavaScript开发社区的强烈讨论，很多开发者误解甚至还纷纷传言`ry`大神将以`Deno`作为下一代`Node.js`，甚至还闹出了啼笑皆非的`issue`盖楼闹剧。
+- Deno自2018年6月诞生，引发JavaScript开发社区的强烈讨论，很多开发者误解甚至还纷纷传言`ry`大神将以`Deno`作为下一代`Node.js`，甚至还闹出了啼笑皆非的`issue`盖楼闹剧。
 - 到了2018年底至2019年初，在JavaScript社区里，deno的相关讨论声音渐渐消退，更多是谈论`TypeScript`是否将引领下一波前端开发潮流，甚至带动`Deno`起飞。
 
 ## 为啥要写这本书  
