@@ -1,3 +1,8 @@
+
+function readSrcFile() {
+
+}
+
 async function install() {
   const encoder = new TextEncoder();
   const { HOME } = Deno.env();
