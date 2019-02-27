@@ -1,10 +1,14 @@
 
-function readSrcFile() {
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
 
+function readSrcFile(filePath: string): string {
+  const buf = Deno.readFileSync(filePath);
+  const context = decoder.decode(buf);
+  return context;
 }
 
 async function install() {
-  const encoder = new TextEncoder();
   const { HOME } = Deno.env();
   const cliBaseDir = `${HOME}/.deno_cli`;
   const cliBinDir = `${cliBaseDir}/bin`;
@@ -20,10 +24,7 @@ async function install() {
   Deno.mkdirSync(cliBinDir);
   Deno.mkdirSync(cliSrcDir);
   
-  const cliSource = `
-    console.log("\\r\\nHello Deno CLI");\r\n
-    console.log("The Deno.plaform is " + JSON.stringify(Deno.platform) + "\\r\\n");
-  `;
+  const cliSource = readSrcFile('./src/denocli.ts');
   const srcFilePath = `${cliSrcDir}/deno_cli.ts`;
   Deno.writeFileSync(srcFilePath, encoder.encode(cliSource));
 
