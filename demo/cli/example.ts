@@ -15,8 +15,7 @@ async function install() {
   Deno.mkdirSync(cliSrcDir);
   
   const cliSource = `
-    console.log("\\r\\nHello Deno CLI");\r\n
-    console.log("The Deno.plaform is " + JSON.stringify(Deno.platform) + "\\r\\n");
+    console.log("\\r\\nHello Deno CLI\\r\\n");
   `;
   const srcFilePath = `${cliSrcDir}/deno_cli.ts`;
   Deno.writeFileSync(srcFilePath, encoder.encode(cliSource));
