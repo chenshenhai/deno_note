@@ -54,10 +54,10 @@
     * [5.4 文件/目录操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/04.md)
     * [5.5 Buffer进阶读操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/05.md)
     * [5.6 Buffer进阶写操作] `// TODO`
-    * [5.7 原生deno实现简单HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/07.md)
-    * [5.8 原生deno处理HTTP请求](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/08.md)
-    * [5.9 原生deno处理HTTP响应](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/09.md)
-    * [5.10 原生deno实现稳定HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/10.md)
+    * [5.7 原生Deno实现简单HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/07.md)
+    * [5.8 原生Deno处理HTTP请求](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/08.md)
+    * [5.9 原生Deno处理HTTP响应](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/09.md)
+    * [5.10 原生Deno实现稳定HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/10.md)
 * 6 WEB进阶开发
     * [6.1 中间件式框架简单实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/01.md)
     * [6.2 中间件-路由实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/02.md)

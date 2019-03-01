@@ -67,5 +67,4 @@ _book/
 demo/*/dist/
 info.md
 note/tpl.md
-example.ts
 example.js
