@@ -66,7 +66,7 @@
     * [6.5 文件同步上传功能实现]  `// TODO`
     * [6.6 文件异步上传功能实现]  `// TODO`
 * 7 工具类开发
-    * [7.1 CLI功能实现]  `// TODO`
+    * [7.1 Linux系统下CLI功能实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_07/01.md) 
     * [7.2 MySQL通信]   `// TODO`
 * 8 发布模块
     * [8.1 GitHub发布模块版本]  `// TODO`
