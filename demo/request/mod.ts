@@ -4,7 +4,7 @@
 
 import { Conn } from "deno";
 // 这里借用前面 buffer读数据的操作类
-import { BufReader, BufferReader } from "./../buffer_reader/mod.ts";
+import { BufferReader } from "./../buffer_reader/mod.ts";
 
 /**
  * 请求通用信息接口
@@ -27,7 +27,7 @@ export interface Request {
 }
 
 export class RequestReader implements Request {
-  private _bufferReader: BufReader; // 内置buffer阅读器
+  private _bufferReader: BufferReader; // 内置buffer阅读器
   private _size = 1024; // 内置读数据缓冲区默认大小为 1024
   
   private _headers: Headers; // HTTP头部信息
