@@ -61,7 +61,7 @@
 * 6 WEB进阶开发
     * [6.1 中间件式框架简单实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/01.md)
     * [6.2 中间件-路由实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/02.md)
-    * [6.3 中间件-静态资源实现]  `// TODO`
+    * [6.3 中间件-静态资源实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/03.md)
     * [6.4 HTML模板编译实现]  `// TODO`
     * [6.5 文件同步上传功能实现]  `// TODO`
     * [6.6 文件异步上传功能实现]  `// TODO`
