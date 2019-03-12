@@ -1,5 +1,5 @@
-import { listen, Conn } from "deno";
 import { Request, RequestReader } from "./mod.ts";
+const listen = Deno.listen;
 
 function createResponse (bodyStr: string): Uint8Array {
   const CRLF = "\r\n";
@@ -17,7 +17,7 @@ function createResponse (bodyStr: string): Uint8Array {
   return data;
 }
 
-async function response(conn: Conn) {
+async function response(conn: Deno.Conn) {
   const requestReader: Request = new RequestReader(conn);
   const headers: Headers = await requestReader.getHeaders();
   const headerObj = {};

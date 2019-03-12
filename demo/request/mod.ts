@@ -2,9 +2,9 @@
 // 参考源码: https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
 // 参考源码: https://github.com/denoland/deno_std/blob/master/textproto/mod.ts
 
-import { Conn } from "deno";
 // 这里借用前面 buffer读数据的操作类
 import { BufferReader } from "./../buffer_reader/mod.ts";
+
 
 /**
  * 请求通用信息接口
@@ -38,7 +38,7 @@ export class RequestReader implements Request {
 
   private _bodyStream: Uint8Array | null;
 
-  constructor(conn: Conn, size?: number) {
+  constructor(conn: Deno.Conn, size?: number) {
     if (size > 0) {
       this._size = size;
     }
