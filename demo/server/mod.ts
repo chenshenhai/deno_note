@@ -1,6 +1,6 @@
-import { listen, Conn, } from "deno";
-
 import { Context } from "./context.ts";
+
+const listen = Deno.listen;
 
 /**
  * 等待延迟接口
@@ -42,7 +42,7 @@ interface ContextEnv {
  * @param {Conn} conn TCP对话
  * @param {Context} ctx 一次TCP对话连接封装的HTTP上下文
  */
-function serveContext(env: ContextEnv, conn: Conn, ctx?: Context) {
+function serveContext(env: ContextEnv, conn: Deno.Conn, ctx?: Context) {
   loopContext(conn).then(function([ctx, err]){
     if (err) {
       // 处理TCP对话如果有错误，就结束对话
@@ -74,7 +74,7 @@ async function* serve(addr: string) {
   // 等待接收TCP对话 方法
   const acceptRoutine = () => {
     // 操作TCP对话方法
-    const handleConn = (conn: Conn) => {
+    const handleConn = (conn: Deno.Conn) => {
       // 处理HTTP上下文服务
       serveContext(env, conn);
       // 安排TCP对话，加入TCP对话等待排队处理
@@ -128,7 +128,7 @@ async function createHTTP(
  * 等待取出问题，就是代表一个TCP对话已经结束
  * @param {Conn} c
  */
-async function loopContext(c: Conn): Promise<[Context, any]> {
+async function loopContext(c: Deno.Conn): Promise<[Context, any]> {
   const ctx = new Context(c);
   let err: any;
 
