@@ -1,5 +1,6 @@
-import { listen, Conn } from "deno";
 import { Response, ResponseWriter } from "./mod.ts";
+
+const listen = Deno.listen
 
 async function server(addr: string) {
   const listener = listen("tcp", addr);

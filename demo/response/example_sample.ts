@@ -1,11 +1,10 @@
-import { listen, Conn } from "deno";
-
+const listen = Deno.listen;
 
 /**
  * HTTP响应操作
  * @param conn {Conn}
  */
-async function response(conn: Conn) {
+async function response(conn: Deno.Conn) {
   const encoder = new TextEncoder();
   // 准备响应体数据流
   const bodyStr = "hello world";

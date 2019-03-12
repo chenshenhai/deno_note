@@ -1,6 +1,3 @@
-import { Conn } from "deno";
-
-const decoder = new TextDecoder();
 const encoder = new TextEncoder();
 const CRLF = "\r\n";
 
@@ -25,12 +22,12 @@ export interface Response {
 }
 
 export class ResponseWriter implements Response {
-  private _conn: Conn;
+  private _conn: Deno.Conn;
   private _status: number = 404;
   private _body: string = "";
   private _headers: Headers = new Headers();
 
-  constructor(conn: Conn) {
+  constructor(conn: Deno.Conn) {
     this._conn = conn;
   }
 
