@@ -1,5 +1,4 @@
 #!/usr/bin/env deno --allow-run --allow-net test.ts
-import { run, RunOptions } from "deno";
 
 const decoder = new TextDecoder();
 
@@ -16,8 +15,8 @@ const testUnitRunList = [
   }
 ]
 
-async function runUnitTest(opts: RunOptions): Promise<string> {
-  const unitTest = run(opts);
+async function runUnitTest(opts: Deno.RunOptions): Promise<string> {
+  const unitTest = Deno.run(opts);
   const outStream = await unitTest.output();
   const output = decoder.decode(outStream);
   return output
@@ -27,7 +26,7 @@ async function *runAllUnitTest(optsList): AsyncIterableIterator<any[]>{
   for (let i = 0; i < optsList.length; i++) {
     let err = null;
     let log = null;
-    const opts: RunOptions = optsList[i];
+    const opts: Deno.RunOptions = optsList[i];
     try {
       log = await runUnitTest(opts);
     } catch (e) {
