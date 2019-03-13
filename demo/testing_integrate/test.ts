@@ -2,6 +2,10 @@
 
 const decoder = new TextDecoder();
 
+// 这里的单元测试例子 是前两篇的单元测试
+// https://github.com/chenshenhai/deno-note/tree/master/demo/testing_unit
+// https://github.com/chenshenhai/deno-note/tree/master/demo/testing_integrate
+
 const testUnitRunList = [
   {
     args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
