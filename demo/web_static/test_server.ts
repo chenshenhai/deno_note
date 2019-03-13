@@ -1,6 +1,7 @@
-import { cwd, } from "deno";
 import { Application } from "./../web/mod.ts";
 import { staticServe } from "./mod.ts";
+
+const cwd = Deno.cwd;
 
 const app = new Application();
 const addr = "127.0.0.1:3001";
