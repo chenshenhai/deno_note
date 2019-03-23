@@ -19,6 +19,7 @@
     * [4.6 Deno文件操作API](./note/chapter_04/06.md)
     * [4.7 Deno目录操作API](./note/chapter_04/07.md)
     * [4.8 Deno删除操作API](./note/chapter_04/08.md)
+    * [4.9 Deno进程操作API](./note/chapter_04/09.md)
     * [4.x Deno其他常用API]
 * [5 基础进阶学习]
     * [5.1 单元测试](./note/chapter_05/01.md)
