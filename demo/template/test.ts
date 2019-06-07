@@ -1,4 +1,5 @@
-import { test, assert, runTests } from "https://deno.land/x/testing/mod.ts";
+import { test, runTests } from "https://deno.land/x/testing/mod.ts";
+import { assert, equal } from "https://deno.land/x/testing/asserts.ts";
 import { compileTemplate } from "./mod.ts";
 
 test(function testCompileTemplate() {
@@ -38,7 +39,7 @@ test(function testCompileTemplate() {
   };
   const html = compileTemplate(tpl, data);
   const expectedResult = `  <div>      <ul>          <li>0:item1</li>          <li>1:item2</li>          <li>2:item3</li>        </ul>        <ul>          <li>key1:val1</li>          <li>key2:val2</li>        </ul>    </div>`;
-  assert.equal(expectedResult, html);
+  equal(expectedResult, html);
 });
 
 runTests();

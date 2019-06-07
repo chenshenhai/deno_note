@@ -1,5 +1,7 @@
 #!/usr/bin/env deno --allow-run --allow-net
-import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
+import { test, runTests } from "https://deno.land/x/testing/mod.ts";
+import { assert, equal } from "https://deno.land/x/testing/asserts.ts";
+
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;
@@ -16,7 +18,7 @@ async function startHTTPServer() {
   const buffer = httpServer.stdout;
   const bufReader = new BufferReader(buffer);
   const line = await bufReader.readLine();
-  assert.equal("listening on 127.0.0.1:3001", line)
+  equal("listening on 127.0.0.1:3001", line)
 }
 
 function closeHTTPServer() {
