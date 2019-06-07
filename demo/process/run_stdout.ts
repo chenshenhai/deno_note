@@ -1,7 +1,7 @@
 
 async function main() {
   const process = Deno.run({
-    args: ["deno", "--allow-net", "./server.ts"],
+    args: ["deno", "run", "--allow-net", "./server.ts"],
     stdout: "piped",
   });
   const stdout = process.stdout;
