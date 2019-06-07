@@ -32,9 +32,7 @@ async function install() {
   
 
   // 在源文件目录.deno_cli/src/下写入需要执行程序的源码文件
-  const cliSource = `
-    console.log("\\r\\nHello Deno CLI\\r\\n");
-  `;
+  const cliSource = readSrcFile('./src/denocli.ts');
   const srcFilePath = `${cliSrcDir}/deno_cli.ts`;
   Deno.writeFileSync(srcFilePath, encoder.encode(cliSource));
 

@@ -1,3 +1,4 @@
+
 async function install() {
   const encoder = new TextEncoder();
 
@@ -30,7 +31,7 @@ async function install() {
 
   // 在可执行文件目录.deno_cli/bin/ 下写入可执行文件的目录
   const binFilePath = `${cliBinDir}/denocli`;
-  const cliBinContext = `deno ${srcFilePath}`;
+  const cliBinContext = `deno run ${srcFilePath}`;
   Deno.writeFileSync(binFilePath, encoder.encode(cliBinContext));
 
   // 对可执行文件的目录.deno_cli/bin/进行chmod +x权限赋予操作
@@ -45,6 +46,5 @@ async function install() {
     source  ~/.bash_profile\r\n
   `)
 }
-
 
 install();
