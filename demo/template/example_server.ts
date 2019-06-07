@@ -1,15 +1,14 @@
-import {readFileSync, listen, cwd} from 'deno';
 import { compileTemplate } from "./mod.ts";
 
 import { Response, ResponseWriter } from "./../response/mod.ts";
 import { Request, RequestReader } from "./../request/mod.ts";
 
-const baseDir = [cwd()].join("/");
+const baseDir = [Deno.cwd()].join("/");
 
 
 async function startServer() {
   const addr = "127.0.0.1:3001";
-  const listener = listen("tcp", addr);
+  const listener = Deno.listen("tcp", addr);
   console.log(`listening on ${addr} \r\n`,);
   while (true) {
     const conn = await listener.accept();
@@ -20,7 +19,7 @@ async function startServer() {
     const bodyStr: string = readView(fullPath);
     res.setBody(bodyStr);
     res.setStatus(200);
-    res.end();
+    // res.end();
   }
 }
 
@@ -29,7 +28,7 @@ function readView(path: string): string {
   const decoder = new TextDecoder("utf-8");
   let html = `404 Not Found: ${path}`;
   try {
-    const bytes = readFileSync(path);
+    const bytes = Deno.readFileSync(path);
     const tpl = decoder.decode(bytes);
     const data =  {
       title: "helloworld",
