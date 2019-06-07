@@ -50,7 +50,7 @@ async function response(conn: Deno.Conn) {
     ctxBody = JSON.stringify({ general: generalObj, headers: headerObj, body });
   }
   const ctx = createResponse(ctxBody);
-  conn.write(ctx);
+  await conn.write(ctx);
   conn.close();
 }
 

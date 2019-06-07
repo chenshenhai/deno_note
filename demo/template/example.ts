@@ -1,10 +1,8 @@
-import {readFileSync} from 'deno';
 import { compileTemplate } from "./mod.ts";
-
 
 function readView(path: string): string {
   const decoder = new TextDecoder("utf-8");
-  const bytes = readFileSync(path);
+  const bytes = Deno.readFileSync(path);
   const text = decoder.decode(bytes);
   return text;
 }
