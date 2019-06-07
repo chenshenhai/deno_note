@@ -11,7 +11,7 @@ let jsonServer;
 
 async function startTextServer() {
   textServer = run({
-    args: ["deno", "--allow-net", "./test_server_text.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./test_server_text.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = textServer.stdout;
@@ -27,7 +27,7 @@ function closeTextServer() {
 
 async function startJSONServer() {
   jsonServer = run({
-    args: ["deno", "--allow-net", "./test_server_json.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./test_server_json.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = jsonServer.stdout;
