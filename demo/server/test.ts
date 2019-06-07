@@ -10,7 +10,7 @@ let httpServer;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "--allow-net", "./test_server.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./test_server.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
