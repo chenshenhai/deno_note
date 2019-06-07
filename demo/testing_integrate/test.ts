@@ -8,12 +8,12 @@ const decoder = new TextDecoder();
 
 const testUnitRunList = [
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./../testing_unit",
     stdout: "piped"
   },
   {
-    args: ["deno", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
     cwd: "./../testing_progress",
     stdout: "piped"
   }

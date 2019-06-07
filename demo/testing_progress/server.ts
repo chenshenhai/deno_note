@@ -15,9 +15,9 @@ function createResponse (): Uint8Array {
   return data;
 }
 
-function response(conn: Deno.Conn) {
+async function response(conn: Deno.Conn) {
   const ctx = createResponse();
-  conn.write(ctx);
+  await conn.write(ctx);
   conn.close();
 }
 
