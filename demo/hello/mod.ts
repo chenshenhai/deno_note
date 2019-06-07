@@ -23,7 +23,7 @@ async function server(addr: string) {
     // 将HTTP报文字符串转成 二进制数据流
     const encoder = new TextEncoder();
     // 将HTTP二进制数据流写入TCP连接
-    conn.write(encoder.encode(res));
+    await conn.write(encoder.encode(res));
     conn.close();
   }
 }
