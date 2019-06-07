@@ -1,4 +1,4 @@
-#!/usr/bin/env deno --allow-run --allow-net
+#!/usr/bin/env deno run --allow-run --allow-net
 import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
@@ -11,7 +11,7 @@ let httpServer;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "--allow-net", "./test_server.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./test_server.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
