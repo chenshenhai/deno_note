@@ -32,7 +32,7 @@ async function response(conn: Deno.Conn) {
   const afterFinish = req.isFinish();
   const body: string = decoder.decode(bodyStream);
   const ctx = createResponse(JSON.stringify({ general: generalObj, headers: headerObj, body, beforeFinish, afterFinish }));
-  conn.write(ctx);
+  await conn.write(ctx);
   conn.close();
 }
 

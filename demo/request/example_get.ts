@@ -26,7 +26,7 @@ async function response(conn: Deno.Conn) {
   }
   const generalObj = await requestReader.getGeneral();
   const ctx = createResponse(JSON.stringify({ general: generalObj, headers: headerObj }));
-  conn.write(ctx);
+  await conn.write(ctx);
   conn.close();
 }
 
