@@ -1,5 +1,5 @@
 import { test, assert, equal, runTests } from "https://deno.land/x/testing/mod.ts";
-import { BufferReader, BufReader } from "./mod.ts";
+import { BufferReader } from "./mod.ts";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -16,7 +16,7 @@ test(async function testBufferReaderMinSize() {
   const str = strList.join(`\r\n`);
   const stream = encoder.encode(str);
   const buf = new Deno.Buffer(stream);
-  const bufReader : BufReader = new BufferReader(buf, 4);
+  const bufReader : BufferReader = new BufferReader(buf, 4);
   let readLineIndex = 0;
   while(!bufReader.isFinished()) {
     const line = await bufReader.readLine();
@@ -38,7 +38,7 @@ test(async function testBufferReaderMaxSize() {
   const str = strList.join(`\r\n`);
   const stream = encoder.encode(str);
   const buf = new Deno.Buffer(stream);
-  const bufReader : BufReader = new BufferReader(buf, 4096);
+  const bufReader : BufferReader = new BufferReader(buf, 4096);
   let readLineIndex = 0;
   while(!bufReader.isFinished()) {
     const line = await bufReader.readLine();
@@ -61,7 +61,7 @@ test(async function testBufferReaderCustomSize() {
   const str = strList.join("");
   const stream = encoder.encode(str);
   const buf = new Deno.Buffer(stream);
-  const bufReader : BufReader = new BufferReader(buf, 4096);
+  const bufReader : BufferReader = new BufferReader(buf, 4096);
   const line1 = await bufReader.readLine();
   assert.equal(line1, "");
   const line2 = await bufReader.readLine();
