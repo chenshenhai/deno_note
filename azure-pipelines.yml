@@ -9,7 +9,7 @@ jobs:
   steps:
   - script: curl -L https://deno.land/x/install/install.sh | sh -s $(DENO_VERSION)
   - script: echo '##vso[task.prependpath]$(HOME)/.deno/bin/'
-  - script: deno test.ts --allow-run --allow-net --allow-write --allow-read
+  - script: deno run --allow-all test.ts
 
 - job: 'Mac'
   pool:
@@ -17,7 +17,7 @@ jobs:
   steps:
   - script: curl -L https://deno.land/x/install/install.sh | sh -s $(DENO_VERSION)
   - script: echo '##vso[task.prependpath]$(HOME)/.deno/bin/'
-  - script: deno test.ts --allow-run --allow-net --allow-write --allow-read
+  - script: deno run --allow-all test.ts
 
 - job: 'Windows'
   pool:
@@ -25,4 +25,4 @@ jobs:
   steps:
   - powershell: iwr https://deno.land/x/install/install.ps1 -out install.ps1; .\install.ps1 $(DENO_VERSION)
   - bash: echo "##vso[task.prependpath]C:\Users\VssAdministrator\.deno\\bin"
-  - bash: deno.exe test.ts --allow-run --allow-net --allow-write --allow-read
+  - bash: deno.exe run --allow-all test.ts
