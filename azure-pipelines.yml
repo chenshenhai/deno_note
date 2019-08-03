@@ -26,6 +26,4 @@ jobs:
   steps:
   - powershell: iwr https://deno.land/x/install/install.ps1 -out install.ps1; .\install.ps1 $(DENO_VERSION)
   - bash: echo "##vso[task.prependpath]C:\Users\VssAdministrator\.deno\\bin"
-  - bash: deno run --allow-all test.ts
-    parameters:
-      exe_suffix: ".exe"
+  - bash: deno.exe run --allow-all test.ts
