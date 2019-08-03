@@ -138,8 +138,8 @@ export class BufferReader implements BufReader {
     }
     const chunk = new Uint8Array(this._size);
     const result = await this._reader.read(chunk);
-
-    if (result.eof === true || result.nread === 0) {
+    const nread: number = result === Deno.EOF ? 0 : result;
+    if (nread === 0) {
       this._eof = true;
       return isNeedRead;
     } else {
@@ -152,9 +152,9 @@ export class BufferReader implements BufReader {
       remainLength = this._chunk.byteLength - this._currentReadIndex
     }
 
-    const newChunk = new Uint8Array(remainLength + result.nread);
+    const newChunk = new Uint8Array(remainLength + nread);
     newChunk.set(this._chunk.subarray(this._currentReadIndex), 0);
-    newChunk.set(chunk.subarray(0, result.nread), remainLength);
+    newChunk.set(chunk.subarray(0, nread), remainLength);
     this._currentReadIndex = 0;
     this._chunk = newChunk;
     return isNeedRead;

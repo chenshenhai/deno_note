@@ -8,7 +8,7 @@ const chunk: Uint8Array = new Uint8Array(8);
 
 async function main() {
   const result = await reader.read(chunk);
-  console.log(result) // export:  { nread: 8, eof: false }
+  console.log(result) // export:  8
   console.log(decoder.decode(chunk)); // export: hello\r\nw
 }
 

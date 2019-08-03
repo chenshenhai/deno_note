@@ -1,6 +1,6 @@
 #!/usr/bin/env deno run --allow-run --allow-net
-import { test, runTests } from "https://deno.land/x/testing/mod.ts";
-import { assert, equal } from "https://deno.land/x/testing/asserts.ts";
+import { test, runTests } from "https://deno.land/std/testing/mod.ts";
+import { assert, equal } from "https://deno.land/std/testing/asserts.ts";
 
 const decoder = new TextDecoder();
 const testSite = "http://127.0.0.1:3001";

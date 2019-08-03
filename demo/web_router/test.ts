@@ -1,6 +1,6 @@
 #!/usr/bin/env run deno --allow-run --allow-net
-import { test, runTests } from "https://deno.land/x/testing/mod.ts";
-import { assert, equal } from "https://deno.land/x/testing/asserts.ts";
+import { test, runTests } from "https://deno.land/std/testing/mod.ts";
+import { assert, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;

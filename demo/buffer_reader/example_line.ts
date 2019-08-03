@@ -54,7 +54,8 @@ async function readChunk(): Promise<boolean> {
   const tempChunk = new Uint8Array(size);
   const result = await reader.read(tempChunk);
 
-  if (result.eof === true || result.nread === 0) {
+  const nread: number = result === Deno.EOF ? 0 : result;
+  if (nread === 0) {
     eof = true;
     return isNeedRead;
   } else {
@@ -66,9 +67,9 @@ async function readChunk(): Promise<boolean> {
     remainLength = chunk.byteLength - currentReadIndex
   }
 
-  const newChunk = new Uint8Array(remainLength + result.nread);
+  const newChunk = new Uint8Array(remainLength + nread);
   newChunk.set(chunk.subarray(currentReadIndex), 0);
-  newChunk.set(tempChunk.subarray(0, result.nread), remainLength);
+  newChunk.set(tempChunk.subarray(0, nread), remainLength);
   currentReadIndex = 0;
   chunk = newChunk;
   return isNeedRead;
