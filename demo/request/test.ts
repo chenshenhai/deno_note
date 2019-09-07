@@ -48,7 +48,7 @@ test(async function serverGetRequest() {
     });
     const json = await res.json();
     const acceptResult = {
-      "general": {
+      "general":{
         "method":"GET",
         "protocol":"HTTP/1.1",
         "pathname":"/page/test.html",
@@ -57,12 +57,16 @@ test(async function serverGetRequest() {
       "headers":{
         "content-type":"application/json",
         "content-test":"helloworld",
+        "user-agent":"reqwest/0.9.20",
+        "accept":"*/*",
+        "accept-encoding":"gzip",
         "host":"127.0.0.1:3001"
-      }, 
-      "body": "",
-      "beforeFinish": false,
-      "afterFinish": true,
+      },
+      "body":"",
+      "beforeFinish":false,
+      "afterFinish":true
     }
+    
     assert(equal(json, acceptResult));
     // 关闭测试服务
     closeHTTPServer();
@@ -92,21 +96,25 @@ test(async function serverPostRequest() {
     });
     const json = await res.json();
     const acceptResult = {
-      "general": {
-          "method": "POST",
-          "protocol": "HTTP/1.1",
-          "pathname": "/page/test.html",
-          "search": "a=1&b=2"
+      "general":{
+        "method":"POST",
+        "protocol":"HTTP/1.1",
+        "pathname":"/page/test.html",
+        "search":"a=1&b=2"
       },
-      "headers": {
-          "content-type": "application/x-www-form-urlencoded",
-          "host": "127.0.0.1:3001",
-          "content-length": "23"
+      "headers":{
+        "content-type":"application/x-www-form-urlencoded",
+        "user-agent":"reqwest/0.9.20",
+        "accept":"*/*",
+        "accept-encoding":"gzip",
+        "host":"127.0.0.1:3001",
+        "content-length":"23"
       },
-      "body": "formData1=1&formData1=2",
-      "beforeFinish": false,
-      "afterFinish": true
+      "body":"formData1=1&formData1=2",
+      "beforeFinish":false,
+      "afterFinish":true
     }
+    
     assert(equal(json, acceptResult));
     // 关闭测试服务
     closeHTTPServer();
