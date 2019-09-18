@@ -4,8 +4,8 @@
     * [1.1 本书初衷](./note/chapter_01/01.md)
     * [1.2 参考资料](./note/chapter_01/02.md)
 * [2 快速开始]
-    * [2.1 快速安装](./note/chapter_02/01.md)
-    * [2.2 快速使用](./note/chapter_02/02.md)
+    * [2.1 快速安装](./note/chapter_02/install.md)
+    * [2.2 快速使用](./note/chapter_02/usage.md)
 * [3 前置基础知识]
     * [3.1 Deno和Node.js](./note/chapter_03/01.md)
     * [3.2 缓冲区基础知识点](./note/chapter_03/02.md)
