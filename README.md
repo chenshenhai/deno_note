@@ -32,49 +32,50 @@
 
 ## 目录
 
-* 1 致读者
-    * [1.1 本书初衷](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_01/01.md)
-    * [1.2 参考资料](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_01/02.md)
-* 2 快速开始
-    * [2.1 快速安装](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_02/01.md)
-    * [2.2 快速使用](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_02/02.md)
-* 3 前置基础知识
-    * [3.1 Deno和Node.js](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/01.md)
-    * [3.2 缓冲区基础知识点](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/02.md)
-    * [3.3 TypeScript基础](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_03/03.md)
-* 4 Deno基础知识点
-    * [4.1 Deno常用命令简介](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/01.md)
-    * [4.2 Deno模块体系](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/02.md)
-    * [4.3 window全局API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/03.md)
-    * [4.4 Deno平台API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/04.md)
-    * [4.5 Deno系统API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/05.md)
-    * [4.6 Deno文件操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/06.md)
-    * [4.7 Deno目录操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/07.md)
-    * [4.8 Deno删除操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/08.md)
-    * [4.9 Deno进程操作API](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_04/09.md)
+* [1 致读者]
+    * [1.1 本书初衷](./note/chapter_01/01.md)
+    * [1.2 参考资料](./note/chapter_01/02.md)
+* [2 快速开始]
+    * [2.1 快速安装](./note/chapter_02/install.md)
+    * [2.2 快速使用](./note/chapter_02/start.md)
+* [3 前置基础知识]
+    * [3.1 Deno和Node.js](./note/chapter_03/nodejs_compare.md)
+    * [3.2 缓冲区基础知识点](./note/chapter_03/buffer_info.md)
+    * [3.3 TypeScript基础](./note/chapter_03/ts_basic.md)
+* [4 Deno基础知识点]
+    * [4.1 Deno常用命令简介](./note/chapter_04/deno_cmd.md)
+    * [4.2 Deno模块体系](./note/chapter_04/deno_mod.md)
+    * [4.3 window全局API](./note/chapter_04/deno_window_api.md)
+    * [4.4 Deno平台](./note/chapter_04/deno_api_platform.md)
+    * [4.5 Deno系统信息](./note/chapter_04/deno_api_sys.md)
+    * [4.6 Deno文件操作](./note/chapter_04/deno_api_fs.md)
+    * [4.7 Deno目录操作](./note/chapter_04/deno_api_dir.md)
+    * [4.8 Deno删除操作](./note/chapter_04/deno_api_del.md)
+    * [4.9 Deno进程操作](./note/chapter_04/deno_api_process.md)
+    * [4.10 Deno使用import maps] `// TODO`
     * [4.x Deno其他常用API] `// TODO`
-* 5 基础进阶学习
-    * [5.1 单元测试](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/01.md)
-    * [5.2 单元测试进阶](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/02.md)
-    * [5.3 集成测试](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/03.md)
-    * [5.4 文件/目录操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/04.md)
-    * [5.5 Buffer进阶读操作](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/05.md)
-    * [5.6 Buffer进阶写操作] `// TODO`
-    * [5.7 原生Deno实现简单HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/07.md)
-    * [5.8 原生Deno处理HTTP请求](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/08.md)
-    * [5.9 原生Deno处理HTTP响应](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/09.md)
-    * [5.10 原生Deno实现稳定HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/10.md)
-* 6 WEB进阶开发
-    * [6.1 中间件式框架简单实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/01.md)
-    * [6.2 中间件-路由实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/02.md)
-    * [6.3 中间件-静态资源实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_06/03.md)
-    * [6.4 HTML模板编译实现]  `// TODO`
+* [5 基础进阶学习]
+    * [5.1 单元测试](./note/chapter_05/testing.md)
+    * [5.2 单元测试进阶](./note/chapter_05/testing_unit.md)
+    * [5.3 集成测试](./note/chapter_05/testing_integrate.md)
+    * [5.4 文件/目录操作](./note/chapter_05/fs_dir.md)
+    * [5.5 Buffer进阶读操作](./note/chapter_05/buffer_reader.md)
+    * [5.6 Buffer进阶写操作]  `// TODO`
+    * [5.7 原生Deno实现简单HTTP服务](./note/chapter_05/http_simple.md)
+    * [5.8 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
+    * [5.9 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
+    * [5.10 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
+* [6 WEB进阶开发]
+    * [6.1 中间件式框架简单实现](./note/chapter_06/web_framework_middleware.md)
+    * [6.2 中间件-路由实现](./note/chapter_06/web_framework_router.md)
+    * [6.3 中间件-静态资源实现](./note/chapter_06/web_framework_static.md)
+    * [6.4 HTML模板编译实现](./note/chapter_06/web_html.md)
     * [6.5 文件同步上传功能实现]  `// TODO`
     * [6.6 文件异步上传功能实现]  `// TODO`
-* 7 工具类开发
-    * [7.1 Linux系统下CLI功能实现](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_07/01.md) 
+* [7 工具类开发]
+    * [7.1 Linux系统下CLI功能实现](./note/chapter_07/deno_cli.md)  
     * [7.2 MySQL通信]   `// TODO`
-* 8 发布模块
+* [8 发布模块]
     * [8.1 GitHub发布模块版本]  `// TODO`
     * [8.2 其他发布方式]  `// TODO`
 
