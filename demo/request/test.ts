@@ -48,23 +48,23 @@ test(async function serverGetRequest() {
     });
     const json = await res.json();
     const acceptResult = {
-      "general":{
-        "method":"GET",
-        "protocol":"HTTP/1.1",
-        "pathname":"/page/test.html",
-        "search":"a=1&b=2"
+      "general": {
+        "method": "GET",
+        "protocol": "HTTP/1.1",
+        "pathname": "/page/test.html",
+        "search": "a=1&b=2"
       },
-      "headers":{
-        "content-type":"application/json",
-        "content-test":"helloworld",
-        "user-agent":"reqwest/0.9.20",
-        "accept":"*/*",
-        "accept-encoding":"gzip",
-        "host":"127.0.0.1:3001"
+      "headers": {
+        "content-type": "application/json",
+        "content-test": "helloworld",
+        "user-agent": "Deno/0.18.0",
+        "accept": "*/*",
+        "accept-encoding": "gzip",
+        "host": "127.0.0.1:3001"
       },
-      "body":"",
-      "beforeFinish":false,
-      "afterFinish":true
+      "body": "",
+      "beforeFinish": false,
+      "afterFinish": true
     }
     
     assert(equal(json, acceptResult));
@@ -104,7 +104,7 @@ test(async function serverPostRequest() {
       },
       "headers":{
         "content-type":"application/x-www-form-urlencoded",
-        "user-agent":"reqwest/0.9.20",
+        "user-agent": "Deno/0.18.0",
         "accept":"*/*",
         "accept-encoding":"gzip",
         "host":"127.0.0.1:3001",
