@@ -1,0 +1,1 @@
+deno run --importmap map.json mod.ts
