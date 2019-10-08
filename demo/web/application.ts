@@ -25,10 +25,10 @@ class Application {
 
   /**
    * 开始监听服务
-   * @param addr {string} 监听地址和端口 0.0.0.0:0000
+   * @param opts {Deno.ListenOptions} 监听地址和端口 
    * @param fn {Function} 监听执行后的回调
    */
-  public async listen(addr: string, fn?: Function) {
+  public async listen(opts: Deno.ListenOptions, fn?: Function) {
     const that = this;
     const server = this._server;
     // 启动HTTP服务
@@ -54,7 +54,7 @@ class Application {
         that._onError(err, ctx);
       }
     }); 
-    server.listen(addr, fn);
+    server.listen(opts, fn);
   }
 
   /**

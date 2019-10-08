@@ -19,6 +19,7 @@ async function startHTTPServer() {
   });
   const buffer = httpServer.stdout;
   const bufReader = new BufferReader(buffer);
+
   const line = await bufReader.readLine();
   equal("listening on 127.0.0.1:3001", line)
   console.log('\r\nstart http server\r\n')
@@ -57,7 +58,7 @@ test(async function serverGetRequest() {
       "headers": {
         "content-type": "application/json",
         "content-test": "helloworld",
-        "user-agent": "Deno/0.18.0",
+        "user-agent": `Deno/${Deno.version.deno}`,
         "accept": "*/*",
         "accept-encoding": "gzip",
         "host": "127.0.0.1:3001"
@@ -104,7 +105,7 @@ test(async function serverPostRequest() {
       },
       "headers":{
         "content-type":"application/x-www-form-urlencoded",
-        "user-agent": "Deno/0.18.0",
+        "user-agent": `Deno/${Deno.version.deno}`,
         "accept":"*/*",
         "accept-encoding":"gzip",
         "host":"127.0.0.1:3001",

@@ -42,14 +42,16 @@ async function response(conn: Deno.Conn) {
   conn.close();
 }
 
-async function server(addr: string) {
-  const listener = listen("tcp", addr);
-  console.log(`listening on ${addr}\r\n`,);
+async function server(opts: Deno.ListenOptions) {
+  console.log("listening on", `${opts.hostname}:${opts.port}\r\n`);
+  const listener = listen(opts);
   while (true) {
     const conn = await listener.accept();
     await response(conn);
   }
 }
 
-const addr = "127.0.0.1:3001";
-server(addr);
+server({
+  hostname: "127.0.0.1",
+  port: 3001
+});

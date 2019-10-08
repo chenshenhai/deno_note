@@ -62,9 +62,9 @@ function serveContext(env: ContextEnv, conn: Deno.Conn, ctx?: Context) {
  * TCP 主服务方法
  * @param addr 
  */
-async function* serve(addr: string) {
+async function* serve(opts: Deno.ListenOptions) {
   // 监听 TCP 端口
-  const listener = listen("tcp", addr);
+  const listener = listen(opts);
   // 初始化一个HTTP上下文环境
   const env: ContextEnv = {
     queue: [], 
@@ -112,10 +112,10 @@ async function* serve(addr: string) {
  * @param {function} handler 
  */
 async function createHTTP(
-  addr: string,
+  opts: Deno.ListenOptions,
   handler: (ctx) => void
 ) {
-  const server = serve(addr);
+  const server = serve(opts);
   for await (const ctx of server) {
     // 处理每一个服务的操作
     await handler(ctx);
@@ -173,10 +173,10 @@ export class Server {
     }
   }
 
-  listen(addr, callback) {
+  listen(opts: Deno.ListenOptions, callback) {
     if (this._isListening !== true) {
       const handler = this._handler;
-      createHTTP(addr, handler);
+      createHTTP(opts, handler);
       callback();
       this._isInitialized = true;
     } else {
