@@ -241,7 +241,10 @@ demo/web_router/example.ts
 import { Application } from "./../web/mod.ts";
 import { Route, Router } from "./mod.ts";
 const app = new Application();
-const addr = "127.0.0.1:3001";
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
 
 const router = new Router();
 
@@ -259,7 +262,6 @@ router.get("/index", async function(ctx) {
   ctx.res.setStatus(200);
 });
 
-// 注册路由
 router.get("/hello", async function(ctx) {
   ctx.res.setStatus(200);
   ctx.res.setBody("this is hello page");
@@ -278,10 +280,8 @@ router.get("/page/:pageId/user/:userId", async function(ctx) {
   ctx.res.setBody(`${JSON.stringify(params)}`);
 });
 
-// 加载顶级路由中间件
 app.use(router.routes());
 
-// 路由之外剩余路
 app.use(async function(ctx, next) {
   console.log('action before');
   ctx.res.setBody("hello web_router!");
@@ -289,8 +289,9 @@ app.use(async function(ctx, next) {
   console.log('action after');
 });
 
-app.listen(addr, function(){
-  console.log(`listening on ${addr}`);
+
+app.listen(opts, function(){
+  console.log(`listening on ${opts.hostname}:${opts.port}`);
 });
 ```
 
