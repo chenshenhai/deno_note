@@ -7,16 +7,14 @@
 - `example.ts`
 
 ```js
-
-
 /**
  * helloworld HTTP服务
- * @param addr {String}
+ * @param opts {Deno.ListenOptions}
  */
-async function server(addr: string) {
+async function simpleServer(opts: Deno.ListenOptions): Promise<void> {
   // 创建TCP服务
-  const listener = Deno.listen("tcp", addr);
-  console.log("listening on", addr);
+  const listener = Deno.listen(opts);
+  console.log("listening on", `${opts.hostname}:${opts.port}`);
   // 死循环监听TCP请求
   while (true) {
     // 等待TCP连接
@@ -37,7 +35,10 @@ async function server(addr: string) {
     conn.close();
   }
 }
-server("127.0.0.1:3001");
+simpleServer({
+  hostname: "127.0.0.1",
+  port: 3001
+});
 ```
 
 ### 执行代码
