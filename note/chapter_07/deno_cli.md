@@ -1,6 +1,8 @@
-# Linux系统下CLI功能实现
+# Linux系统下CLI原始功能实现
 
 ## 前言
+
+在`deno@v0.9.0` 版本就已经支持了原生`CLI`能力，用 `deno install cli_name ./mod.ts` 就可以实现安装`mod.ts`脚本为系统`CLI`功能。本篇一开始写于 `deno@v0.3.0` 版本下，当时还不支持`deno install` 的能力，所以用`deno`写了比较原始的`Linux`系统下`CLI`的安装和使用能力。
 
 `CLI`是`Command-Line Interface`的缩写，翻译过来就是`命令行界面`，是非图形的计算机操作界面。`CLI`的作用是用户直接操作键盘输入指令给计算机，让计算机完成对应的指令程序。
 
@@ -8,7 +10,6 @@
 
 那么如果要实现主流系统下`CLI`工具要了解哪些知识点？
 - `Linux`系统下`bin`工具的运行原理
-- `Windows`系统下`bin`工具的运行原理
 
 这一篇就选取实现`Linux`系统下`CLI`功能实现来做例子。
 
