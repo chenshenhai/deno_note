@@ -1,26 +1,53 @@
-import { sleep, printNewLine } from "./util.ts";
+import { sleep, printNewLine, clearLine } from "./util.ts";
 
+const frame: string = "▓";
+const backgroundFrame: string = "░";
 
-class Output {
+class Progress {
 
-  private _beforeLength: number = 0;
+  public async run(time: number = 1000, percent: number = 100, modulo: number = 2) {
+    const count = Math.floor(percent / modulo);
 
-  public print(text: string): void {
+    for (let i = 0; i < count; i ++) {
+      await sleep(time / count);
+      const progressLength = this._printProcess(i, count, modulo);
+      if (i < count - 1) {
+        clearLine(progressLength);
+      }
+    }
+    printNewLine();
+  }
+
+  private _printProcess(index: number, count: number, modulo: number) {
+    let progressLength: number = 0;
+    for (let i = 0; i < count; i ++) {
+      if (i <= index) {
+        progressLength += this._print(frame);
+      } else {
+        progressLength += this._print(backgroundFrame);
+      }
+    }
+
+    let percentNum: number = (index + 1) * modulo;
+    percentNum = Math.min(100, percentNum);
+    percentNum = Math.max(0, percentNum);
+    progressLength += this._print(` ${percentNum}%`);
+    return progressLength;
+  }
+
+  private _print(text: string, leftMoveCols?: number): number {
     const encode = new TextEncoder();
-    const chunk = encode.encode(`\x1b[${this._beforeLength}D \x1b[K ${text}`);
+    let code: string = `\x1b[K${text}`;
+    if (leftMoveCols >= 0) {
+      code = `\x1b[${leftMoveCols}D\x1b[K${text}`;
+    }
+
+    const chunk = encode.encode(`\x1b[K${text}`);
     Deno.stdout.writeSync(chunk);
-    this._beforeLength = chunk.length;
+    return chunk.length;
   }
+
 }
 
-async function main() {
-  const output = new Output();
-  for (let i = 0; i < 100; i ++) {
-    await sleep(10);
-    const text = `${i}%`;
-    output.print(text);
-  }
-  printNewLine();
-}
-
-main();
+const progress = new Progress();
+progress.run(1000, 100);
