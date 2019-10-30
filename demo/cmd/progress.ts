@@ -1,6 +1,8 @@
 import { sleep, printNewLine } from "./util.ts";
 
+
 class Output {
+
   private _beforeLength: number = 0;
 
   public print(text: string): void {
@@ -15,7 +17,8 @@ async function main() {
   const output = new Output();
   for (let i = 0; i < 100; i ++) {
     await sleep(10);
-    output.print(`${i}%`);
+    const text = `${i}%`;
+    output.print(text);
   }
   printNewLine();
 }
