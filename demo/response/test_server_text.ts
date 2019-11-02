@@ -2,9 +2,9 @@ import { Response, ResponseWriter } from "./mod.ts";
 
 const listen = Deno.listen;
 
-async function server(addr: string) {
-  const listener = listen("tcp", addr);
-  console.log(`listening on ${addr}\r\n`,);
+async function server(opts: Deno.ListenOptions) {
+  const listener = listen(opts);
+  console.log(`listening on ${opts.hostname}:${opts.port}\r\n`,);
   while (true) {
     const conn = await listener.accept();
     const res: Response = new ResponseWriter(conn);
@@ -15,5 +15,7 @@ async function server(addr: string) {
   }
 }
 
-const addr = "127.0.0.1:3001";
-server(addr);
+server({
+  hostname: "127.0.0.1",
+  port: 3001
+});

@@ -2,7 +2,10 @@ import { Application } from "./mod.ts";
 
 
 const app = new Application();
-const addr = "127.0.0.1:3001";
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
 
 app.use(async function(ctx, next) {
   // console.log('action 001');
@@ -28,6 +31,6 @@ app.use(async function(ctx, next) {
   // console.log('action 004');
 });
 
-app.listen(addr, function() {
-  console.log(`listening on ${addr}\r\n`,);
+app.listen(opts, function() {
+  console.log(`listening on ${opts.hostname}:${opts.port}\r\n`,);
 });

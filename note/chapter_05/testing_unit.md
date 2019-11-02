@@ -44,17 +44,21 @@ async function response(conn: Deno.Conn) {
   conn.close();
 }
 
-async function server(addr: string) {
-  const listener = Deno.listen("tcp", addr);
-  console.log("listening on", addr);
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
+
+async function server(opts: Deno.ListenOptions) {
+  const listener = Deno.listen(opts);
+  console.log("listening on", `${opts.hostname}:${opts.port}`);
   while (true) {
     const connection = await listener.accept();
     response(connection);
   }
 }
 
-const addr = "127.0.0.1:3001";
-server(addr);
+server(opts);
 ```
 
 - 测试代码 `./demo/testing_progress/test.ts`

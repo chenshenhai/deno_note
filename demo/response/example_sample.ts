@@ -31,10 +31,10 @@ async function response(conn: Deno.Conn) {
  * HTTP服务
  * @param addr {string}
  */
-async function server(addr: string) {
+async function server(opts: Deno.ListenOptions) {
   // 创建TCP服务
-  const listener = listen("tcp", addr);
-  console.log("listening on", addr);
+  const listener = listen(opts);
+  console.log(`listening on ${opts.hostname}:${opts.port}`);
   // 死循环监听TCP请求
   while (true) {
     // 等待TCP连接
@@ -44,5 +44,8 @@ async function server(addr: string) {
   }
 }
 
-const addr = "127.0.0.1:3001";
-server(addr);
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
+server(opts);

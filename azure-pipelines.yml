@@ -1,5 +1,6 @@
 variables:
-  DENO_VERSION: 'v0.13.0'
+  DENO_VERSION: "v0.20.0"
+  TS_VERSION: "3.4.5"
 
 jobs:
 
@@ -7,22 +8,22 @@ jobs:
   pool:
     vmImage: 'Ubuntu-16.04'
   steps:
-  - script: curl -L https://deno.land/std/install/install.sh | sh -s $(DENO_VERSION)
-  - script: echo '##vso[task.prependpath]$(HOME)/.deno/bin/'
+  - bash: curl -L https://deno.land/x/install/install.sh | sh -s $(DENO_VERSION)
+  - bash: echo '##vso[task.prependpath]$(HOME)/.deno/bin/'
   - script: deno run --allow-all test.ts
 
 - job: 'Mac'
   pool:
     vmImage: 'macOS-10.13'
   steps:
-  - script: curl -L https://deno.land/std/install/install.sh | sh -s $(DENO_VERSION)
-  - script: echo '##vso[task.prependpath]$(HOME)/.deno/bin/'
+  - bash: curl -L https://deno.land/x/install/install.sh | sh -s $(DENO_VERSION)
+  - bash: echo '##vso[task.prependpath]$(HOME)/.deno/bin/'
   - script: deno run --allow-all test.ts
 
 - job: 'Windows'
   pool:
     vmImage: 'vs2017-win2016'
   steps:
-  - powershell: iwr https://deno.land/std/install/install.ps1 -out install.ps1; .\install.ps1 $(DENO_VERSION)
+  - powershell: iwr https://deno.land/x/install/install.ps1 -out install.ps1; .\install.ps1 $(DENO_VERSION)
   - bash: echo "##vso[task.prependpath]C:\Users\VssAdministrator\.deno\\bin"
   - bash: deno.exe run --allow-all test.ts

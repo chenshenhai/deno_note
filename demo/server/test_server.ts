@@ -1,13 +1,17 @@
 import { Server } from "./mod.ts";
 
-const addr = "127.0.0.1:3001"
-
 const server = new Server();
 server.createServer(async ctx => {
   ctx.res.setBody("hello server");
   ctx.res.setStatus(200);
   await ctx.res.flush();
-}) 
-server.listen(addr, function() {
-  console.log(`listening on ${addr}\r\n`,);
+});
+
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
+
+server.listen(opts, function() {
+  console.log(`listening on ${opts.hostname}:${opts.port}\r\n`,);
 })

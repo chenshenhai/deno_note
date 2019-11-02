@@ -19,6 +19,7 @@ async function startHTTPServer() {
   });
   const buffer = httpServer.stdout;
   const bufReader = new BufferReader(buffer);
+
   const line = await bufReader.readLine();
   equal("listening on 127.0.0.1:3001", line)
   console.log('\r\nstart http server\r\n')
@@ -49,20 +50,24 @@ test(async function serverGetRequest() {
     const json = await res.json();
     const acceptResult = {
       "general": {
-        "method":"GET",
-        "protocol":"HTTP/1.1",
-        "pathname":"/page/test.html",
-        "search":"a=1&b=2"
+        "method": "GET",
+        "protocol": "HTTP/1.1",
+        "pathname": "/page/test.html",
+        "search": "a=1&b=2"
       },
-      "headers":{
-        "content-type":"application/json",
-        "content-test":"helloworld",
-        "host":"127.0.0.1:3001"
-      }, 
+      "headers": {
+        "content-type": "application/json",
+        "content-test": "helloworld",
+        "user-agent": `Deno/${Deno.version.deno}`,
+        "accept": "*/*",
+        "accept-encoding": "gzip",
+        "host": "127.0.0.1:3001"
+      },
       "body": "",
       "beforeFinish": false,
-      "afterFinish": true,
+      "afterFinish": true
     }
+    
     assert(equal(json, acceptResult));
     // 关闭测试服务
     closeHTTPServer();
@@ -92,21 +97,25 @@ test(async function serverPostRequest() {
     });
     const json = await res.json();
     const acceptResult = {
-      "general": {
-          "method": "POST",
-          "protocol": "HTTP/1.1",
-          "pathname": "/page/test.html",
-          "search": "a=1&b=2"
+      "general":{
+        "method":"POST",
+        "protocol":"HTTP/1.1",
+        "pathname":"/page/test.html",
+        "search":"a=1&b=2"
       },
-      "headers": {
-          "content-type": "application/x-www-form-urlencoded",
-          "host": "127.0.0.1:3001",
-          "content-length": "23"
+      "headers":{
+        "content-type":"application/x-www-form-urlencoded",
+        "user-agent": `Deno/${Deno.version.deno}`,
+        "accept":"*/*",
+        "accept-encoding":"gzip",
+        "host":"127.0.0.1:3001",
+        "content-length":"23"
       },
-      "body": "formData1=1&formData1=2",
-      "beforeFinish": false,
-      "afterFinish": true
+      "body":"formData1=1&formData1=2",
+      "beforeFinish":false,
+      "afterFinish":true
     }
+    
     assert(equal(json, acceptResult));
     // 关闭测试服务
     closeHTTPServer();

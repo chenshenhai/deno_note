@@ -63,10 +63,10 @@ async function response(conn: Deno.Conn) {
  * HTTP服务
  * @param addr {string}
  */
-async function server(addr: string) {
+async function server(opts: Deno.ListenOptions) {
   // 创建TCP服务
-  const listener = listen("tcp", addr);
-  console.log("listening on", addr);
+  const listener = listen(opts);
+  console.log(`listening on ${opts.hostname}:${opts.port}`);
   // 死循环监听TCP请求
   while (true) {
     // 等待TCP连接
@@ -76,8 +76,11 @@ async function server(addr: string) {
   }
 }
 
-const addr = "127.0.0.1:3001";
-server(addr);
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
+server(opts);
 ```
 
 #### 浏览器验证
@@ -259,9 +262,9 @@ import { Response, ResponseWriter } from "./mod.ts";
 
 const listen = Deno.listen
 
-async function server(addr: string) {
-  const listener = listen("tcp", addr);
-  console.log("listening on", addr);
+async function server(opts: Deno.ListenOptions) {
+  const listener = listen(opts);
+  console.log(`listening on ${opts.hostname}:${opts.port}`);
   while (true) {
     const conn = await listener.accept();
     const response: Response = new ResponseWriter(conn);
@@ -272,8 +275,11 @@ async function server(addr: string) {
   }
 }
 
-const addr = "127.0.0.1:3001";
-server(addr);
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
+server(opts);
 ```
 
 ### 实现代码的单元测试

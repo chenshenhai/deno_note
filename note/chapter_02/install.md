@@ -12,29 +12,50 @@
 ## 安装方式
 
 
-### Linux 系统
+## Linux 系统
 
 - 安装最新版本
 
 ```sh
-curl -L https://deno.land/std/install/install.sh | sh
+curl -fsSL https://deno.land/x/install/install.sh
 ```
 
-- 安装制定版本 (例如安装v0.2.9)
+- 安装制定版本 (例如安装v0.17.0)
 
 ```sh
-curl -L https://deno.land/std/install/install.sh | sh -s v0.13.0
+curl -fsSL https://deno.land/x/install/install.sh | sh -s v0.17.0
+```
+
+- 环境变量设置
+
+
+需要在当前环境变量文件`.bash_profile`最后加入
+
+```sh
+## 注意: $HOME 是当前系统用户目录
+export PATH=$HOME/.deno/bin:$PATH
+```
+
+- 验证
+
+在命令窗口中执行 `deno version`，就会出现`Deno` 的版本已经依赖 `V8` 的版本
+
+```sh
+deno: 0.17.0
+v8: 7.7.200
+typescript: 3.5.1
+
 ```
 
 
-### Windows 系统
+## Windows 系统
 
 - 安装 `PowerShell` 命令工具
 - 在`PowerShell` 命令工具执行安装 `Deno` 命令
 
 
 ```sh
-iex (iwr https://deno.land/std/install/install.ps1)
+iwr https://deno.land/x/install/install.ps1 -useb | iex
 ```
 
 > 注意: 
@@ -47,29 +68,8 @@ iex (iwr https://deno.land/std/install/install.ps1)
 
 - 当出现以上问题
 - 步骤一：先输入 `[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12`
-- 步骤二：再安装Deno `iex (iwr https://deno.land/std/install/install.ps1)`
+- 步骤二：再安装Deno `iwr https://deno.land/x/install/install.ps1 -useb | iex`
 
 ![window_install_002](https://user-images.githubusercontent.com/8216630/53028675-45171e00-34a2-11e9-87c1-7f53a242a6b1.jpg)
 
 
-## 环境变量设置
-
-### Linux 系统
-
-需要在当前环境变量文件`.bash_profile`最后加入
-
-```sh
-## 注意: $HOME 是当前系统用户目录
-export PATH=$HOME/.deno/bin:$PATH
-```
-
-## 验证
-
-在命令窗口中执行 `deno version`，就会出现`Deno` 的版本已经依赖 `V8` 的版本
-
-```sh
-> deno: 0.13.0
-v8: 7.6.53
-typescript: 3.5.1
-
-```

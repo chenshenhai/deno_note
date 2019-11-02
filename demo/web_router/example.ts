@@ -1,7 +1,10 @@
 import { Application } from "./../web/mod.ts";
 import { Route, Router } from "./mod.ts";
 const app = new Application();
-const addr = "127.0.0.1:3001";
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
 
 const router = new Router();
 
@@ -47,6 +50,6 @@ app.use(async function(ctx, next) {
 });
 
 
-app.listen(addr, function(){
-  console.log(`listening on ${addr}`);
+app.listen(opts, function(){
+  console.log(`listening on ${opts.hostname}:${opts.port}`);
 });

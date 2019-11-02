@@ -300,7 +300,10 @@ demo/web/example.ts
 import { Application } from "./mod.ts";
 
 const app = new Application();
-const addr = "127.0.0.1:3001";
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
 
 app.use(async function(ctx, next) {
   console.log('action 001');
@@ -329,7 +332,7 @@ app.use(async function(ctx, next) {
   console.log('action 004');
 });
 
-app.listen(addr, function() {
+app.listen(opts, function() {
   console.log("the web is starting")
 });
 ```
@@ -358,7 +361,10 @@ deno run --allow-net example.ts
 import { Application } from "./mod.ts";
 
 const app = new Application();
-const addr = "127.0.0.1:3001";
+const opts: Deno.ListenOptions = {
+  hostname: "127.0.0.1",
+  port: 3001
+}
 
 app.use(async function(ctx, next) {
   console.log('action 001');
@@ -383,7 +389,7 @@ app.use(async function(ctx, next) {
   console.log('action 004');
 });
 
-app.listen(addr, function() {
+app.listen(opts, function() {
   console.log("the web is starting")
 });
 ```
