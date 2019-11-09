@@ -1,4 +1,3 @@
-import { printNewLine } from "./util.ts";
 const decoder = new TextDecoder();
 
 class Input {
@@ -30,7 +29,7 @@ class Input {
 
   private _getInput(maxLen: number = 64): string {
     const chunk = new Uint8Array(maxLen);
-    const len: number = Deno.stdin.readSync(chunk);
+    const len: number = Deno.stdin.readSync(chunk) as number;
     const text = decoder.decode(chunk.slice(0, len));
     return text;
   }

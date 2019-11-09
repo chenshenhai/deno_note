@@ -42,6 +42,7 @@
     * [6.6 文件异步上传功能实现]  
 * [7 工具类开发]
     * [7.1 Linux系统下CLI功能实现](./note/chapter_07/deno_cli.md)  
+    * [7.2 终端输入/输出 效果处理](./note/chapter_07/deno_cmd.md) 
     * [7.2 MySQL通信]   
 * [8 发布模块]
     * [8.1 GitHub发布模块版本]  
