@@ -1,7 +1,7 @@
 #!/usr/bin/env deno run --allow-run --allow-net
 
 import { test, runTests } from "https://deno.land/std/testing/mod.ts";
-import { assert, equal } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;
@@ -68,7 +68,7 @@ test(async function serverGetRequest() {
       "afterFinish": true
     }
     
-    assert(equal(json, acceptResult));
+    assertEquals(json, acceptResult);
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {
@@ -116,7 +116,7 @@ test(async function serverPostRequest() {
       "afterFinish":true
     }
     
-    assert(equal(json, acceptResult));
+    assertEquals(json, acceptResult);
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {

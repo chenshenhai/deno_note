@@ -1,6 +1,6 @@
 #!/usr/bin/env run deno --allow-run --allow-net
 import { test, runTests } from "https://deno.land/std/testing/mod.ts";
-import { assert, equal } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;
@@ -32,19 +32,19 @@ test(async function server() {
     await startHTTPServer();
     const res1 = await fetch(`${testSite}/hello`);
     const result1 = await res1.text();
-    assert(equal(result1, "page_hello"));
+    assertEquals(result1, "page_hello");
 
     const res2 = await fetch(`${testSite}/foo`);
     const result2 = await res2.text();
-    assert(equal(result2, "page_foo"));
+    assertEquals(result2, "page_foo");
 
     const res3 = await fetch(`${testSite}/bar`);
     const result3 = await res3.text();
-    assert(equal(result3, "page_bar"));
+    assertEquals(result3, "page_bar");
 
     const res4 = await fetch(`${testSite}/page/p001/user/u001`);
     const result4 = await res4.json();
-    assert(equal(result4, {"pageId":"p001","userId":"u001"}));
+    assertEquals(result4, {"pageId":"p001","userId":"u001"});
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {

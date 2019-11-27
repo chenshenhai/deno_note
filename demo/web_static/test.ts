@@ -1,6 +1,6 @@
 #!/usr/bin/env deno --allow-run --allow-net
 import { test, runTests } from "https://deno.land/std/testing/mod.ts";
-import { assert, equal } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;
@@ -32,11 +32,11 @@ test(async function server() {
     await startHTTPServer();
     const res1 = await fetch(`${testSite}/static-file/js/index.js`);
     const result1 = await res1.text();
-    assert(equal(result1, `console.log("hello world!");`));
+    assertEquals(result1, `console.log("hello world!");`);
 
     const res2 = await fetch(`${testSite}/static-file/css/index.css`);
     const result2 = await res2.text();
-    assert(equal(result2, `body {background: #f0f0f0;}`));
+    assertEquals(result2, `body {background: #f0f0f0;}`);
 
     // 关闭测试服务
     closeHTTPServer();

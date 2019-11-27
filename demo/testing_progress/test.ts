@@ -1,6 +1,6 @@
 #!/usr/bin/env deno run --allow-run --allow-net
 import { test, runTests } from "https://deno.land/std/testing/mod.ts";
-import { assert, equal } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 
 const decoder = new TextDecoder();
 const testSite = "http://127.0.0.1:3001";
@@ -30,7 +30,7 @@ test(async function server() {
     await startHTTPServer();
     const res = await fetch(testSite);
     const text = await res.text();
-    assert(equal(text, "hello world"));
+    assertEquals(text, "hello world");
     // 关闭测试服务
     closeHTTPServer();
   } catch (err) {
