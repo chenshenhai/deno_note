@@ -44,7 +44,7 @@ simpleServer({
 ### 执行代码
 
 ```js
-deno example.ts
+deno --allow-net example.ts
 ```
 
 ### 浏览器访问
