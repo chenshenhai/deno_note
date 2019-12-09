@@ -62,9 +62,9 @@
     * [5.5 Buffer进阶读操作](./note/chapter_05/buffer_reader.md)
     * [5.6 Buffer进阶写操作]  `// TODO`
     * [5.7 原生Deno实现简单HTTP服务](./note/chapter_05/http_simple.md)
-    * [5.8 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
-    * [5.9 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
-    * [5.10 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
+    * [5.x 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
+    * [5.x 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
+    * [5.x 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
 * [6 WEB进阶开发]
     * [6.1 中间件式框架简单实现](./note/chapter_06/web_framework_middleware.md)
     * [6.2 中间件-路由实现](./note/chapter_06/web_framework_router.md)
