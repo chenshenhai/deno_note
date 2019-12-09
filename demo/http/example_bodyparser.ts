@@ -32,7 +32,11 @@ async function response(conn: Deno.Conn) {
   if (req.general["method"] === 'POST') {
     const formType = parseContentType(req.headers["Content-Type"]);
     const formData = await bodyParser(formType.boundary, req.bodyStream);
-    body = JSON.stringify(formData);
+    // body = JSON.stringify(formData);
+    body = `
+    <textarea style="width:600px; height: 240px;">${JSON.stringify(formData)}</textarea>
+    <textarea style="width:600px; height: 240px;">${formData.body}</textarea>
+    `;
   } else {
     body = `
     <form method="POST" action="/" enctype="multipart/form-data">

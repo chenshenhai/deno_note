@@ -55,6 +55,16 @@ export class BufferReader implements BufReader {
    * @return {Promise<string>}
    * */
   async readLine (): Promise<string>  {
+    const chunk = await this.readLineChunk();
+    const line: string = decoder.decode(chunk);
+    return line;
+  }
+
+  /** 
+   * 读取一行的块
+   * @return {Promise<Uint8Array>}
+   * */
+  async readLineChunk (): Promise<Uint8Array>  {
     let lineBuf = new Uint8Array(0);
     while(!this._eof || this._chunk.length > 0) {
       const current = this._current;
@@ -66,7 +76,7 @@ export class BufferReader implements BufReader {
         if (this._isCRLF(buf) === true) {
           lineBuf = current.subarray(0, i);
           this._currentReadIndex += i + 2;
-          return decoder.decode(lineBuf);
+          return lineBuf;
         }
       }
       const result = await this._readChunk();
@@ -77,7 +87,7 @@ export class BufferReader implements BufReader {
 
     const result = this._current;
     this._chunk = new Uint8Array(0);
-    return decoder.decode(result);
+    return result;
   }
 
   /** 
