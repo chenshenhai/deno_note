@@ -47,18 +47,18 @@ export { add, addAsync };
 
 ```js
 import { test, } from "https://deno.land/std/testing/mod.ts";
-import { assert, equal } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { add, addAsync } from "./index.ts";
 
 test(function example() {
   const result = add(1, 2);
-  assert(equal(result, 3));
+  assertEquals(result, 3);
   equal({ result }, { result: 3 });
 });
 
 test(async function exampleAsync() {
   const result = await addAsync(1, 2);
-  assert(equal(result, 3));
+  assertEquals(result, 3);
   equal({ result }, { result: 3 });
 });
 ```
