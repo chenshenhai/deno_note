@@ -159,7 +159,3 @@ export function parseContentType(contentType: string): FormContentType {
     boundary,
   }
 }
-
-export function isMultipartFormData() {
-
-}
