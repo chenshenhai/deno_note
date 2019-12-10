@@ -1,5 +1,5 @@
 import { readConn, ReadRequest } from "./read_conn.ts";
-import { bodyParser, parseContentType } from "./bodyparser.ts";
+import { parseMultipartForm, parseContentType } from "./bodyparser.ts";
 
 /**
  * 创建响应内容
@@ -31,21 +31,18 @@ async function response(conn: Deno.Conn) {
   let body: string = ``;
   if (req.general["method"] === 'POST') {
     const formType = parseContentType(req.headers["Content-Type"]);
-    const formData = await bodyParser(formType.boundary, req.bodyStream);
-    // body = JSON.stringify(formData);
-    body = `
-    <textarea style="width:600px; height: 240px;">${JSON.stringify(formData)}</textarea>
-    <textarea style="width:600px; height: 240px;">${formData.body}</textarea>
-    `;
+    const formData = await parseMultipartForm(formType.boundary, req.bodyStream);
+    if (formData[1].value instanceof Uint8Array && formData[1].value.length > 0) {
+      Deno.writeFileSync(`./assets/${formData[1].filename}`, formData[1].value)
+    }
+    body = JSON.stringify(formData);;
   } else {
     body = `
     <form method="POST" action="/" enctype="multipart/form-data">
-      <p>data_name</p>
-      <input name="data_id" value="012345" /><br/>
-      <p>data_id</p>
-      <input name="data_name" value="helloworld" /><br/>
-      <p>data_image</p>
-      <input name="image" type="file"  /><br/>
+      <p>data_text</p>
+      <input name="data_text" value="abc1234567" /><br/>
+      <p>data_image_file</p>
+      <input name="image_file" type="file"  /><br/>
       <button type="submit">submit</button>
     </form>`;
   }
