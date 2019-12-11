@@ -9,11 +9,12 @@ const textFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?"$/i
 const fileFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?";\sfilename="([^\"]+)?"$/i;
 const fileTypeReg = /^Content-Type\:\s([^\;]+)?$/i;
 
+// 表单数据类型
 export interface FormFieldData {
-  name: string;
-  filename?: string;
-  type?: string;
-  value: Uint8Array|string;
+  name: string; // 表单数据名称
+  filename?: string; // 表单文件数据名称
+  type?: string; // 表单数据类型
+  value: Uint8Array|string; // 表单数据值 文本string类型， 文件Uint8Array类型
 }
 
 
@@ -33,11 +34,6 @@ export async function parseMultipartForm(boundary: string, stream: Uint8Array): 
   return dataList;
 }
 
-// 表单二进制数据流单个数据偏移量
-interface FieldChunkOffset {
-  start?: number;
-  end?: number;
-}
 
 /**
  * 解析 multipart/form-data 类型表单单个数据
@@ -89,6 +85,12 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
     }
   }
   
+}
+
+// 表单二进制数据流单个数据偏移量
+interface FieldChunkOffset {
+  start?: number;
+  end?: number;
 }
 
 
