@@ -62,16 +62,16 @@
     * [5.5 Buffer进阶读操作](./note/chapter_05/buffer_reader.md)
     * [5.6 Buffer进阶写操作]  `// TODO`
     * [5.7 原生Deno实现简单HTTP服务](./note/chapter_05/http_simple.md)
-    * [5.x 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
-    * [5.x 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
-    * [5.x 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
+    * [5.8 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
+    * [5.9 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
+    * [5.10 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
 * [6 WEB进阶开发]
     * [6.1 中间件式框架简单实现](./note/chapter_06/web_framework_middleware.md)
     * [6.2 中间件-路由实现](./note/chapter_06/web_framework_router.md)
     * [6.3 中间件-静态资源实现](./note/chapter_06/web_framework_static.md)
-    * [6.4 HTML模板编译实现](./note/chapter_06/web_html.md)
-    * [6.5 文件同步上传功能实现]  `// TODO`
-    * [6.6 文件异步上传功能实现]  `// TODO`
+    * [6.4 文件表单上传功能实现](./note/chapter_06/web_upload.md)
+    * [6.5 文件异步上传功能实现]  `// TODO`
+    * [6.x HTML模板编译实现]
 * [7 工具类开发]
     * [7.1 Linux系统下CLI原始功能实现](./note/chapter_07/deno_cli.md)  
     * [7.2 终端输入/输出 效果处理](./note/chapter_07/deno_cmd.md) 
