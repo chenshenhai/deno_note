@@ -37,8 +37,8 @@
     * [6.1 中间件式框架简单实现](./note/chapter_06/web_framework_middleware.md)
     * [6.2 中间件-路由实现](./note/chapter_06/web_framework_router.md)
     * [6.3 中间件-静态资源实现](./note/chapter_06/web_framework_static.md)
-    * [6.4 文件表单上传功能实现](./note/chapter_06/web_upload.md)
-    * [6.5 文件异步上传功能实现]
+    * [6.4 表单文件上传功能实现](./note/chapter_06/web_upload.md)
+    * [6.5 异步文件上传功能实现](./note/chapter_06/web_upload_async.md)
     * [6.x HTML模板编译实现]
 * [7 工具类开发]
     * [7.1 Linux系统下CLI原始功能实现](./note/chapter_07/deno_cli.md)  

@@ -60,7 +60,7 @@
     * [5.3 集成测试](./note/chapter_05/testing_integrate.md)
     * [5.4 文件/目录操作](./note/chapter_05/fs_dir.md)
     * [5.5 Buffer进阶读操作](./note/chapter_05/buffer_reader.md)
-    * [5.6 Buffer进阶写操作]  `// TODO`
+    * [] [5.6 Buffer进阶写操作]  `// TODO`
     * [5.7 原生Deno实现简单HTTP服务](./note/chapter_05/http_simple.md)
     * [5.8 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
     * [5.9 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
@@ -69,15 +69,15 @@
     * [6.1 中间件式框架简单实现](./note/chapter_06/web_framework_middleware.md)
     * [6.2 中间件-路由实现](./note/chapter_06/web_framework_router.md)
     * [6.3 中间件-静态资源实现](./note/chapter_06/web_framework_static.md)
-    * [6.4 文件表单上传功能实现](./note/chapter_06/web_upload.md)
-    * [6.5 文件异步上传功能实现]  `// TODO`
-    * [6.x HTML模板编译实现]
+    * [6.4 表单文件上传功能实现](./note/chapter_06/web_upload.md)
+    * [6.5 异步文件上传功能实现](./note/chapter_06/web_upload_async.md)
+    * [] [6.x HTML模板编译实现]`// TODO`
 * [7 工具类开发]
     * [7.1 Linux系统下CLI原始功能实现](./note/chapter_07/deno_cli.md)  
     * [7.2 终端输入/输出 效果处理](./note/chapter_07/deno_cmd.md) 
 * [8 发布模块]
-    * [8.1 GitHub发布模块版本]  `// TODO`
-    * [8.2 其他发布方式]  `// TODO`
+    * [] [8.1 GitHub发布模块版本]  `// TODO`
+    * [] [8.2 其他发布方式]  `// TODO`
 
 
 ## 前言
