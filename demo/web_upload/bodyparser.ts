@@ -3,10 +3,7 @@ import { BufferReader } from "./../buffer_reader/mod.ts";
 const CRLF_LEN = 2;
 const decoder = new TextDecoder();
 
-interface FieldChunkOffset {
-  start?: number;
-  end?: number;
-}
+
 
 const textFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?"$/i;
 const fileFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?";\sfilename="([^\"]+)?"$/i;
@@ -36,6 +33,11 @@ export async function parseMultipartForm(boundary: string, stream: Uint8Array): 
   return dataList;
 }
 
+// 表单二进制数据流单个数据偏移量
+interface FieldChunkOffset {
+  start?: number;
+  end?: number;
+}
 
 /**
  * 解析 multipart/form-data 类型表单单个数据

@@ -35,7 +35,18 @@ async function response(conn: Deno.Conn) {
     if (formData[1].value instanceof Uint8Array && formData[1].value.length > 0) {
       Deno.writeFileSync(`./assets/${formData[1].filename}`, formData[1].value)
     }
-    body = JSON.stringify(formData);;
+    // body = JSON.stringify(formData);;
+    body = `
+      <textarea style="width:600px; height:300px">
+      ${JSON.stringify({
+        headers: req.headers,
+        general: req.general,
+      })}
+      </textarea>
+      <textarea style="width:600px; height:300px">
+      ${new TextDecoder().decode(req.bodyStream)}
+      </textarea>
+    `
   } else {
     body = `
     <form method="POST" action="/" enctype="multipart/form-data">
