@@ -165,7 +165,7 @@ import { parseContentType, parseMultipartForm } from "./../web_upload/bodyparser
 
 const app = new Application();
 const opts: Deno.ListenOptions = {
-  hostname: "127.0.0.1",
+  hostname: "0.0.0.0",
   port: 3001
 }
 
@@ -220,7 +220,7 @@ import { parseContentType, parseMultipartForm } from "./../web_upload/bodyparser
 
 const app = new Application();
 const opts: Deno.ListenOptions = {
-  hostname: "127.0.0.1",
+  hostname: "0.0.0.0",
   port: 3001
 }
 
@@ -403,7 +403,7 @@ app.listen(opts, function() {
 deno --allow-net --allow-write --allow-read example.ts
 ```
 
-浏览器打开 [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
+浏览器打开 [http://0.0.0.0:3001/](http://0.0.0.0:3001/)
 
 ### 预览效果
 

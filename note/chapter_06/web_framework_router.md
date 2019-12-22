@@ -242,7 +242,7 @@ import { Application } from "./../web/mod.ts";
 import { Route, Router } from "./mod.ts";
 const app = new Application();
 const opts: Deno.ListenOptions = {
-  hostname: "127.0.0.1",
+  hostname: "0.0.0.0",
   port: 3001
 }
 
@@ -303,12 +303,12 @@ deno run --allow-net example.ts
 
 #### 结果显示
 
-- 访问 [http://127.0.0.1:3001/index](http://127.0.0.1:3001/index)
+- 访问 [http://0.0.0.0:3001/index](http://0.0.0.0:3001/index)
 
 ![web_router_001](https://user-images.githubusercontent.com/8216630/53285609-768f3280-379d-11e9-9738-7cc08b5b5dca.jpg)
 
 
-- 访问 [http://127.0.0.1:3001/page/p002/user/u_abcd](http://127.0.0.1:3001/page/p002/user/u_abcd)
+- 访问 [http://0.0.0.0:3001/page/p002/user/u_abcd](http://0.0.0.0:3001/page/p002/user/u_abcd)
 
 ![web_router_002](https://user-images.githubusercontent.com/8216630/53285611-768f3280-379d-11e9-9da7-af17cd90dfe1.jpg)
 

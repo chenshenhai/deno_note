@@ -272,7 +272,7 @@ export class Server {
 import { Server } from "./mod.ts";
 
 const opts: Deno.ListenOptions = {
-  hostname: "127.0.0.1",
+  hostname: "0.0.0.0",
   port: 3001
 }
 
@@ -299,14 +299,14 @@ server.listen(opts, function() {
 - 安装测试工具 `npm i -g autocannon`
 
 #### 发起100请求测试 
-- `autocannon http://127.0.0.1:3001/ -c 100`
+- `autocannon http://0.0.0.0:3001/ -c 100`
 - 就会出现以下结果
 ![server_100_conn](https://user-images.githubusercontent.com/8216630/52862648-b12b1680-3170-11e9-96ca-e0f9a0783d89.jpg)
 
 
 
 #### 发起200请求测试 
-- `autocannon http://127.0.0.1:3001/ -c 200`
+- `autocannon http://0.0.0.0:3001/ -c 200`
 - 就会出现以下结果
 ![server_200](https://user-images.githubusercontent.com/8216630/52862650-b1c3ad00-3170-11e9-93a4-cfc4438657f3.jpg)
 

@@ -114,7 +114,7 @@ const cwd = Deno.cwd
 
 const app = new Application();
 const opts: Deno.ListenOptions = {
-  hostname: "127.0.0.1",
+  hostname: "0.0.0.0",
   port: 3001
 }
 const baseDir = [cwd(), "public"].join("/");
@@ -136,7 +136,7 @@ deno run --allow-read --allow-net example.ts
 
 #### 结果显示
 
-- 访问 [http://127.0.0.1:3001/static-file/index.html](http://127.0.0.1:3001/static-file/index.html)
+- 访问 [http://0.0.0.0:3001/static-file/index.html](http://0.0.0.0:3001/static-file/index.html)
 
 ![web_static](https://user-images.githubusercontent.com/8216630/53965401-24022e80-412c-11e9-9d87-2a4b9a2de725.jpg)
 

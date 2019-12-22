@@ -3,7 +3,7 @@ import { test, runTests } from "https://deno.land/std/testing/mod.ts";
 import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 
 const decoder = new TextDecoder();
-const testSite = "http://127.0.0.1:3001";
+const testSite = "http://0.0.0.0:3001";
 // 启动测试服务
 
 let httpServer;

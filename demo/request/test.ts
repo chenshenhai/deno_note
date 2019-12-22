@@ -7,7 +7,7 @@ import { BufferReader } from "./../buffer_reader/mod.ts";
 const run = Deno.run;
 
 const decoder = new TextDecoder();
-const testSite = "http://127.0.0.1:3001";
+const testSite = "http://0.0.0.0:3001";
 // 启动测试服务
 
 let httpServer;
@@ -21,7 +21,7 @@ async function startHTTPServer() {
   const bufReader = new BufferReader(buffer);
 
   const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
+  equal("listening on 0.0.0.0:3001", line)
   console.log('\r\nstart http server\r\n')
 }
 
@@ -61,7 +61,7 @@ test(async function serverGetRequest() {
         "user-agent": `Deno/${Deno.version.deno}`,
         "accept": "*/*",
         "accept-encoding": "gzip",
-        "host": "127.0.0.1:3001"
+        "host": "0.0.0.0:3001"
       },
       "body": "",
       "beforeFinish": false,
@@ -104,7 +104,7 @@ test(async function serverPostRequest() {
         "user-agent": `Deno/${Deno.version.deno}`,
         "accept":"*/*",
         "accept-encoding":"gzip",
-        "host":"127.0.0.1:3001",
+        "host":"0.0.0.0:3001",
         "content-length":"23"
       },
       "body":"formData1=1&formData1=2",

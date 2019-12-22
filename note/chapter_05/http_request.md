@@ -217,7 +217,7 @@ import { BufferReader } from "./../buffer_reader/mod.ts";
 const run = Deno.run;
 
 const decoder = new TextDecoder();
-const testSite = "http://127.0.0.1:3001";
+const testSite = "http://0.0.0.0:3001";
 // 启动测试服务
 
 let httpServer;
@@ -230,7 +230,7 @@ async function startHTTPServer() {
   const buffer = httpServer.stdout;
   const bufReader = new BufferReader(buffer);
   const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
+  equal("listening on 0.0.0.0:3001", line)
   console.log('\r\nstart http server\r\n')
 }
 
@@ -267,7 +267,7 @@ test(async function serverGetRequest() {
       "headers":{
         "content-type":"application/json",
         "content-test":"helloworld",
-        "host":"127.0.0.1:3001"
+        "host":"0.0.0.0:3001"
       }, 
       "body": "",
       "beforeFinish": false,
@@ -310,7 +310,7 @@ test(async function serverPostRequest() {
       },
       "headers": {
           "content-type": "application/x-www-form-urlencoded",
-          "host": "127.0.0.1:3001",
+          "host": "0.0.0.0:3001",
           "content-length": "23"
       },
       "body": "formData1=1&formData1=2",
@@ -381,7 +381,7 @@ async function server(opts: Deno.ListenOptions) {
 }
 
 const opts: Deno.ListenOptions = {
-  hostname: "127.0.0.1",
+  hostname: "0.0.0.0",
   port: 3001
 }
 server(opts);
@@ -395,7 +395,7 @@ deno run --allow-net example_get.ts
 
 #### 浏览器访问
 
-浏览器访问 [http://127.0.0.1:3001/page/hello?a=1&b=2](http://127.0.0.1:3001/page/hello?a=1&b=2) 可看到一下结果
+浏览器访问 [http://0.0.0.0:3001/page/hello?a=1&b=2](http://0.0.0.0:3001/page/hello?a=1&b=2) 可看到一下结果
 
 ![req_01](https://user-images.githubusercontent.com/8216630/52649086-95323580-2f22-11e9-9f48-0693830131dc.jpg)
 
@@ -474,7 +474,7 @@ async function server(opts: Deno.ListenOptions) {
 }
 
 const opts: Deno.ListenOptions = {
-  hostname: "127.0.0.1",
+  hostname: "0.0.0.0",
   port: 3001
 }
 server(opts);
@@ -488,7 +488,7 @@ deno run --allow-net example_post.ts
 
 #### 浏览器访问
 
-- 浏览器访问 [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
+- 浏览器访问 [http://0.0.0.0:3001/](http://0.0.0.0:3001/)
 - 输入提交表单可以看到结果如下
 
 ![req_post_01](https://user-images.githubusercontent.com/8216630/52649594-8ac46b80-2f23-11e9-93d6-69c29ba15494.jpg)
