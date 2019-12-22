@@ -38,20 +38,22 @@ function closeHTTPServer() {
 test(async function testWebRouter() {
   try {
     // 等待服务启动
-    await delay(500);
     await startHTTPServer();
     const res1 = await fetch(`${testSite}/hello`);
     const result1 = await res1.text();
     assertEquals(result1, "page_hello");
 
+    await delay(100);
     const res2 = await fetch(`${testSite}/foo`);
     const result2 = await res2.text();
     assertEquals(result2, "page_foo");
 
+    await delay(100);
     const res3 = await fetch(`${testSite}/bar`);
     const result3 = await res3.text();
     assertEquals(result3, "page_bar");
 
+    await delay(100);
     const res4 = await fetch(`${testSite}/page/p001/user/u001`);
     const result4 = await res4.json();
     assertEquals(result4, {"pageId":"p001","userId":"u001"});

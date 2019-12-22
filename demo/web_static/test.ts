@@ -35,13 +35,15 @@ function closeHTTPServer() {
 
 test(async function testWebStatic() {
   try {
-    await delay(500)
     // 等待服务启动
     await startHTTPServer();
+
+    await delay(100);
     const res1 = await fetch(`${testSite}/static-file/js/index.js`);
     const result1 = await res1.text();
     assertEquals(result1, `console.log("hello world!");`);
 
+    await delay(100);
     const res2 = await fetch(`${testSite}/static-file/css/index.css`);
     const result2 = await res2.text();
     assertEquals(result2, `body {background: #f0f0f0;}`);
