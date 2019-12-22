@@ -113,8 +113,6 @@ test(async function serverPostRequest() {
     }
     
     assertEquals(json, acceptResult);
-    // 关闭测试服务
-    // closeHTTPServer();
   } finally {
     closeHTTPServer();
   }
