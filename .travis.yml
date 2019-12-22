@@ -5,7 +5,7 @@ variables:
 
 install:
   - curl -L https://deno.land/x/install/install.sh | sh -s $(DENO_VERSION)
-  - export PATH="$HOME/.deno/bin:$PATH"
+  - export PATH="$HOME/.local/bin:$PATH"
 
 script:
   - deno run --allow-all test.ts

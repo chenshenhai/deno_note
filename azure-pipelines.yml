@@ -9,16 +9,16 @@ jobs:
     vmImage: 'Ubuntu-16.04'
   steps:
   - bash: curl -L https://deno.land/x/install/install.sh | sh -s $(DENO_VERSION)
-  - bash: echo '##vso[task.prependpath]$(HOME)/.deno/bin/'
-  - script: deno run --allow-all test.ts
+  - bash: echo '##vso[task.prependpath]$(HOME)/.local/bin/'
+  - script: $(HOME)/.local/bin/deno run --allow-all test.ts
 
 - job: 'Mac'
   pool:
     vmImage: 'macOS-10.13'
   steps:
   - bash: curl -L https://deno.land/x/install/install.sh | sh -s $(DENO_VERSION)
-  - bash: echo '##vso[task.prependpath]$(HOME)/.deno/bin/'
-  - script: deno run --allow-all test.ts
+  - bash: echo '##vso[task.prependpath]$(HOME)/.local/bin/'
+  - script: $(HOME)/.local/bin/deno run --allow-all test.ts
 
 - job: 'Windows'
   pool:
