@@ -43,10 +43,10 @@ test(async function testWebStatic() {
     const result1 = await res1.text();
     assertEquals(result1, `console.log("hello world!");`);
 
-    await delay(100);
-    const res2 = await fetch(`${testSite}/static-file/css/index.css`);
-    const result2 = await res2.text();
-    assertEquals(result2, `body {background: #f0f0f0;}`);
+    // await delay(100);
+    // const res2 = await fetch(`${testSite}/static-file/css/index.css`);
+    // const result2 = await res2.text();
+    // assertEquals(result2, `body {background: #f0f0f0;}`);
   } finally {
     closeHTTPServer();
   }
