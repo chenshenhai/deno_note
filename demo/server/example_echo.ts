@@ -1,7 +1,7 @@
 import { Server } from "./mod.ts";
 
 const opts: Deno.ListenOptions = {
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 }
 

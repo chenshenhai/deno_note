@@ -36,7 +36,7 @@ async function simpleServer(opts: Deno.ListenOptions): Promise<void> {
   }
 }
 simpleServer({
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 });
 ```
@@ -49,7 +49,7 @@ deno --allow-net example.ts
 
 ### 浏览器访问
 
-- 访问: [http://0.0.0.0:3001/](http://0.0.0.0:3001/)
+- 访问: [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
 - 访问结果
 
 ![chapter_0_02](https://user-images.githubusercontent.com/8216630/52131726-7311fb00-2678-11e9-94f7-674146c2cf2a.jpg)

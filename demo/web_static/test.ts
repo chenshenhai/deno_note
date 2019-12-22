@@ -13,7 +13,7 @@ async function delay(time: number = 100) {
   });
 }
 
-const testSite = "http://0.0.0.0:3001";
+const testSite = "http://127.0.0.1:3001";
 
 let httpServer;
 
@@ -25,7 +25,7 @@ async function startHTTPServer() {
   const buffer = httpServer.stdout;
   const bufReader = new BufferReader(buffer);
   const line = await bufReader.readLine();
-  equal("listening on 0.0.0.0:3001", line)
+  equal("listening on 127.0.0.1:3001", line)
 }
 
 function closeHTTPServer() {

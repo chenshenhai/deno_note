@@ -77,7 +77,7 @@ async function server(opts: Deno.ListenOptions) {
 }
 
 const opts: Deno.ListenOptions = {
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 }
 server(opts);
@@ -89,7 +89,7 @@ server(opts);
 ```
 deno run example_sample.ts
 ```
-- 浏览器访问 [http://0.0.0.0:3001/](http://0.0.0.0:3001/)
+- 浏览器访问 [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
 
 ## 优化实现
 
@@ -276,7 +276,7 @@ async function server(opts: Deno.ListenOptions) {
 }
 
 const opts: Deno.ListenOptions = {
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 }
 server(opts);

@@ -30,7 +30,7 @@
 
 ```sh
 POST / HTTP/1.1
-Host: 0.0.0.0:3001
+Host: 127.0.0.1:3001
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryYVUVAJNujYItbGEK
 
 ------WebKitFormBoundaryYVUVAJNujYItbGEK
@@ -476,7 +476,7 @@ import { parseContentType, parseMultipartForm } from "./bodyparser.ts";
 
 const app = new Application();
 const opts: Deno.ListenOptions = {
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 }
 
@@ -525,7 +525,7 @@ deno --allow-net --allow-write example.ts
 
 #### 浏览器访问
 
-- [http://0.0.0.0:3001/](http://0.0.0.0:3001/)
+- [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
 
 ![image](https://user-images.githubusercontent.com/8216630/70634773-c926d600-1c6d-11ea-8ac8-fc530033ffd7.png)
 

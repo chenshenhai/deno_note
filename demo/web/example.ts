@@ -2,7 +2,7 @@ import { Application } from "./mod.ts";
 
 const app = new Application();
 const opts: Deno.ListenOptions = {
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 }
 

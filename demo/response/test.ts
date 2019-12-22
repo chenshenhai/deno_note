@@ -4,7 +4,7 @@ import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import {BufferReader} from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;
-const testSite = "http://0.0.0.0:3001";
+const testSite = "http://127.0.0.1:3001";
 // 启动测试服务
 
 let textServer;
@@ -18,7 +18,7 @@ async function startTextServer() {
   const buffer = textServer.stdout;
   const bufReader = new BufferReader(buffer);
   const line = await bufReader.readLine();
-  equal("listening on 0.0.0.0:3001", line)
+  equal("listening on 127.0.0.1:3001", line)
 }
 
 function closeTextServer() {
@@ -34,7 +34,7 @@ async function startJSONServer() {
   const buffer = jsonServer.stdout;
   const bufReader = new BufferReader(buffer);
   const line = await bufReader.readLine();
-  equal("listening on 0.0.0.0:3001", line)
+  equal("listening on 127.0.0.1:3001", line)
 }
 
 function closeJSONServer() {

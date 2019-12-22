@@ -28,6 +28,6 @@ async function simpleServer(opts: Deno.ListenOptions): Promise<void> {
   }
 }
 simpleServer({
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 });

@@ -64,7 +64,7 @@ async function server(opts: Deno.ListenOptions) {
 }
 
 const opts: Deno.ListenOptions = {
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 }
 server(opts);

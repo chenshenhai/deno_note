@@ -239,7 +239,7 @@ class Application {
 
   /**
    * 开始监听服务
-   * @param addr {string} 监听地址和端口 0.0.0.0:0000
+   * @param addr {string} 监听地址和端口 127.0.0.1:0000
    * @param fn {Function} 监听执行后的回调
    */
   public async listen(addr: string, fn?: Function) {
@@ -301,7 +301,7 @@ import { Application } from "./mod.ts";
 
 const app = new Application();
 const opts: Deno.ListenOptions = {
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 }
 
@@ -362,7 +362,7 @@ import { Application } from "./mod.ts";
 
 const app = new Application();
 const opts: Deno.ListenOptions = {
-  hostname: "0.0.0.0",
+  hostname: "127.0.0.1",
   port: 3001
 }
 
@@ -408,7 +408,7 @@ app.listen(opts, function() {
 - 安装测试工具 `npm i -g autocannon`
 
 #### 发起100请求测试 
-- `autocannon http://0.0.0.0:3001/ -c 100`
+- `autocannon http://127.0.0.1:3001/ -c 100`
 - 就会出现以下结果
 ![web_test_001](https://user-images.githubusercontent.com/8216630/52956493-470dae00-33ca-11e9-96ff-f4f9dfda6aac.jpg)
 
