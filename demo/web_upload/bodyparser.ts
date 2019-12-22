@@ -2,9 +2,6 @@ import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const CRLF_LEN = 2;
 const decoder = new TextDecoder();
-
-
-
 const textFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?"$/i;
 const fileFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?";\sfilename="([^\"]+)?"$/i;
 const fileTypeReg = /^Content-Type\:\s([^\;]+)?$/i;
