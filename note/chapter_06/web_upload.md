@@ -533,3 +533,8 @@ deno --allow-net --allow-write example.ts
 
 
 ![image](https://user-images.githubusercontent.com/8216630/70635185-7568bc80-1c6e-11ea-86e3-6d816179c130.png)
+
+
+#### 单元测试用例可查看
+
+[https://github.com/chenshenhai/deno_note/blob/master/demo/web_upload/test.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/web_upload/test.ts)
