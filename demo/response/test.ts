@@ -12,7 +12,7 @@ let jsonServer;
 
 async function startTextServer() {
   textServer = run({
-    args: ["deno", "run", "--allow-net", "./test_server_text.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./demo/response/test_server_text.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = textServer.stdout;
@@ -28,7 +28,7 @@ function closeTextServer() {
 
 async function startJSONServer() {
   jsonServer = run({
-    args: ["deno", "run", "--allow-net", "./test_server_json.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./demo/response/test_server_json.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = jsonServer.stdout;
@@ -50,12 +50,10 @@ test(async function serverTextResponse() {
     const text = await res.text();
     const acceptResult = "hello world";
     assertEquals(text, acceptResult);
+    
+  } finally {
     // 关闭测试服务
     closeTextServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeTextServer();
-    throw new Error(err);
   }
 });
 
@@ -70,13 +68,8 @@ test(async function serverJSONResponse() {
       "data": "helloworld"
     };
     assertEquals(json, acceptResult);
+  } finally {
     // 关闭测试服务
     closeJSONServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeJSONServer();
-    throw new Error(err);
   }
 });
-
-runTests();

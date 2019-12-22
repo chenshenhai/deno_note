@@ -14,7 +14,7 @@ let httpServer;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "run", "--allow-net", "./test_server.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./demo/request/test_server.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
@@ -69,12 +69,8 @@ test(async function serverGetRequest() {
     }
     
     assertEquals(json, acceptResult);
-    // 关闭测试服务
+  } finally {
     closeHTTPServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeHTTPServer();
-    throw new Error(err);
   }
 });
 
@@ -118,13 +114,8 @@ test(async function serverPostRequest() {
     
     assertEquals(json, acceptResult);
     // 关闭测试服务
+    // closeHTTPServer();
+  } finally {
     closeHTTPServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeHTTPServer();
-    throw new Error(err);
   }
 });
-
-// 启动测试
-runTests();

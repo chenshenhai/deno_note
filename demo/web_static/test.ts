@@ -12,7 +12,7 @@ let httpServer;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "run", "--allow-net", "--allow-read",  "./test_server.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "--allow-read",  "./demo/web_static/test_server.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
@@ -37,15 +37,7 @@ test(async function server() {
     const res2 = await fetch(`${testSite}/static-file/css/index.css`);
     const result2 = await res2.text();
     assertEquals(result2, `body {background: #f0f0f0;}`);
-
-    // 关闭测试服务
+  } finally {
     closeHTTPServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeHTTPServer();
-    throw new Error(err);
   }
 });
-
-// 启动测试
-runTests();

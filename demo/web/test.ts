@@ -12,7 +12,7 @@ let httpServer;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "run", "--allow-net", "./test_server.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./demo/web/test_server.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
@@ -34,14 +34,8 @@ test(async function server() {
     const result = await res1.text();
     const expectResult = "hello world! middleware-002";
     assertEquals(result, expectResult);
+  } finally {
     // 关闭测试服务
     closeHTTPServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeHTTPServer();
-    throw new Error(err);
   }
 });
-
-// 启动测试
-runTests();

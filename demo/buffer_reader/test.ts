@@ -72,5 +72,5 @@ test(async function testBufferReaderCustomSize() {
   equal(customStr, "world\r\n!");
 });
 
-runTests();
+
 

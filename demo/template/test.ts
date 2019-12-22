@@ -41,5 +41,3 @@ test(function testCompileTemplate() {
   const expectedResult = `  <div>      <ul>          <li>0:item1</li>          <li>1:item2</li>          <li>2:item3</li>        </ul>        <ul>          <li>key1:val1</li>          <li>key2:val2</li>        </ul>    </div>`;
   assertEquals(expectedResult, html);
 });
-
-runTests();

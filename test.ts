@@ -1,79 +1,15 @@
 #! /usr/bin/env deno run --allow-run --allow-net test.ts
+import { test, runTests } from "https://deno.land/std/testing/mod.ts";
 
-const decoder = new TextDecoder();
+import "./demo/buffer_reader/test.ts";
+import "./demo/request/test.ts";
+import "./demo/response/test.ts";
+import "./demo/server/test.ts";
+import "./demo/template/test.ts";
+import "./demo/web/test.ts";
+import "./demo/web_router/test.ts";
+import "./demo/web_static/test.ts";
 
-const testUnitRunList = [
-  {
-    args: ["deno", "run",  "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-    cwd: "./demo/buffer_reader/",
-    stdout: "piped"
-  },
-  {
-    args: ["deno", "run",  "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-    cwd: "./demo/request/",
-    stdout: "piped"
-  },
-  {
-    args: ["deno", "run",  "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-    cwd: "./demo/response/",
-    stdout: "piped"
-  },
-  {
-    args: ["deno", "run",  "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-    cwd: "./demo/server/",
-    stdout: "piped"
-  },
-  {
-    args: ["deno", "run",  "test.ts", ".", "--cors"],
-    cwd: "./demo/template/",
-    stdout: "piped"
-  },
-  {
-    args: ["deno", "run",  "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-    cwd: "./demo/web/",
-    stdout: "piped"
-  },
-  {
-    args: ["deno", "run",  "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
-    cwd: "./demo/web_router/",
-    stdout: "piped"
-  },
-  {
-    args: ["deno", "run",  "--allow-run", "--allow-net", "--allow-read", "test.ts", ".", "--cors"],
-    cwd: "./demo/web_static/",
-    stdout: "piped"
-  },
-]
 
-async function runUnitTest(opts: Deno.RunOptions): Promise<string> {
-  const unitTest = Deno.run(opts);
-  const outStream = await unitTest.output();
-  const output = decoder.decode(outStream);
-  return output
-}
+runTests();
 
-async function *runAllUnitTest(optsList): AsyncIterableIterator<any[]>{
-  for (let i = 0; i < optsList.length; i++) {
-    let err = null;
-    let log = null;
-    const opts: Deno.RunOptions = optsList[i];
-    try {
-      log = await runUnitTest(opts);
-    } catch (e) {
-      err = e;
-    }
-    yield [err, log];
-  }
-}
-
-async function main() {
-  for await(const [err, log] of runAllUnitTest(testUnitRunList)) {
-    if (err) {
-      throw new Error(err);
-    } else {
-      console.log(log);
-    }
-  }
-}
-
-main();

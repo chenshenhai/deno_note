@@ -12,7 +12,7 @@ let httpServer;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "run", "--allow-net", "./test_server.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./demo/web_router/test_server.ts", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
@@ -45,14 +45,8 @@ test(async function server() {
     const res4 = await fetch(`${testSite}/page/p001/user/u001`);
     const result4 = await res4.json();
     assertEquals(result4, {"pageId":"p001","userId":"u001"});
+  } finally {
     // 关闭测试服务
     closeHTTPServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeHTTPServer();
-    throw new Error(err);
   }
 });
-
-// 启动测试
-runTests();

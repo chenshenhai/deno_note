@@ -8,7 +8,7 @@ const opts: Deno.ListenOptions = {
   hostname: "127.0.0.1",
   port: 3001
 }
-const baseDir = [cwd(), "public"].join("/");
+const baseDir = [cwd(), "demo", "web_static", "public"].join("/");
 
 const staticMiddleware = staticServe(baseDir, {prefix: `/static-file`});
 
