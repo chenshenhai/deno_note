@@ -6,10 +6,19 @@ import { BufferReader } from "./../buffer_reader/mod.ts";
 const run = Deno.run;
 
 const testSite = "http://127.0.0.1:3001";
-// 启动测试服务
 
 let httpServer;
 
+async function delay(time: number = 100) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time)
+  });
+}
+
+
+// 启动测试服务
 async function startHTTPServer() {
   httpServer = run({
     args: ["deno", "run", "--allow-net", "./demo/web_router/test_server.ts", ".", "--cors"],
@@ -26,9 +35,10 @@ function closeHTTPServer() {
   httpServer.stdout.close();
 }
 
-test(async function server() {
+test(async function testWebRouter() {
   try {
     // 等待服务启动
+    await delay(500);
     await startHTTPServer();
     const res1 = await fetch(`${testSite}/hello`);
     const result1 = await res1.text();

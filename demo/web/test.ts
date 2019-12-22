@@ -26,7 +26,7 @@ function closeHTTPServer() {
   httpServer.stdout.close();
 }
 
-test(async function server() {
+test(async function testWeb() {
   try {
     // 等待服务启动
     await startHTTPServer();

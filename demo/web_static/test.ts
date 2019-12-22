@@ -5,8 +5,15 @@ import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;
 
+async function delay(time: number = 100) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time)
+  });
+}
+
 const testSite = "http://127.0.0.1:3001";
-// 启动测试服务
 
 let httpServer;
 
@@ -26,8 +33,9 @@ function closeHTTPServer() {
   httpServer.stdout.close();
 }
 
-test(async function server() {
+test(async function testWebStatic() {
   try {
+    await delay(500)
     // 等待服务启动
     await startHTTPServer();
     const res1 = await fetch(`${testSite}/static-file/js/index.js`);
