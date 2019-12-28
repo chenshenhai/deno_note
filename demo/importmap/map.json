@@ -1,5 +1,0 @@
-{
-  "imports": {
-    "custom/util": "./add.ts"
-  }
-}

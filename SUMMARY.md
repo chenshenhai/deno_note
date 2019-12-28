@@ -20,7 +20,7 @@
     * [4.7 Deno目录操作](./note/chapter_04/deno_api_dir.md)
     * [4.8 Deno删除操作](./note/chapter_04/deno_api_del.md)
     * [4.9 Deno进程操作](./note/chapter_04/deno_api_process.md)
-    * [4.10 Deno使用import maps] `// TODO`
+    * [4.10 Deno使用import-maps](./note/chapter_04/deno_import_maps.md)
     * [4.x Deno其他常用API] `// TODO`
 * [5 基础进阶学习]
     * [5.1 单元测试](./note/chapter_05/testing.md)
