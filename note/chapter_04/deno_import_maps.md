@@ -11,7 +11,7 @@
 
 - 例如 在网页上有这个`import-maps`配置
 
-```js
+```html
 <script type="importmap">
 {
   "imports": {
@@ -24,7 +24,7 @@
 
 - 就可以在同个页面其他`ES6`模块标签里直接 `import react from "react"`
 
-```js
+```html
 <script type="module">
   import React from "react";
   import ReactDOM from "react-dom";
