@@ -16,7 +16,7 @@
 {
   "imports": {
     "react": "https://cdn.bootcss.com/react/16.10.2/cjs/react.development.js",
-    "lodash": "https://cdn.bootcss.com/react-dom/16.10.2/cjs/react-dom-server.browser.development.js"
+    "react-dom": "https://cdn.bootcss.com/react-dom/16.10.2/cjs/react-dom-server.browser.development.js"
   }
 }
 </script>
@@ -39,7 +39,7 @@
     <Hello name="React" />,
     document.getElementById('app')
   );
-<script>
+</script>
 ```
 
 ## 如何在Deno中使用 import-maps
