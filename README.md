@@ -42,6 +42,7 @@
     * [3.1 Deno和Node.js](./note/chapter_03/nodejs_compare.md)
     * [3.2 缓冲区基础知识点](./note/chapter_03/buffer_info.md)
     * [3.3 TypeScript基础](./note/chapter_03/ts_basic.md)
+    * [3.4 Deno常见问题点](./note/chapter_03/deno_faq.md)
 * [4 Deno基础知识点]
     * [4.1 Deno常用命令简介](./note/chapter_04/deno_cmd.md)
     * [4.2 Deno模块体系](./note/chapter_04/deno_mod.md)
