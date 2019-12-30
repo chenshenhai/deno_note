@@ -8,7 +8,7 @@
 ## 读文件操作
 
 ```js
-import {readFileSync} from 'deno';
+const { readFileSync } = Deno;
 
 async function main(): Promise<void> {
   const decoder = new TextDecoder("utf-8");
@@ -23,7 +23,7 @@ main();
 ## 写文件操作
 
 ```js
-import {writeFileSync} from 'deno';
+const { writeFileSync } = Deno;
 
 const encoder = new TextEncoder();
 
@@ -38,7 +38,7 @@ main();
 ## 目录读操作
 
 ```js
-import {readDirSync, FileInfo} from 'deno';
+const { readDirSync, FileInfo } = Deno;
 
 function main(): void {
   const rs:FileInfo[] = readDirSync("./assets/");
@@ -51,7 +51,7 @@ main();
 ## 目录写操作
 
 ```js
-import {mkdirSync, } from 'deno';
+const { mkdirSync } = Deno;
 
 async function main(): Promise<void> {
   mkdirSync("./assets/new_dir");

@@ -213,10 +213,12 @@ export { Context, SafeContext }
 demo/web/application.ts
 
 ```js
-import { exit } from "deno";
+
 import { Context, SafeContext } from "./context.ts";
 import { Server } from "./../server/mod.ts";
 import { compose } from "./compose.ts";
+
+const { exit } = Deno;
 
 class Application {
 
