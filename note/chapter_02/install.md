@@ -20,10 +20,10 @@
 curl -fsSL https://deno.land/x/install/install.sh
 ```
 
-- 安装制定版本 (例如安装v0.27.0)
+- 安装制定版本 (例如安装v0.28.1)
 
 ```sh
-curl -fsSL https://deno.land/x/install/install.sh | sh -s v0.27.0
+curl -fsSL https://deno.land/x/install/install.sh | sh -s v0.28.1
 ```
 
 - 环境变量设置
@@ -41,7 +41,7 @@ export PATH=$HOME/.local/bin/:$PATH
 在命令窗口中执行 `deno --version`，就会出现`Deno` 的版本已经依赖 `V8` 的版本
 
 ```sh
-deno 0.27.0
+deno 0.28.1
 v8 8.0.192
 typescript 3.7.2
 ```

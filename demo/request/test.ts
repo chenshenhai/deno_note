@@ -60,7 +60,6 @@ test(async function serverGetRequest() {
         "content-test": "helloworld",
         "user-agent": `Deno/${Deno.version.deno}`,
         "accept": "*/*",
-        "accept-encoding": "gzip",
         "host": "127.0.0.1:3001"
       },
       "body": "",
@@ -103,7 +102,6 @@ test(async function serverPostRequest() {
         "content-type":"application/x-www-form-urlencoded",
         "user-agent": `Deno/${Deno.version.deno}`,
         "accept":"*/*",
-        "accept-encoding":"gzip",
         "host":"127.0.0.1:3001",
         "content-length":"23"
       },
