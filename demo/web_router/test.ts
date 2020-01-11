@@ -21,7 +21,7 @@ async function delay(time: number = 100) {
 // 启动测试服务
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "run", "--allow-net", "./demo/web_router/test_server.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-net", "./demo/web_router/test_server.ts", "--", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;

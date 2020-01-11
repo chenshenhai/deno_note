@@ -31,12 +31,12 @@ const decoder = new TextDecoder();
 
 const testUnitRunList = [
   {
-    args: ["deno", "run", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-run", "--allow-net", "test.ts", "--", ".", "--cors"],
     cwd: "./../testing_unit",
     stdout: "piped"
   },
   {
-    args: ["deno", "run", "--allow-run", "--allow-net", "test.ts", ".", "--cors"],
+    args: ["deno", "run", "--allow-run", "--allow-net", "test.ts", "--", ".", "--cors"],
     cwd: "./../testing_progress",
     stdout: "piped"
   }

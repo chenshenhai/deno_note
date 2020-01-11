@@ -14,7 +14,14 @@ let httpServer;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "run", "--allow-net", "./demo/request/test_server.ts", ".", "--cors"],
+    args: [
+      Deno.execPath(),
+      "--allow-net",
+      "./demo/request/test_server.ts",
+      "--",
+      ".",
+      "--cors"
+    ],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
@@ -26,8 +33,10 @@ async function startHTTPServer() {
 }
 
 function closeHTTPServer() {
-  httpServer.close();
-  httpServer.stdout.close();
+  if (httpServer) {
+    httpServer.close();
+    httpServer.stdout.close();
+  }
   console.log('\r\nclose http server\r\n')
 }
 

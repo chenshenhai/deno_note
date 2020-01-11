@@ -12,7 +12,14 @@ let jsonServer;
 
 async function startTextServer() {
   textServer = run({
-    args: ["deno", "run", "--allow-net", "./demo/response/test_server_text.ts", ".", "--cors"],
+    args: [
+      Deno.execPath(),
+      "--allow-net",
+      "./demo/response/test_server_text.ts",
+      "--",
+      ".",
+      "--cors"
+    ],
     stdout: "piped"
   });
   const buffer = textServer.stdout;
@@ -28,7 +35,15 @@ function closeTextServer() {
 
 async function startJSONServer() {
   jsonServer = run({
-    args: ["deno", "run", "--allow-net", "./demo/response/test_server_json.ts", ".", "--cors"],
+    args: [
+      Deno.execPath(),
+      "--allow-run",
+      "--allow-net",
+      "./demo/response/test_server_json.ts",
+      "--",
+      ".",
+      "--cors"
+    ],
     stdout: "piped"
   });
   const buffer = jsonServer.stdout;
