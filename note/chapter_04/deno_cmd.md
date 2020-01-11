@@ -10,33 +10,58 @@
 > deno -h
 
 
-USAGE:
-    deno [FLAGS] [OPTIONS] [SUBCOMMAND]
+deno 0.29.0
+A secure JavaScript and TypeScript runtime
 
-FLAGS:
-    -h, --help          Prints help information
-    -D, --log-debug     Log debug output
-    -r, --reload        Reload source code cache (recompile TypeScript)
-        --v8-options    Print V8 command line options
+Docs: https://deno.land/std/manual.md
+Modules: https://deno.land/x/
+Bugs: https://github.com/denoland/deno/issues
+
+To run the REPL supply no arguments:
+
+  deno
+
+To evaluate code from the command line:
+
+  deno eval "console.log(30933 + 404)"
+
+To execute a script:
+
+  deno https://deno.land/std/examples/welcome.ts
+
+The default subcommand is 'run'. The above is equivalent to
+
+  deno run https://deno.land/std/examples/welcome.ts
+
+See 'deno help run' for run specific flags.
+
+USAGE:
+    deno [SUBCOMMAND]
 
 OPTIONS:
-    -c, --config <FILE>          Load compiler configuration file
-        --v8-flags=<v8-flags>    Set V8 command line options
+    -h, --help                     Prints help information
+    -L, --log-level <log-level>    Set log level [possible values: debug, info]
+    -V, --version                  Prints version information
 
 SUBCOMMANDS:
-    eval       Eval script
-    fetch      Fetch the dependencies
-    fmt        Format files
-    help       Prints this message or the help of the given subcommand(s)
-    info       Show source file related info
-    run        Run a program given a filename or url to the source code
-    types      Print runtime TypeScript declarations
-    version    Print the version
-    xeval      Eval a script on text segments from stdin
+    bundle         Bundle module and dependencies into single file
+    completions    Generate shell completions
+    eval           Eval script
+    fetch          Fetch the dependencies
+    fmt            Format files
+    help           Prints this message or the help of the given subcommand(s)
+    info           Show info about cache or info related to source file
+    install        Install script as executable
+    repl           Read Eval Print Loop
+    run            Run a program given a filename or url to the source code
+    test           Run tests
+    types          Print runtime TypeScript declarations
 
 ENVIRONMENT VARIABLES:
-    DENO_DIR        Set deno's base directory
-    NO_COLOR        Set to disable color
+    DENO_DIR       Set deno\'s base directory
+    NO_COLOR       Set to disable color
+    HTTP_PROXY     Proxy address for HTTP requests (module downloads, fetch)
+    HTTPS_PROXY    Same but for HTTPS
 ```
 
 ## 使用方式
@@ -84,26 +109,58 @@ demo run https://xxx.xx/mod.ts
 
 # 会出现以下说明
 
-USAGE:
-    deno run [FLAGS] [OPTIONS] <SUBCOMMAND>
+deno-run 
+Run a program given a filename or url to the source code.
 
-FLAGS:
-    -A, --allow-all       Allow all permissions
-        --allow-env       Allow environment access
-        --allow-hrtime    Allow high resolution time measurement
-        --allow-run       Allow running subprocesses
-    -h, --help            Prints help information
-    -D, --log-debug       Log debug output
-        --no-prompt       Do not use prompts
-    -r, --reload          Reload source code cache (recompile TypeScript)
-        --v8-options      Print V8 command line options
+By default all programs are run in sandbox without access to disk, network or
+ability to spawn subprocesses.
+
+  deno run https://deno.land/std/examples/welcome.ts
+
+With all permissions
+
+  deno run -A https://deno.land/std/http/file_server.ts
+
+With only permission to read from disk and listen to network
+
+  deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts
+
+With only permission to read whitelist files from disk
+
+  deno run --allow-read=/etc https://deno.land/std/http/file_server.ts
+
+Any arguments that should be passed to the script should be prefixed by '--'
+
+  deno run -A https://deno.land/std/examples/cat.ts -- /etc/passwd
+
+USAGE:
+    deno run [OPTIONS] [SCRIPT] [-- <SCRIPT_ARGS>...]
 
 OPTIONS:
+    -A, --allow-all                    Allow all permissions
+        --allow-env                    Allow environment access
+        --allow-hrtime                 Allow high resolution time measurement
         --allow-net=<allow-net>        Allow network access
+        --allow-plugin                 Allow loading plugins
         --allow-read=<allow-read>      Allow file system read access
+        --allow-run                    Allow running subprocesses
         --allow-write=<allow-write>    Allow file system write access
-    -c, --config <FILE>                Load compiler configuration file
-        --v8-flags=<v8-flags>          Set V8 command line options
+        --cached-only                  Require that remote dependencies are already cached
+    -c, --config <FILE>                Load tsconfig.json configuration file
+        --current-thread               Use tokio::runtime::current_thread
+    -h, --help                         Prints help information
+        --importmap <FILE>             Load import map file
+        --lock <FILE>                  Check the specified lock file
+        --lock-write                   Write lock file. Use with --lock.
+    -L, --log-level <log-level>        Set log level [possible values: debug, info]
+        --no-remote                    Do not resolve remote modules
+    -r, --reload=<CACHE_BLACKLIST>     Reload source code cache (recompile TypeScript)
+        --seed <NUMBER>                Seed Math.random()
+        --v8-flags=<v8-flags>          Set V8 command line options. For help: --v8-flags=--help
+
+ARGS:
+    <SCRIPT>            script
+    <SCRIPT_ARGS>...    script args
 ```
 
 #### run 主要功能

@@ -10,13 +10,52 @@
 const apiList = Object.keys(window)
 
 console.log(`Supported global API [count: ${apiList.length}]: \r\n`);
-console.log(`${apiList.join(',')}`);
+console.log(`${apiList.join(',\r\n')}`);
 ```
 
 会看到支持的全局`API`的情况
 
-![api_count](https://user-images.githubusercontent.com/8216630/62422376-43ee4c00-b6e4-11e9-945a-8e9e83e9ece2.png)
+```sh
+Supported global API [count: 37]: 
 
+Deno,
+queueMicrotask,
+window,
+atob,
+btoa,
+fetch,
+clearTimeout,
+clearInterval,
+setTimeout,
+setInterval,
+location,
+onload,
+onunload,
+crypto,
+Blob,
+File,
+CustomEvent,
+Event,
+EventTarget,
+URL,
+URLSearchParams,
+Headers,
+FormData,
+TextEncoder,
+TextDecoder,
+Request,
+Response,
+performance,
+onmessage,
+workerMain,
+workerClose,
+postMessage,
+Worker,
+addEventListener,
+dispatchEvent,
+removeEventListener,
+denoMain 
+```
 ### 特性
 
 `Deno`环境下的`window`目前使用过程中有一下特性
@@ -47,7 +86,7 @@ console.log(helloworld);
 
 ## API
 
-> 注：以下都是基于 Deno@v0.28.1 版本支持的 API
+> 注：以下都是基于 Deno@v0.19.0 版本支持的 API
 
 ### Deno原生 API
 
@@ -104,6 +143,8 @@ console.log(helloworld);
   - [MDN文档: Web/API/TextDecoder](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder)
 - performance
   - [MDN文档: Web/API/Performance](https://developer.mozilla.org/en-US/docs/Web/API/Performance)
+
+// TODO 还有其他浏览器API介绍
 
 
 
