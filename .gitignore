@@ -63,9 +63,13 @@ typings/
 
 demo/*/node_modules/
 demo/*/package-lock.json
+demo/*/target/
+demo/*/Cargo.lock
 _book/
 demo/*/dist/
 info.md
 note/tpl.md
 ./example.js
 ./example.ts
+./target
+/target

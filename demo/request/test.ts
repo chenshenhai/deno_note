@@ -67,6 +67,7 @@ test(async function serverGetRequest() {
       "headers": {
         "content-type": "application/json",
         "content-test": "helloworld",
+        "accept-encoding": "gzip",
         "user-agent": `Deno/${Deno.version.deno}`,
         "accept": "*/*",
         "host": "127.0.0.1:3001"
@@ -112,7 +113,8 @@ test(async function serverPostRequest() {
         "user-agent": `Deno/${Deno.version.deno}`,
         "accept":"*/*",
         "host":"127.0.0.1:3001",
-        "content-length":"23"
+        "content-length":"23",
+        "accept-encoding": "gzip",
       },
       "body":"formData1=1&formData1=2",
       "beforeFinish":false,
