@@ -10,7 +10,7 @@
 > deno -h
 
 
-deno 0.29.0
+deno 0.31.0
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
@@ -58,7 +58,7 @@ SUBCOMMANDS:
     types          Print runtime TypeScript declarations
 
 ENVIRONMENT VARIABLES:
-    DENO_DIR       Set deno\'s base directory
+    DENO_DIR       Set deno's base directory
     NO_COLOR       Set to disable color
     HTTP_PROXY     Proxy address for HTTP requests (module downloads, fetch)
     HTTPS_PROXY    Same but for HTTPS

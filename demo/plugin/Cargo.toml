@@ -8,5 +8,5 @@ edition = "2018"
 
 [dependencies]
 futures = "0.3.1"
-deno_core = "0.30"
-deno = "0.29"
+deno_core = "0.31"
+deno = "0.31"
