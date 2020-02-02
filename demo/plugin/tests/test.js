@@ -1,4 +1,4 @@
-const filenameBase = "test_plugin";
+const filenameBase = "libplugin";
 
 let filenameSuffix = ".so";
 let filenamePrefix = "lib";
@@ -8,6 +8,7 @@ if (Deno.build.os === "win") {
   filenamePrefix = "";
 }
 if (Deno.build.os === "mac") {
+  filenamePrefix = "";
   filenameSuffix = ".dylib";
 }
 
