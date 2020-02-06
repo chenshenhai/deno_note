@@ -19,11 +19,12 @@ const plugin = Deno.openPlugin(filename);
 const { testSync, testAsync } = plugin.ops;
 
 const textDecoder = new TextDecoder();
+const textEncoder = new TextEncoder();
 
 function runTestSync() {
   const response = testSync.dispatch(
-    new Uint8Array([116, 101, 115, 116]),
-    new Uint8Array([116, 101, 115, 116])
+    textEncoder.encode('test'),
+    textEncoder.encode('test'),
   );
 
   console.log(`Plugin Sync Response: ${textDecoder.decode(response)}`);
@@ -35,8 +36,8 @@ testAsync.setAsyncHandler(response => {
 
 function runTestAsync() {
   const response = testAsync.dispatch(
-    new Uint8Array([116, 101, 115, 116]),
-    new Uint8Array([116, 101, 115, 116])
+    textEncoder.encode('test'),
+    textEncoder.encode('test'),
   );
 
   if (response != null || response != undefined) {
@@ -47,8 +48,7 @@ function runTestAsync() {
 function runTestOpCount() {
   const start = Deno.metrics();
 
-  testSync.dispatch(new Uint8Array([116, 101, 115, 116]));
-
+  testSync.dispatch(textEncoder.encode('test'));
   const end = Deno.metrics();
 
   if (end.opsCompleted - start.opsCompleted !== 2) {

@@ -1,5 +1,5 @@
 variables:
-  DENO_VERSION: "v0.31.0"
+  DENO_VERSION: "v0.32.0"
   TS_VERSION: "3.7.2"
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
 
 - job: 'Mac'
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-10.15'
   steps:
   - bash: curl -L https://deno.land/x/install/install.sh | sh -s $(DENO_VERSION)
   - bash: echo '##vso[task.prependpath]$(HOME)/.local/bin/'
