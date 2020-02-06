@@ -158,12 +158,56 @@ cargo build
 在项目目录 `./tests/` 下建一个 `test.ts` 文件
 
 
+```js
+const filenameBase = "libplugin_hello";
+
+let filenameSuffix = ".so";
+let filenamePrefix = "lib";
+
+if (Deno.build.os === "win") {
+  filenameSuffix = ".dll";
+  filenamePrefix = "";
+}
+if (Deno.build.os === "mac") {
+  filenamePrefix = "";
+  filenameSuffix = ".dylib";
+}
+
+const filename = `../target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+
+const plugin = Deno.openPlugin(filename);
+
+const { testSync, testAsync } = plugin.ops;
+
+const textDecoder = new TextDecoder();
+const textEncoder = new TextEncoder();
+
+const response = testSync.dispatch(
+  textEncoder.encode('test'),
+  textEncoder.encode('test'),
+);
+console.log(`Plugin Sync Response: ${textDecoder.decode(response)}`);
 
 
+testAsync.setAsyncHandler(res => {
+  console.log(`Plugin Async Response: ${textDecoder.decode(res)}`);
+});
+testAsync.dispatch(
+  textEncoder.encode('test'),
+  textEncoder.encode('test'),
+);
+```
 
 
-### 编写Rust测试用例
+#### 测试结果
 
+在 `./test/` 下执行
 
+```sh
+deno run --allow-plugin test.ts 
+```
 
-## 测试结果
+会输出一下结果，就说明 Rust 插件调通了
+
+![deno_plugin_003.png](./../image/deno_plugin_dev_003.png)
+

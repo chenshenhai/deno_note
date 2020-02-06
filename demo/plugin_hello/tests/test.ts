@@ -21,11 +21,11 @@ const { testSync, testAsync } = plugin.ops;
 const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
 
-// const response = testSync.dispatch(
-//   textEncoder.encode('test'),
-//   textEncoder.encode('test'),
-// );
-// console.log(`Plugin Sync Response: ${textDecoder.decode(response)}`);
+const response = testSync.dispatch(
+  textEncoder.encode('test'),
+  textEncoder.encode('test'),
+);
+console.log(`Plugin Sync Response: ${textDecoder.decode(response)}`);
 
 
 testAsync.setAsyncHandler(res => {

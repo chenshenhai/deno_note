@@ -76,9 +76,9 @@
 * [7 工具类开发]
     * [7.1 Linux系统下CLI原始功能实现](./note/chapter_07/deno_cli.md)  
     * [7.2 终端输入/输出 效果处理](./note/chapter_07/deno_cmd.md) 
-* [8 发布模块]
-    * [8.1 GitHub发布模块版本]  `// TODO`
-    * [8.2 其他发布方式]  `// TODO`
+* [8 Deno的Rust插件开发]
+    * [8.1 插件开发入门](./note/chapter_08/deno_plugin_dev.md)  
+    * [8.2 Rust基础学习] `// TODO`
 
 
 ## 前言
