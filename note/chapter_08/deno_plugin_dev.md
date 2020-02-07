@@ -151,7 +151,7 @@ cargo build
 
 最后编译成功会显示这样子 (忽略警告)
 
-![deno_plugin_002.png](./../image/deno_plugin_dev_002.png)
+![deno_plugin_002.jpg](./../image/deno_plugin_dev_002.jpg)
 
 插件编译成后，在目录 `./target/debug/` 下会生成一系列在不同系统下的可执行文件。
 
@@ -215,5 +215,5 @@ deno run --allow-plugin test.ts
 
 会输出一下结果，就说明 Rust 插件调通了
 
-![deno_plugin_003.png](./../image/deno_plugin_dev_003.png)
+![deno_plugin_003.jpg](./../image/deno_plugin_dev_003.jpg)
 
