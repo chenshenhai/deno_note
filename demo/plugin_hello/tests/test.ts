@@ -22,8 +22,8 @@ const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
 
 const response = testSync.dispatch(
-  textEncoder.encode('test'),
-  textEncoder.encode('test'),
+  textEncoder.encode('hello'),
+  textEncoder.encode('world'),
 );
 console.log(`Plugin Sync Response: ${textDecoder.decode(response)}`);
 
