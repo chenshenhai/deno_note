@@ -25,11 +25,12 @@ const response = testSync.dispatch(
   textEncoder.encode('hello'),
   textEncoder.encode('world'),
 );
-console.log(`Plugin Sync Response: ${textDecoder.decode(response)}`);
+console.log(`[Deno] testSync Response: ${textDecoder.decode(response)}`);
 
+console.log('-------------------------------')
 
 testAsync.setAsyncHandler(res => {
-  console.log(`Plugin Async Response: ${textDecoder.decode(res)}`);
+  console.log(`[Deno] testAsync Response: ${textDecoder.decode(res)}`);
 });
 testAsync.dispatch(
   textEncoder.encode('test'),

@@ -19,16 +19,24 @@ init_fn!(init);
 
 // 定义插件的同步方法
 pub fn op_test_sync(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
-  if let Some(buf) = zero_copy {
-    let data_str = std::str::from_utf8(&data[..]).unwrap();
-    let buf_str = std::str::from_utf8(&buf[..]).unwrap();
-    println!(
-      "op_test_sync: data: {} | zero_copy: {}",
-      data_str, buf_str
-    );
+
+  // 解析接收到的两个 参数信息，转换成字符串
+  let controll = std::str::from_utf8(&data[..]).unwrap().to_string();
+  let &mut opts;
+  match zero_copy {
+    // 如果为空
+    None => opts = "".to_string(), 
+    // 如果存在
+    Some(buf) => opts = std::str::from_utf8(&buf[..]).unwrap().to_string(), 
   }
-  let result = b"test_sync";
+
+  // 打印接收到的 两个参数
+  println!("[Rust] op_test_sync.receive (\"{}\", \"{}\")", controll, opts);
+
+  // 返回结果
+  let result = b"ok!";
   let result_box: Buf = Box::new(*result);
+
   Op::Sync(result_box)
 }
 
