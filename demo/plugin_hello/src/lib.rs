@@ -31,7 +31,7 @@ pub fn op_test_sync(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
   }
 
   // 打印接收到的 两个参数
-  println!("[Rust] op_test_sync.receive (\"{}\", \"{}\")", controll, opts);
+  println!("[Rust] op_test_sync:receive (\"{}\", \"{}\")", controll, opts);
 
   // 返回结果
   let result = b"ok!";
@@ -42,17 +42,19 @@ pub fn op_test_sync(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
 
 // 定义插件的异步方法
 pub fn op_test_async(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
-  let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+
+  // 解析接收到的第一个 参数信息，转换成字符串
+  let controll = std::str::from_utf8(&data[..]).unwrap().to_string();
+
   let fut = async move {
+    // 异步解析第二个参数
     if let Some(buf) = zero_copy {
-      let buf_str = std::str::from_utf8(&buf[..]).unwrap();
-      println!(
-        "op_test_async: data: {} | zero_copy: {}",
-        data_str, buf_str
-      );
+      let opts = std::str::from_utf8(&buf[..]).unwrap();
+      println!("[Rust] op_test_async:receive (\"{}\", \"{}\")", controll, opts);
     }
     let result = b"test";
     let result_box: Buf = Box::new(*result);
+    // 结束异步操作
     Ok(result_box)
   };
 

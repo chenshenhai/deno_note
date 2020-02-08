@@ -97,32 +97,42 @@ init_fn!(init);
 
 // 定义插件的同步方法
 pub fn op_test_sync(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
-  if let Some(buf) = zero_copy {
-    let data_str = std::str::from_utf8(&data[..]).unwrap();
-    let buf_str = std::str::from_utf8(&buf[..]).unwrap();
-    println!(
-      "op_test_sync: data: {} | zero_copy: {}",
-      data_str, buf_str
-    );
+
+  // 解析接收到的两个 参数信息，转换成字符串
+  let controll = std::str::from_utf8(&data[..]).unwrap().to_string();
+  let &mut opts;
+  match zero_copy {
+    // 如果为空
+    None => opts = "".to_string(), 
+    // 如果存在
+    Some(buf) => opts = std::str::from_utf8(&buf[..]).unwrap().to_string(), 
   }
-  let result = b"test_sync";
+
+  // 打印接收到的 两个参数
+  println!("[Rust] op_test_sync:receive (\"{}\", \"{}\")", controll, opts);
+
+  // 返回结果
+  let result = b"ok!";
   let result_box: Buf = Box::new(*result);
+
   Op::Sync(result_box)
 }
 
 // 定义插件的异步方法
 pub fn op_test_async(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
-  let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+
+  // 解析接收到的第一个 参数信息，转换成字符串
+  let controll = std::str::from_utf8(&data[..]).unwrap().to_string();
+
   let fut = async move {
+    // 异步解析第二个参数
     if let Some(buf) = zero_copy {
-      let buf_str = std::str::from_utf8(&buf[..]).unwrap();
-      println!(
-        "op_test_async: data: {} | zero_copy: {}",
-        data_str, buf_str
-      );
+      let opts = std::str::from_utf8(&buf[..]).unwrap();
+      println!("[Rust] op_test_async:receive (\"{}\", \"{}\")", controll, opts);
     }
     let result = b"test";
     let result_box: Buf = Box::new(*result);
+    // 结束异步操作
     Ok(result_box)
   };
 
@@ -184,20 +194,27 @@ const { testSync, testAsync } = plugin.ops;
 const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
 
+// 执行 调用插件的 同步方法
 const response = testSync.dispatch(
-  textEncoder.encode('test'),
-  textEncoder.encode('test'),
+  textEncoder.encode('hello'),
+  textEncoder.encode('sync'),
 );
-console.log(`Plugin Sync Response: ${textDecoder.decode(response)}`);
+console.log(`[Deno] testSync Response: ${textDecoder.decode(response)}`);
 
+console.log('-------------------------------')
 
+// 执行 调用插件的 异步方法
+// 注册异步的回调操作
 testAsync.setAsyncHandler(res => {
-  console.log(`Plugin Async Response: ${textDecoder.decode(res)}`);
+  console.log(`[Deno] testAsync Response: ${textDecoder.decode(res)}`);
 });
+// 触发异步方法事件
 testAsync.dispatch(
   textEncoder.encode('test'),
   textEncoder.encode('test'),
 );
+
+
 ```
 
 
