@@ -1,6 +1,7 @@
-import { test, runTests } from "https://deno.land/std/testing/mod.ts";
 import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import { add, addAsync } from "./mod.ts";
+
+const { test, runTests } = Deno;
 
 test(function example() {
   const result = add(1, 2);

@@ -46,9 +46,10 @@ export { add, addAsync };
 - 测试代码 `./demo/testing_unit/test.ts`
 
 ```js
-import { test, } from "https://deno.land/std/testing/mod.ts";
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { add, addAsync } from "./index.ts";
+
+const test = Deno.test;
 
 test(function example() {
   const result = add(1, 2);

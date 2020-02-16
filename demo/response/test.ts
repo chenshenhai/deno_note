@@ -1,8 +1,8 @@
 #!/usr/bin/env deno run --allow-run --allow-net
-import { test, runTests } from "https://deno.land/std/testing/mod.ts";
 import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import {BufferReader} from "./../buffer_reader/mod.ts";
 
+const test = Deno.test;
 const run = Deno.run;
 const testSite = "http://127.0.0.1:3001";
 // 启动测试服务

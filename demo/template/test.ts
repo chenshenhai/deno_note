@@ -1,6 +1,8 @@
-import { test, runTests } from "https://deno.land/std/testing/mod.ts";
+
 import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import { compileTemplate } from "./mod.ts";
+
+const test = Deno.test;
 
 test(function testCompileTemplate() {
   const tpl = `

@@ -1,9 +1,9 @@
 #!/usr/bin/env deno --allow-run --allow-net
-import { test, runTests } from "https://deno.land/std/testing/mod.ts";
 import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;
+const test = Deno.test;
 
 async function delay(time: number = 100) {
   return new Promise((resolve) => {

@@ -364,9 +364,10 @@ export class BufferReader implements BufReader {
 ### 单元测试
 
 ```js
-import { test, assert, equal, runTests } from "https://deno.land/std/testing/mod.ts";
+import { assertEquals, assert, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./mod.ts";
 
+const { test, runTests } = Deno;
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 

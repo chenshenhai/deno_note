@@ -1,7 +1,7 @@
-import { test, runTests } from "https://deno.land/std/testing/mod.ts";
 import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./mod.ts";
 
+const { test } = Deno;
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 

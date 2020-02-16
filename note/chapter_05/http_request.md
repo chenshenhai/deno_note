@@ -211,9 +211,11 @@ export class RequestReader implements Request {
 ```js
 #!/usr/bin/env deno --allow-run --allow-net
 
-import { test, assert, equal, runTests } from "https://deno.land/std/testing/mod.ts";
+import { assertEquals, assert, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
+const test = Deno.test;
+const runTests = Deno.runTests;
 const run = Deno.run;
 
 const decoder = new TextDecoder();
