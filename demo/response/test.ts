@@ -7,8 +7,8 @@ const run = Deno.run;
 const testSite = "http://127.0.0.1:3001";
 // 启动测试服务
 
-let textServer;
-let jsonServer;
+let textServer: Deno.Process;
+let jsonServer: Deno.Process;;
 
 async function startTextServer() {
   textServer = run({
@@ -22,15 +22,19 @@ async function startTextServer() {
     ],
     stdout: "piped"
   });
-  const buffer = textServer.stdout;
-  const bufReader = new BufferReader(buffer);
-  const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
+  const buffer: Deno.ReadCloser | undefined = textServer.stdout;
+  if (buffer) {
+    const bufReader = new BufferReader(buffer);
+    const line = await bufReader.readLine();
+    equal("listening on 127.0.0.1:3001", line)
+  } else {
+    throw Error('Testing server started failfully!')
+  }
 }
 
 function closeTextServer() {
   textServer.close();
-  textServer.stdout.close();
+  textServer.stdout && textServer.stdout.close();
 }
 
 async function startJSONServer() {
@@ -46,15 +50,19 @@ async function startJSONServer() {
     ],
     stdout: "piped"
   });
-  const buffer = jsonServer.stdout;
-  const bufReader = new BufferReader(buffer);
-  const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
+  const buffer: Deno.ReadCloser | undefined = jsonServer.stdout;
+  if (buffer) {
+    const bufReader = new BufferReader(buffer);
+    const line = await bufReader.readLine();
+    equal("listening on 127.0.0.1:3001", line)
+  } else {
+    throw Error('Testing server started failfully!');
+  }
 }
 
 function closeJSONServer() {
   jsonServer.close();
-  jsonServer.stdout.close();
+  jsonServer.stdout && jsonServer.stdout.close();
 }
 
 test(async function serverTextResponse() {

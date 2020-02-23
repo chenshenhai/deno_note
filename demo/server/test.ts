@@ -8,22 +8,27 @@ const run = Deno.run;
 const testSite = "http://127.0.0.1:3001";
 // 启动测试服务
 
-let httpServer;
+let httpServer: Deno.Process;
 
 async function startHTTPServer() {
   httpServer = run({
     args: ["deno", "run", "--allow-net", "./demo/server/test_server.ts", "--", ".", "--cors"],
     stdout: "piped"
   });
-  const buffer = httpServer.stdout;
-  const bufReader = new BufferReader(buffer);
-  const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
+  const buffer: Deno.ReadCloser|undefined = httpServer.stdout;
+  if (buffer) {
+    const bufReader = new BufferReader(buffer);
+    const line = await bufReader.readLine();
+    equal("listening on 127.0.0.1:3001", line)
+  } else {
+    throw Error('Testing server started failfully!');
+  }
+  
 }
 
 function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout.close();
+  httpServer.stdout && httpServer.stdout.close();
 }
 
 test(async function server() {

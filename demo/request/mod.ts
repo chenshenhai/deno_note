@@ -30,7 +30,7 @@ export class RequestReader implements Request {
   private _bufferReader: BufferReader; // 内置buffer阅读器
   private _size = 1024; // 内置读数据缓冲区默认大小为 1024
   
-  private _headers: Headers; // HTTP头部信息
+  private _headers: Headers | null; // HTTP头部信息
   private _method: string | null; // HTTP请求行，方法信息
   private _protocol: string | null; // HTTP请求行，协议信息
   private _pathname: string | null; // HTTP请求行，请求路径
@@ -39,8 +39,10 @@ export class RequestReader implements Request {
   private _bodyStream: Uint8Array | null;
 
   constructor(conn: Deno.Conn, size?: number) {
-    if (size > 0) {
-      this._size = size;
+    if (typeof size !== 'undefined') {
+      if (size > 0) {
+        this._size = size;
+      }
     }
     this._bufferReader = new BufferReader(conn, this._size);
     this._method = null;
@@ -59,10 +61,10 @@ export class RequestReader implements Request {
   async getGeneral(): Promise<ReqGeneral> {
     await this._initHeaderFristLineInfo();
     return {
-      method: this._method,
-      protocol: this._protocol,
-      pathname: this._pathname,
-      search: this._search,
+      method: this._method || '',
+      protocol: this._protocol || '',
+      pathname: this._pathname || '',
+      search: this._search || '',
     };
   }
 
@@ -150,7 +152,7 @@ export class RequestReader implements Request {
     // example "GET /index/html?a=1 HTTP/1.1";
     const firstLine = await this._readLine();
     const regMatch = /([A-Z]{1,}){1,}\s(.*)\s(.*)/;
-    const strList : object = firstLine.match(regMatch) || [];
+    const strList : string[] = firstLine.match(regMatch) || [];
     const method : string = strList[1] || "";
     const href : string = strList[2] || "";
     const protocol : string = strList[3] || "";

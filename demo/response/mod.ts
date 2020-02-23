@@ -2,7 +2,7 @@ const encoder = new TextEncoder();
 const CRLF = "\r\n";
 
 // 响应码对应信息
-const statusMap = {
+const statusMap: {[key: string]: string} = {
   "200": "OK",
   "404": "Not Found",
   "500": "Server Error",
@@ -124,8 +124,14 @@ export class ResponseWriter implements Response {
     headers.set("content-length", `${bodyStream.byteLength}`);
     const resLines = [];
     const status = this._status;
+    let statusKey: string = `${status}`;
+    if (!(statusKey in statusMap)) {
+      statusKey = 'unknown';
+    }
+    const statusVal = statusMap[statusKey];
+
     // TODO: HTTP目前写死 1.1版本
-    resLines.push(`HTTP/1.1 ${status} ${statusMap[`${status || 'unknown'}`]}`);
+    resLines.push(`HTTP/1.1 ${status} ${statusVal}`);
     for ( const key of headers.keys() ) {
       const val = headers.get(key) || "";
       resLines.push(`${key}:${val}`);

@@ -6,9 +6,9 @@ const listen = Deno.listen;
  * 等待延迟接口
  */
 interface Deferred {
-  promise: Promise<{}>;
-  resolve: () => void;
-  reject: () => void;
+  promise: Promise<any>;
+  resolve: (value?: unknown) => void;
+  reject: (value?: unknown) => void;
 }
 
 /**
@@ -16,7 +16,8 @@ interface Deferred {
  * @return {Deferred}
  */
 function deferred(): Deferred {
-  let resolve, reject;
+  let resolve: (value?: unknown) => void = () => {};
+  let reject: (value?: unknown) => void = () => {};
   const promise = new Promise((res, rej) => {
     resolve = res;
     reject = rej;
@@ -52,8 +53,10 @@ function serveContext(env: ContextEnv, conn: Deno.Conn, ctx?: Context) {
     } else {
       // 如果处理TCP对话没问题
       // 就把TCP对话重新加入队列，重新下一次等待
-      env.queue.push(ctx);
-      env.deferred.resolve();
+      if (ctx) {
+        env.queue.push(ctx);
+        env.deferred.resolve();
+      }
     }
   })
 }
@@ -113,7 +116,7 @@ async function* serve(opts: Deno.ListenOptions) {
  */
 async function createHTTP(
   opts: Deno.ListenOptions,
-  handler: (ctx) => void
+  handler: (ctx: Context) => void
 ) {
   const server = serve(opts);
   for await (const ctx of server) {
@@ -128,7 +131,7 @@ async function createHTTP(
  * 等待取出问题，就是代表一个TCP对话已经结束
  * @param {Conn} c
  */
-async function loopContext(c: Deno.Conn): Promise<[Context, any]> {
+async function loopContext(c: Deno.Conn): Promise<[Context|null, any]> {
   const ctx = new Context(c);
   let err: any;
 
@@ -159,11 +162,11 @@ async function loopContext(c: Deno.Conn): Promise<[Context, any]> {
 
 
 export class Server {
-  private _handler: (ctx: Context) => Promise<void>;
+  private _handler: (ctx: Context) => Promise<void> = (ctx: Context) => Promise.reject();
   private _isInitialized: boolean = false; // 是否已经初始化
   private _isListening: boolean = false; // 是否已经在监听中
 
-  createServer(handler) {
+  createServer(handler: (ctx: Context) => Promise<void>) {
     if (this._isInitialized !== true) {
       this._handler = handler;
       this._isInitialized = true;
@@ -173,7 +176,7 @@ export class Server {
     }
   }
 
-  listen(opts: Deno.ListenOptions, callback) {
+  listen(opts: Deno.ListenOptions, callback: Function) {
     if (this._isListening !== true) {
       const handler = this._handler;
       createHTTP(opts, handler);

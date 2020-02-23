@@ -36,7 +36,7 @@ export class BufferReader implements BufReader {
 
   constructor(reader: Deno.Reader, size?: number) {
     this._reader = reader;
-    if (size <= MAX_BUFFER_SIZE && size >= MIN_BUFFER_SIZE) {
+    if (size && size <= MAX_BUFFER_SIZE && size >= MIN_BUFFER_SIZE) {
       this._size = size;
     }
     this._chunk = new Uint8Array(0);
@@ -124,7 +124,7 @@ export class BufferReader implements BufReader {
    * @param {Uint8Array} buf
    * @return {bollean}
    * */ 
-  private _isCRLF(buf): boolean {
+  private _isCRLF(buf: Uint8Array): boolean {
     return buf.byteLength === 2 && buf[0] === CR && buf[1] === LF;
   }
 

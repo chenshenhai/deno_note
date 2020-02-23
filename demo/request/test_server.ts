@@ -23,7 +23,7 @@ async function response(conn: Deno.Conn) {
   const req: Request = new RequestReader(conn);
   const beforeFinish = req.isFinish();
   const headers: Headers = await req.getHeaders();
-  const headerObj = {};
+  const headerObj: { [key: string]: string|undefined|null } = {};
   for(const key of headers.keys()) {
     headerObj[key] = headers.get(key); 
   }

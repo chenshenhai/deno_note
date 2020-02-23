@@ -10,7 +10,7 @@ const decoder = new TextDecoder();
 const testSite = "http://127.0.0.1:3001";
 // 启动测试服务
 
-let httpServer;
+let httpServer: Deno.Process;
 
 async function startHTTPServer() {
   httpServer = run({
@@ -24,18 +24,22 @@ async function startHTTPServer() {
     ],
     stdout: "piped"
   });
-  const buffer = httpServer.stdout;
-  const bufReader = new BufferReader(buffer);
+  const buffer: Deno.ReadCloser|undefined = httpServer.stdout;
+  if (buffer) {
+    const bufReader: BufferReader = new BufferReader(buffer);
 
-  const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
-  console.log('\r\nstart http server\r\n')
+    const line = await bufReader.readLine();
+    equal("listening on 127.0.0.1:3001", line)
+    console.log('\r\nstart http server\r\n')
+  } else {
+    throw Error('Testing server started failfully!')
+  }
 }
 
 function closeHTTPServer() {
   if (httpServer) {
     httpServer.close();
-    httpServer.stdout.close();
+    httpServer.stdout && httpServer.stdout.close();
   }
   console.log('\r\nclose http server\r\n')
 }
