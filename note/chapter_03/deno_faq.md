@@ -1,5 +1,10 @@
 # Deno常见问题点
 
+
+### Deno@0.34.0后默认 TS strict mode
+
+在 `Deno` 0.34.0 版本开始，默认 TS 严格模式 `strict mode`，如果工程代码里有不符合TS严格模式的，估计一开始跑起来会直接报错！
+
 ### Deno安装最新版后一直都是0.25.0
 
 在 `Deno` 0.26.0 版本开始，安装目录从 `$HOME/.deno/bin` 改成了 `$HOME/.local/bin` 下。
