@@ -38,7 +38,7 @@ class Progress {
   private _print(text: string, leftMoveCols?: number): number {
     const encode = new TextEncoder();
     let code: string = `\x1b[K${text}`;
-    if (leftMoveCols >= 0) {
+    if (leftMoveCols! >= 0) {
       code = `\x1b[${leftMoveCols}D\x1b[K${text}`;
     }
 
