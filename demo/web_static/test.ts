@@ -15,7 +15,7 @@ async function delay(time: number = 100) {
 
 const testSite = "http://127.0.0.1:3001";
 
-let httpServer;
+let httpServer: Deno.Process;
 
 async function startHTTPServer() {
   httpServer = run({
@@ -23,14 +23,17 @@ async function startHTTPServer() {
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
-  const bufReader = new BufferReader(buffer);
-  const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
+  if (buffer) {
+    const bufReader = new BufferReader(buffer);
+    const line = await bufReader.readLine();
+    equal("listening on 127.0.0.1:3001", line)
+  }
+  
 }
 
 function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout.close();
+  httpServer.stdout && httpServer.stdout.close();
 }
 
 test(async function testWebStatic() {
