@@ -1,6 +1,13 @@
 const funcParamKey = "__DATA__";
 
-function compileToFunctionContentStr (tpl) {
+
+interface TypeAddFuncCodeParams {
+  currentExec?: string,
+  currentMatch?: string,
+  restCode: string;
+}
+
+function compileToFunctionContentStr (tpl: string) {
   const tplCode = tpl;
   const regTpl = /#if[\s]{0,}\(([^\)]+)?\)|#elseif[\s]{0,}\(([^\)]+)?\)|#else|\(([^\)]+)?\)|#foreach[\s]{0,}\(([^\)]+)?\)\.indexAs\(([^\)]+)?\)|#foreach[\s]{0,}\(([^\)]+)?\)\.keyAs\(([^\)]+)?\)|{{([^}}]+)?}}|#\/if|#\/foreach/ig;
   const regDirectEnd = /#\/if|#\/foreach/i;
@@ -10,35 +17,35 @@ function compileToFunctionContentStr (tpl) {
   const regDirectForArray = /#foreach[\s]{0,}\(([^\)]+)?\)\.indexAs\(([^\)]+)?\)/i;
   const regDirectForJSON = /#foreach[\s]{0,}\(([^\)]+)?\)\.keyAs\(([^\)]+)?\)/i;
   const regData = /{{([^}}]+)?}}/i;
-  const directiveStock = [];
-  let funcCodeStr = "";
+  const directiveStock: string[] = [];
+  let funcCodeStr: string = "";
   let match = true;
   let codeIndex = 0;
   funcCodeStr += "\r\n let _row=[];\r\n";
 
-  const addFuncCode = function (params) {
-    const { currentExec, restCode } = params;
+  const addFuncCode = function (params: TypeAddFuncCodeParams) {
+    const { currentExec = '', restCode } = params;
 
     if (regData.test(currentExec) === true) {
       // set data
-      funcCodeStr += `\r\n _row.push(${regData.exec(currentExec)[1]});`;
+      funcCodeStr += `\r\n _row.push(${regData.exec(currentExec)![1]});`;
     } else if (regDirectIf.test(currentExec) === true) {
-      funcCodeStr += `\r\n if ( ${regDirectIf.exec(currentExec)[1]} ) {`;
+      funcCodeStr += `\r\n if ( ${regDirectIf.exec(currentExec)![1]} ) {`;
       directiveStock.push("if");
     } else if (regDirectElseif.test(currentExec) === true) {
-      funcCodeStr += `\r\n } else if ( ${regDirectElseif.exec(currentExec)[1]} ) {`;
+      funcCodeStr += `\r\n } else if ( ${regDirectElseif.exec(currentExec)![1]} ) {`;
     } else if (regDirectElse.test(currentExec) === true) {
       funcCodeStr += `\r\n } else {`;
     } else if (regDirectForArray.test(currentExec) === true) {
-      const forArrayName = regDirectForArray.exec(currentExec)[1];
-      const forArrayIndexName = regDirectForArray.exec(currentExec)[2] || "idx";
+      const forArrayName = regDirectForArray.exec(currentExec)![1];
+      const forArrayIndexName = regDirectForArray.exec(currentExec)![2] || "idx";
       funcCodeStr += `
       \r\n for ( let ${forArrayIndexName}=0; ${forArrayIndexName}<${forArrayName}.length; ${forArrayIndexName}++ ) {
       `;
       directiveStock.push("for-array");
     } else if (regDirectForJSON.test(currentExec) === true) {
-      const forJSONName = regDirectForJSON.exec(currentExec)[1];
-      const forJSONKey = regDirectForJSON.exec(currentExec)[2] || "key";
+      const forJSONName = regDirectForJSON.exec(currentExec)![1];
+      const forJSONKey = regDirectForJSON.exec(currentExec)![2] || "key";
       funcCodeStr += `
       \r\n for ( const ${forJSONKey} in ${forJSONName} ) {
       `;
@@ -57,8 +64,8 @@ function compileToFunctionContentStr (tpl) {
     excecResult = regTpl.exec(tplCode);
     if (match && excecResult) {
       const restCode = tplCode.slice(codeIndex, excecResult.index);
-      const currentExec = excecResult[0];
-      const currentMatch = excecResult[1];
+      const currentExec: string = excecResult[0];
+      const currentMatch: string = excecResult[1] || '';
       addFuncCode({ restCode });
       addFuncCode({ currentExec, currentMatch, restCode });
       codeIndex = excecResult.index + excecResult[0].length;
@@ -74,7 +81,7 @@ function compileToFunctionContentStr (tpl) {
 }
 
 function compileToFunctionInlineDataStr (data: object): string  {
-  const resultList = [];
+  const resultList: string[] = [];
   if (Object.prototype.toString.call(data).toLocaleLowerCase() === '[object object]') {
     const keys: string [] = Object.keys(data);
     keys.forEach(function(key) {
@@ -83,12 +90,12 @@ function compileToFunctionInlineDataStr (data: object): string  {
       }
     })
   }
-  const resultStr = resultList.join('\r\n');
+  const resultStr: string = resultList.join('\r\n');
   return resultStr;
 }
 
 const template = {
-  compile (tpl, data) {
+  compile (tpl: string, data: {[key: string]: any}) {
     const funcDataStr = compileToFunctionInlineDataStr(data);
     const funcContentStr = compileToFunctionContentStr(tpl);
     const funcStr = [funcDataStr, funcContentStr].join('\r\n');
