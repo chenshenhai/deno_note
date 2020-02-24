@@ -1,4 +1,4 @@
-import { Application } from "./../web/mod.ts";
+import { Application, Context } from "./../web/mod.ts";
 import { Route, Router } from "./mod.ts";
 const app = new Application();
 const opts: Deno.ListenOptions = {
@@ -8,19 +8,19 @@ const opts: Deno.ListenOptions = {
 
 const router = new Router();
 
-router.get("/hello", async function(ctx) {
+router.get("/hello", async function(ctx: Context) {
   ctx.res.setStatus(200);
   ctx.res.setBody("page_hello");
 });
-router.get("/foo", async function(ctx) {
+router.get("/foo", async function(ctx: Context) {
   ctx.res.setStatus(200);
   ctx.res.setBody("page_foo");
 });
-router.get("/bar", async function(ctx) {
+router.get("/bar", async function(ctx: Context) {
   ctx.res.setStatus(200);
   ctx.res.setBody("page_bar");
 });
-router.get("/page/:pageId/user/:userId", async function(ctx) {
+router.get("/page/:pageId/user/:userId", async function(ctx: Context) {
   const params = ctx.getData("router");
   ctx.res.setStatus(200);
   ctx.res.setBody(`${JSON.stringify(params)}`);

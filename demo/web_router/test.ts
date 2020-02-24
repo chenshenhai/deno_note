@@ -7,7 +7,7 @@ const run = Deno.run;
 
 const testSite = "http://127.0.0.1:3001";
 
-let httpServer;
+let httpServer: Deno.Process;
 
 async function delay(time: number = 100) {
   return new Promise((resolve) => {
@@ -24,15 +24,17 @@ async function startHTTPServer() {
     args: ["deno", "run", "--allow-net", "./demo/web_router/test_server.ts", "--", ".", "--cors"],
     stdout: "piped"
   });
-  const buffer = httpServer.stdout;
-  const bufReader = new BufferReader(buffer);
-  const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
+  const buffer: Deno.ReadCloser | undefined = httpServer.stdout;
+  if (buffer) {
+    const bufReader = new BufferReader(buffer);
+    const line = await bufReader.readLine();
+    equal("listening on 127.0.0.1:3001", line)
+  }
 }
 
 function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout.close();
+  httpServer.stdout && httpServer.stdout.close();
 }
 
 test(async function testWebRouter() {

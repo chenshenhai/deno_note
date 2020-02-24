@@ -1,5 +1,5 @@
 import { Context } from "./../server/context.ts";
-import { Request } from "./../request/mod.ts";
+import { Request, ReqGeneral } from "./../request/mod.ts";
 import { Response } from "./../response/mod.ts";
 
 /**
@@ -12,7 +12,7 @@ class SafeRequest {
     this._req = req;
   }
 
-  async getGeneral(): Promise<object> {
+  async getGeneral(): Promise<ReqGeneral> {
     return await this._req.getGeneral();
   }
 
