@@ -26,7 +26,7 @@ async function runUnitTest(opts: Deno.RunOptions): Promise<string> {
   return output
 }
 
-async function *runAllUnitTest(optsList): AsyncIterableIterator<any[]>{
+async function *runAllUnitTest(optsList: any[]): AsyncIterableIterator<any[]>{
   for (let i = 0; i < optsList.length; i++) {
     let err = null;
     let log = null;

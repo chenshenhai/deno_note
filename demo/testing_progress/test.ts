@@ -6,7 +6,7 @@ const decoder = new TextDecoder();
 const testSite = "http://127.0.0.1:3001";
 // 启动测试服务
 
-let httpServer;
+let httpServer: Deno.Process;
 
 async function startHTTPServer() {
   httpServer = Deno.run({
@@ -14,14 +14,16 @@ async function startHTTPServer() {
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
-  const chunk = new Uint8Array(2);
-  await buffer.read(chunk);
-  console.log("http server is starting");
+  if (buffer) {
+    const chunk = new Uint8Array(2);
+    await buffer.read(chunk);
+    console.log("http server is starting");
+  }
 }
 
 function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout.close();
+  httpServer.stdout && httpServer.stdout.close();
 }
 
 test(async function server() {
@@ -41,4 +43,4 @@ test(async function server() {
 });
 
 // 启动测试
-runTests();
+Deno.runTests();
