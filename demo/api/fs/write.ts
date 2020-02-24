@@ -1,3 +1,5 @@
+// deno --allow-write write.ts
+
 const encoder = new TextEncoder();
 
 function main(): void {

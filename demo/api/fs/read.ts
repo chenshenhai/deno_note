@@ -1,3 +1,4 @@
+// deno --allow-read read.ts
 
 async function main(): Promise<void> {
   const decoder = new TextDecoder("utf-8");

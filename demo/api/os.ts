@@ -1,4 +1,6 @@
 
+// deno --allow-env os.ts
+
 // 环境变量信息
 const _env = Deno.env();
 console.log(_env);
