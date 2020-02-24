@@ -1,3 +1,4 @@
+// deno --allow-all install.ts
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
