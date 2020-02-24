@@ -9,16 +9,16 @@ export interface ReadRequest {
 
 export async function readConn(conn: Deno.Conn): Promise<ReadRequest> {
   const bufReader = new BufferReader(conn);
-  const headers = {};
+  const headers: { [key: string]: string } = {};
   let bodyStream = new Uint8Array(0);
 
   // 读取 HTTP 头部 第一行
   const firstLine = await bufReader.readLine();
   const regMatch = /([A-Z]{1,}){1,}\s(.*)\s(.*)/;
-  const strList : object = firstLine.match(regMatch) || [];
-  const method : string = strList[1] || "";
-  const href : string = strList[2] || "";
-  const protocol : string = strList[3] || "";
+  const strList = firstLine.match(regMatch) || [];
+  const method : string = strList![1] || "";
+  const href : string = strList![2] || "";
+  const protocol : string = strList![3] || "";
   const pathname : string = href.split("?")[0] || "";
   const search : string = href.split("?")[1] || "";
 
@@ -32,11 +32,11 @@ export async function readConn(conn: Deno.Conn): Promise<ReadRequest> {
       break;
     }
     const dataList = line.split(': ');
-    headers[dataList[0]] = dataList[1] || '';
+    headers[dataList[0]] = dataList![1] || '';
   }
 
   // 读取 HTTP 报文内容
-  const contentLength = parseInt(headers["Content-Length"] || "0", 10);
+  const contentLength: number = parseInt(headers["Content-Length"] || "0", 10);
   bodyStream = new TextEncoder().encode("");
   if (contentLength > 0) {
     bodyStream = await bufReader.readCustomChunk(contentLength);

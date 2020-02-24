@@ -4,8 +4,8 @@ const CRLF_LEN = 2;
 const decoder = new TextDecoder();
 
 interface FieldChunkOffset {
-  start?: number;
-  end?: number;
+  start: number;
+  end: number;
 }
 
 const textFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?"$/i;
@@ -32,7 +32,7 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
       const value: string = await reader.readLine();
       if (nullLine === '') {
         const fieldData = {
-          name: execRs[1],
+          name: execRs![1],
           value,
         }
         yield fieldData
@@ -49,9 +49,9 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
         const valueStart = (contentDescChunk.length + CRLF_LEN) + (contentTypeChunk.length + CRLF_LEN) + CRLF_LEN;
         const valueEnd = field.length - CRLF_LEN;
         const fieldData = {
-          name: execRs[1],
-          type: typeRs[1],
-          filename: execRs[2],
+          name: execRs![1],
+          type: typeRs![1],
+          filename: execRs![2],
           value: field.subarray(valueStart, valueEnd),
         }
         yield fieldData;
@@ -114,6 +114,7 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
         }
         fieldOffsetList.push({
           start: startIndex + lineChunkLen,
+          end: -1,
         });
       }
     }
