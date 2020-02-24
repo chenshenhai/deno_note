@@ -109,7 +109,7 @@ class SafeResponse {
  */
 class SafeContext {
   private _ctx: Context;
-  private _dataMap: object = {};
+  private _dataMap: {[key: string]: any} = {};
   public req: SafeRequest;
   public res: SafeResponse;
   constructor(ctx: Context) {

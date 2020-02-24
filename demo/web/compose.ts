@@ -15,13 +15,13 @@ export const compose = function (middleware: Function[]) {
 
     return dispatch(0);
 
-    function dispatch(i) {
+    function dispatch(i: number) {
       if (i < index) {
         return Promise.reject(new Error('next() called multiple times'));
       }
       index = i;
 
-      let fn = middleware[i];
+      let fn: any = middleware[i];
 
       if (i === middleware.length) {
         fn = next;

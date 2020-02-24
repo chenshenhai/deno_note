@@ -1,4 +1,4 @@
-import { Application } from "./mod.ts";
+import { Application, Context } from "./mod.ts";
 
 
 const app = new Application();
@@ -7,14 +7,14 @@ const opts: Deno.ListenOptions = {
   port: 3001
 }
 
-app.use(async function(ctx, next) {
+app.use(async function(ctx: Context, next: Function) {
   // console.log('action 001');
   ctx.res.setBody("hello world! middleware-001");
   await next();
   // console.log('action 006');
 });
 
-app.use(async function(ctx, next) {
+app.use(async function(ctx: Context, next: Function) {
   // console.log('action 002');
   ctx.res.setBody("hello world! middleware-002");
   ctx.res.setStatus(200);
@@ -24,7 +24,7 @@ app.use(async function(ctx, next) {
   // console.log('action 005');
 });
 
-app.use(async function(ctx, next) {
+app.use(async function(ctx: Context, next: Function) {
   // console.log('action 003');
   ctx.res.setBody("hello world! middleware-003");
   await next();
