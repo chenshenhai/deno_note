@@ -1,4 +1,4 @@
-import { Application } from "./../web/mod.ts";
+import { Application, Context } from "./../web/mod.ts";
 import { parseContentType, parseMultipartForm, FormFieldData } from "./bodyparser.ts";
 
 const app = new Application();
@@ -7,7 +7,7 @@ const opts: Deno.ListenOptions = {
   port: 3001
 }
 
-app.use(async function(ctx, next) {
+app.use(async function(ctx: Context, next: Function) {
   const general = await ctx.req.getGeneral();
   const headers = await ctx.req.getHeaders();
   const contentType = headers.get('Content-Type');
@@ -15,7 +15,7 @@ app.use(async function(ctx, next) {
   let body: string = `404: Not found`;
   if (general.method === "POST") {
     if (general.pathname === "/multipart") {
-      const formType = parseContentType(contentType);
+      const formType = parseContentType(contentType || '');
       const bodyStream: Uint8Array = await ctx.req.getBodyStream();
       const dataList: FormFieldData[] = await await parseMultipartForm(formType.boundary, bodyStream);
       body = JSON.stringify(dataList);

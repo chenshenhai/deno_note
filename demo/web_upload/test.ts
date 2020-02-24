@@ -5,7 +5,7 @@ import { BufferReader } from "./../buffer_reader/mod.ts";
 const testSite = "http://127.0.0.1:3001";
 const test = Deno.test;
 
-let httpServer;
+let httpServer: Deno.Process;
 
 async function startHTTPServer() {
   httpServer = Deno.run({
@@ -13,14 +13,17 @@ async function startHTTPServer() {
     stdout: "piped"
   });
   const buffer = httpServer.stdout;
-  const bufReader = new BufferReader(buffer);
-  const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
+  if (buffer) {
+    const bufReader = new BufferReader(buffer);
+    const line = await bufReader.readLine();
+    equal("listening on 127.0.0.1:3001", line)
+  }
+  
 }
 
 function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout.close();
+  httpServer.stdout && httpServer.stdout.close();
 }
 
 test(async function testMultipart(): Promise<void> {

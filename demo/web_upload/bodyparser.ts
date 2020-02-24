@@ -54,7 +54,7 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
       const value: string = await reader.readLine();
       if (nullLine === '') {
         const fieldData = {
-          name: execRs[1],
+          name: execRs![1],
           value,
         }
         yield fieldData
@@ -71,9 +71,9 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
         const valueStart = (contentDescChunk.length + CRLF_LEN) + (contentTypeChunk.length + CRLF_LEN) + CRLF_LEN;
         const valueEnd = field.length - CRLF_LEN;
         const fieldData = {
-          name: execRs[1],
-          type: typeRs[1],
-          filename: execRs[2],
+          name: execRs![1],
+          type: typeRs![1],
+          filename: execRs![2],
           value: field.subarray(valueStart, valueEnd),
         }
         yield fieldData;
@@ -86,8 +86,8 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
 
 // 表单二进制数据流单个数据偏移量
 interface FieldChunkOffset {
-  start?: number;
-  end?: number;
+  start: number;
+  end: number;
 }
 
 
@@ -144,6 +144,7 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
         }
         fieldOffsetList.push({
           start: startIndex + lineChunkLen,
+          end: -1,
         });
       }
     }
@@ -153,9 +154,11 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
   // 根据 表单内存空间/数据流里每个数据的起始和终止偏移量
   // 切割出每个数据的数据流
   fieldOffsetList.forEach((offset: FieldChunkOffset) => {
-    if(offset && offset.start >= 0 && offset.end >= 0) {
-      const fieldChunk: Uint8Array = stream.subarray(offset.start, offset.end);
-      fieldChunkList.push(fieldChunk);
+    if(offset) {
+      if(offset.start >= 0 && offset.end >= 0) {
+        const fieldChunk: Uint8Array = stream.subarray(offset.start, offset.end);
+        fieldChunkList.push(fieldChunk);
+      }
     }
   })
 
