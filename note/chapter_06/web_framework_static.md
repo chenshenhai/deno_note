@@ -22,9 +22,11 @@
 
 #### 源码讲解
 
-demo/web_static/mod.ts
+`./demo/web_static/mod.ts`
 
 ```js
+import { Context } from './../web/mod.ts';
+
 const readFileSync = Deno.readFileSync;
 const lstatSync = Deno.lstatSync
 
@@ -69,7 +71,7 @@ function pathFilter(path: string, opts?: ServeOptions) {
  * @param {function} 中间件函数
  */
 function serve(baseDir: string, options?: ServeOptions): Function {
-  return async function(ctx, next) {
+  return async function(ctx: Context, next: Function) {
     await next();
     const {req, res} = ctx;
     const gen = await req.getGeneral() || {};
@@ -104,7 +106,7 @@ export const staticServe = serve;
 
 [https://github.com/chenshenhai/deno_note/blob/master/demo/web_static/example.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/web_static/example.ts)
 
-demo/web_static/example.ts
+`./demo/web_static/example.ts`
 
 ```js
 import { Application } from "./../web/mod.ts";
