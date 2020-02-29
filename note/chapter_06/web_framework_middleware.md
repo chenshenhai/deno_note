@@ -209,21 +209,19 @@ export { Context, SafeContext }
 
 #### 源码讲解
 
-
-demo/web/application.ts
+`./demo/web/application.ts`
 
 ```js
-
 import { Context, SafeContext } from "./context.ts";
 import { Server } from "./../server/mod.ts";
 import { compose } from "./compose.ts";
 
-const { exit } = Deno;
+const exit = Deno.exit;
 
 class Application {
 
   private _middlewares: Function[];
-  private _server?: Server;
+  private _server: Server;
 
   constructor() {
     this._middlewares = [];
@@ -241,14 +239,14 @@ class Application {
 
   /**
    * 开始监听服务
-   * @param addr {string} 监听地址和端口 127.0.0.1:0000
+   * @param opts {Deno.ListenOptions} 监听地址和端口 
    * @param fn {Function} 监听执行后的回调
    */
-  public async listen(addr: string, fn?: Function) {
+  public async listen(opts: Deno.ListenOptions, fn: Function) {
     const that = this;
     const server = this._server;
     // 启动HTTP服务
-    server.createServer(async function(ctx) {
+    server.createServer(async function(ctx: Context) {
       const middlewares = that._middlewares;
       
       try {
@@ -270,7 +268,7 @@ class Application {
         that._onError(err, ctx);
       }
     }); 
-    server.listen(addr, fn);
+    server.listen(opts, fn);
   }
 
   /**
@@ -282,7 +280,7 @@ class Application {
     console.log(err);
     if (ctx instanceof Context) {
       // 出现错误，把错误堆栈打印到页面上
-      ctx.res.setBody(err.stack);
+      ctx.res.setBody(err.stack || 'Server Error');
       ctx.res.setStatus(500);
       await ctx.res.flush();
     } else {
@@ -296,7 +294,7 @@ export { Application };
 
 ### 使用例子
 
-demo/web/example.ts
+`./demo/web/example.ts`
 
 ```ts
 import { Application } from "./mod.ts";
