@@ -35,6 +35,7 @@
 
 #### HTTP 上下文实现
 
+`./demo/server/context.ts`
 
 ```js
 import { Request, RequestReader } from "./../request/mod.ts";
@@ -70,6 +71,8 @@ export { Context };
 
 #### HTTP 服务实现 
 
+`./demo/server/mod.ts`
+
 ```js
 import { Context } from "./context.ts";
 
@@ -79,9 +82,9 @@ const listen = Deno.listen;
  * 等待延迟接口
  */
 interface Deferred {
-  promise: Promise<{}>;
-  resolve: () => void;
-  reject: () => void;
+  promise: Promise<any>;
+  resolve: (value?: unknown) => void;
+  reject: (value?: unknown) => void;
 }
 
 /**
@@ -89,7 +92,8 @@ interface Deferred {
  * @return {Deferred}
  */
 function deferred(): Deferred {
-  let resolve, reject;
+  let resolve: (value?: unknown) => void = () => {};
+  let reject: (value?: unknown) => void = () => {};
   const promise = new Promise((res, rej) => {
     resolve = res;
     reject = rej;
@@ -125,8 +129,10 @@ function serveContext(env: ContextEnv, conn: Deno.Conn, ctx?: Context) {
     } else {
       // 如果处理TCP对话没问题
       // 就把TCP对话重新加入队列，重新下一次等待
-      env.queue.push(ctx);
-      env.deferred.resolve();
+      if (ctx) {
+        env.queue.push(ctx);
+        env.deferred.resolve();
+      }
     }
   })
 }
@@ -135,9 +141,9 @@ function serveContext(env: ContextEnv, conn: Deno.Conn, ctx?: Context) {
  * TCP 主服务方法
  * @param addr 
  */
-async function* serve(addr: string) {
+async function* serve(opts: Deno.ListenOptions) {
   // 监听 TCP 端口
-  const listener = listen("tcp", addr);
+  const listener = listen(opts);
   // 初始化一个HTTP上下文环境
   const env: ContextEnv = {
     queue: [], 
@@ -185,10 +191,10 @@ async function* serve(addr: string) {
  * @param {function} handler 
  */
 async function createHTTP(
-  addr: string,
-  handler: (ctx) => void
+  opts: Deno.ListenOptions,
+  handler: (ctx: Context) => void
 ) {
-  const server = serve(addr);
+  const server = serve(opts);
   for await (const ctx of server) {
     // 处理每一个服务的操作
     await handler(ctx);
@@ -201,7 +207,7 @@ async function createHTTP(
  * 等待取出问题，就是代表一个TCP对话已经结束
  * @param {Conn} c
  */
-async function loopContext(c: Deno.Conn): Promise<[Context, any]> {
+async function loopContext(c: Deno.Conn): Promise<[Context|null, any]> {
   const ctx = new Context(c);
   let err: any;
 
@@ -232,11 +238,11 @@ async function loopContext(c: Deno.Conn): Promise<[Context, any]> {
 
 
 export class Server {
-  private _handler: (ctx: Context) => Promise<void>;
+  private _handler: (ctx: Context) => Promise<void> = (ctx: Context) => Promise.reject();
   private _isInitialized: boolean = false; // 是否已经初始化
   private _isListening: boolean = false; // 是否已经在监听中
 
-  createServer(handler) {
+  createServer(handler: (ctx: Context) => Promise<void>) {
     if (this._isInitialized !== true) {
       this._handler = handler;
       this._isInitialized = true;
@@ -246,10 +252,10 @@ export class Server {
     }
   }
 
-  listen(addr, callback) {
+  listen(opts: Deno.ListenOptions, callback: Function) {
     if (this._isListening !== true) {
       const handler = this._handler;
-      createHTTP(addr, handler);
+      createHTTP(opts, handler);
       callback();
       this._isInitialized = true;
     } else {
@@ -267,6 +273,8 @@ export class Server {
 [https://github.com/chenshenhai/deno_note/blob/master/demo/server/example.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/server/example.ts)
 
 #### 使用例子代码讲解
+
+`./demo/server/example.ts`
 
 ```js
 import { Server } from "./mod.ts";
