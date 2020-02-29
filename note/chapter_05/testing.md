@@ -14,9 +14,14 @@
 - 单元划分
 - 断言处理
 
+
+`Deno`原生能力提供了 一下API
+ 
+- `test` 测试单元
+- `runTests` 测试执行
+
 `Deno` 官方标准模块 `deno_std/testing` 提供了以下基础API
 
-- `test` 测试单元
 - `assert` 断言
 - `equal` 判断
 
