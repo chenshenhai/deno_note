@@ -1,5 +1,9 @@
 # 缓冲区基础知识点
 
+## 前言
+
+`Deno` 内部很多API调用数据、`TypeScript/JavaScript`和`Rust`通信都是都是基于 `Uint8Array` 格式。所以在使用`Deno`前需要了解一下 `Uint8Array` 这类数据格式的知识点
+
 ## 前置了解的概念
 
 ### bit和byte认知
