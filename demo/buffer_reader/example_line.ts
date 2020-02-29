@@ -28,7 +28,7 @@ let currentReadIndex = 0;
  * @param {Uint8Array} buf
  * @return {bollean}
  * */ 
-function isCRLF(buf): boolean {
+function isCRLF(buf: Uint8Array): boolean {
   return buf.byteLength === 2 && buf[0] === CR && buf[1] === LF;
 }
 
@@ -36,7 +36,7 @@ function isCRLF(buf): boolean {
  * 读取缓冲区当前已经读到的数据块
  * @return {Uint8Array}
  * */
-function getCurrent() {
+function getCurrent(): Uint8Array {
   return chunk.subarray(currentReadIndex);
 }
 
