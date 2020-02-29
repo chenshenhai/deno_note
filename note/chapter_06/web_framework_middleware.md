@@ -29,17 +29,11 @@
 
 #### 源码讲解
 
-demo/web/context.ts
+`./demo/web/context.ts`
 
 ```js
-/** 
- * 
- * Request 取自于 [5.8 原生Deno处理HTTP请求](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/08.md)
- * Response 取自于 [5.9 原生Deno处理HTTP响应](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/09.md)
- * Context 取自于 [5.10 原生Deno实现稳定HTTP服务](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/10.md)
- * */
 import { Context } from "./../server/context.ts";
-import { Request } from "./../request/mod.ts";
+import { Request, ReqGeneral } from "./../request/mod.ts";
 import { Response } from "./../response/mod.ts";
 
 /**
@@ -52,7 +46,7 @@ class SafeRequest {
     this._req = req;
   }
 
-  async getGeneral(): Promise<object> {
+  async getGeneral(): Promise<ReqGeneral> {
     return await this._req.getGeneral();
   }
 
@@ -149,7 +143,7 @@ class SafeResponse {
  */
 class SafeContext {
   private _ctx: Context;
-  private _dataMap: object = {};
+  private _dataMap: {[key: string]: any} = {};
   public req: SafeRequest;
   public res: SafeResponse;
   constructor(ctx: Context) {
