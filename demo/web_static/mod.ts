@@ -47,7 +47,7 @@ function serve(baseDir: string, options?: ServeOptions): Function {
   return async function(ctx: Context, next: Function) {
     await next();
     const {req, res} = ctx;
-    const gen = await req.getGeneral() || {};
+    const gen = await req.getGeneral();
     const pathname = gen.pathname;
     if ( options && typeof options.prefix === "string" && pathname.indexOf(options.prefix) === 0 ) {
       const path = pathFilter(pathname, options);
