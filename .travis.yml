@@ -1,7 +1,5 @@
 language: python
 
-os: osx
-
 variables:
   DENO_VERSION: "v0.34.0"
 
