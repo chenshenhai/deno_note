@@ -20,8 +20,10 @@
 
 ### 具体集成测试源码
 
+`./demo/testing_integrate/test.js`
+
 ```js
-#!/usr/bin/env deno --allow-run --allow-net test.ts
+#!/usr/bin/env deno run --allow-run --allow-net test.ts
 
 const decoder = new TextDecoder();
 
@@ -49,7 +51,7 @@ async function runUnitTest(opts: Deno.RunOptions): Promise<string> {
   return output
 }
 
-async function *runAllUnitTest(optsList): AsyncIterableIterator<any[]>{
+async function *runAllUnitTest(optsList: any[]): AsyncIterableIterator<any[]>{
   for (let i = 0; i < optsList.length; i++) {
     let err = null;
     let log = null;

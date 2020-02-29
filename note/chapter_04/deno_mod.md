@@ -29,7 +29,7 @@
 `Deno` 原生基础能力的模块，直接从`Deno`中引用，例如
 
 ```js
-import { readFileSync, writeFileSync } from "deno";
+const { readFileSync, writeFileSync } = Deno
 ```
 
 原生模块主要提供以下能力。
