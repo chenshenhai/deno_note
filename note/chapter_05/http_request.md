@@ -29,6 +29,8 @@
 
 #### 具体代码讲解
 
+`./demo/request/mod.ts`
+
 ```js
 
 // 参考源码: https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
@@ -62,7 +64,7 @@ export class RequestReader implements Request {
   private _bufferReader: BufferReader; // 内置buffer阅读器
   private _size = 1024; // 内置读数据缓冲区默认大小为 1024
   
-  private _headers: Headers; // HTTP头部信息
+  private _headers: Headers | null; // HTTP头部信息
   private _method: string | null; // HTTP请求行，方法信息
   private _protocol: string | null; // HTTP请求行，协议信息
   private _pathname: string | null; // HTTP请求行，请求路径
@@ -71,8 +73,10 @@ export class RequestReader implements Request {
   private _bodyStream: Uint8Array | null;
 
   constructor(conn: Deno.Conn, size?: number) {
-    if (size > 0) {
-      this._size = size;
+    if (typeof size !== 'undefined') {
+      if (size > 0) {
+        this._size = size;
+      }
     }
     this._bufferReader = new BufferReader(conn, this._size);
     this._method = null;
@@ -91,10 +95,10 @@ export class RequestReader implements Request {
   async getGeneral(): Promise<ReqGeneral> {
     await this._initHeaderFristLineInfo();
     return {
-      method: this._method,
-      protocol: this._protocol,
-      pathname: this._pathname,
-      search: this._search,
+      method: this._method || '',
+      protocol: this._protocol || '',
+      pathname: this._pathname || '',
+      search: this._search || '',
     };
   }
 
@@ -163,8 +167,8 @@ export class RequestReader implements Request {
       return this._bodyStream;
     }
     const headers = await this.getHeaders();
-    const contentLength = parseInt(headers.get("content-length") || "0", 10);
-    let bodyStream = new TextEncoder().encode('');
+    const contentLength = parseInt(headers.get("Content-Length") || "0", 10);
+    let bodyStream = new TextEncoder().encode("");
     if (contentLength > 0) {
       bodyStream = await this._bufferReader.readCustomChunk(contentLength);
     }
@@ -182,7 +186,7 @@ export class RequestReader implements Request {
     // example "GET /index/html?a=1 HTTP/1.1";
     const firstLine = await this._readLine();
     const regMatch = /([A-Z]{1,}){1,}\s(.*)\s(.*)/;
-    const strList : object = firstLine.match(regMatch) || [];
+    const strList : string[] = firstLine.match(regMatch) || [];
     const method : string = strList[1] || "";
     const href : string = strList[2] || "";
     const protocol : string = strList[3] || "";
@@ -201,44 +205,59 @@ export class RequestReader implements Request {
   
 }
 
+
 ```
 
 #### 实现代码的单元测试
 
 具体参考 [https://github.com/chenshenhai/deno_note/blob/master/demo/request/test.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/request/test.ts)
 
+`./demo/request/test.ts`
 
 ```js
-#!/usr/bin/env deno --allow-run --allow-net
+#!/usr/bin/env deno run --allow-run --allow-net
 
-import { assertEquals, assert, equal } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const test = Deno.test;
-const runTests = Deno.runTests;
 const run = Deno.run;
 
 const decoder = new TextDecoder();
 const testSite = "http://127.0.0.1:3001";
 // 启动测试服务
 
-let httpServer;
+let httpServer: Deno.Process;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: ["deno", "run", "--allow-net", "./test_server.ts", "--", ".", "--cors"],
+    args: [
+      Deno.execPath(),
+      "--allow-net",
+      "./demo/request/test_server.ts",
+      "--",
+      ".",
+      "--cors"
+    ],
     stdout: "piped"
   });
-  const buffer = httpServer.stdout;
-  const bufReader = new BufferReader(buffer);
-  const line = await bufReader.readLine();
-  equal("listening on 127.0.0.1:3001", line)
-  console.log('\r\nstart http server\r\n')
+  const buffer: Deno.ReadCloser|undefined = httpServer.stdout;
+  if (buffer) {
+    const bufReader: BufferReader = new BufferReader(buffer);
+
+    const line = await bufReader.readLine();
+    equal("listening on 127.0.0.1:3001", line)
+    console.log('\r\nstart http server\r\n')
+  } else {
+    throw Error('Testing server started failfully!')
+  }
 }
 
 function closeHTTPServer() {
-  httpServer.close();
-  httpServer.stdout.close();
+  if (httpServer) {
+    httpServer.close();
+    httpServer.stdout && httpServer.stdout.close();
+  }
   console.log('\r\nclose http server\r\n')
 }
 
@@ -261,27 +280,27 @@ test(async function serverGetRequest() {
     const json = await res.json();
     const acceptResult = {
       "general": {
-        "method":"GET",
-        "protocol":"HTTP/1.1",
-        "pathname":"/page/test.html",
-        "search":"a=1&b=2"
+        "method": "GET",
+        "protocol": "HTTP/1.1",
+        "pathname": "/page/test.html",
+        "search": "a=1&b=2"
       },
-      "headers":{
-        "content-type":"application/json",
-        "content-test":"helloworld",
-        "host":"127.0.0.1:3001"
-      }, 
+      "headers": {
+        "content-type": "application/json",
+        "content-test": "helloworld",
+        "accept-encoding": "gzip",
+        "user-agent": `Deno/${Deno.version.deno}`,
+        "accept": "*/*",
+        "host": "127.0.0.1:3001"
+      },
       "body": "",
       "beforeFinish": false,
-      "afterFinish": true,
+      "afterFinish": true
     }
-    assert(equal(json, acceptResult));
-    // 关闭测试服务
+    
+    assertEquals(json, acceptResult);
+  } finally {
     closeHTTPServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeHTTPServer();
-    throw new Error(err);
   }
 });
 
@@ -304,33 +323,31 @@ test(async function serverPostRequest() {
     });
     const json = await res.json();
     const acceptResult = {
-      "general": {
-          "method": "POST",
-          "protocol": "HTTP/1.1",
-          "pathname": "/page/test.html",
-          "search": "a=1&b=2"
+      "general":{
+        "method":"POST",
+        "protocol":"HTTP/1.1",
+        "pathname":"/page/test.html",
+        "search":"a=1&b=2"
       },
-      "headers": {
-          "content-type": "application/x-www-form-urlencoded",
-          "host": "127.0.0.1:3001",
-          "content-length": "23"
+      "headers":{
+        "content-type":"application/x-www-form-urlencoded",
+        "user-agent": `Deno/${Deno.version.deno}`,
+        "accept":"*/*",
+        "host":"127.0.0.1:3001",
+        "content-length":"23",
+        "accept-encoding": "gzip",
       },
-      "body": "formData1=1&formData1=2",
-      "beforeFinish": false,
-      "afterFinish": true
+      "body":"formData1=1&formData1=2",
+      "beforeFinish":false,
+      "afterFinish":true
     }
-    assert(equal(json, acceptResult));
-    // 关闭测试服务
+    
+    assertEquals(json, acceptResult);
+  } finally {
     closeHTTPServer();
-  } catch (err) {
-    // 关闭测试服务
-    closeHTTPServer();
-    throw new Error(err);
   }
 });
 
-// 启动测试
-runTests();
 ```
 
 ### 处理GET请求使用例子
@@ -339,6 +356,8 @@ runTests();
 [https://github.com/chenshenhai/deno_note/blob/master/demo/request/example_get.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/request/example_get.ts)
 
 #### 具体代码讲解
+
+`./demo/request/example_get.ts`
 
 ```js
 import { Request, RequestReader } from "./mod.ts";
@@ -408,6 +427,8 @@ deno run --allow-net example_get.ts
 [https://github.com/chenshenhai/deno_note/blob/master/demo/request/example_post.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/request/example_post.ts)
 
 #### 具体代码讲解
+
+`./demo/request/example_post.ts`
 
 ```js
 import { Request, ReqGeneral, RequestReader } from "./mod.ts";

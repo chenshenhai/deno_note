@@ -18,8 +18,7 @@
 ### demo例子
 [https://github.com/chenshenhai/deno_note/blob/master/demo/http/example.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/http/example.ts)
 
-
-example.ts
+`./demo/http/example.ts`
 
 ```js
 // example.ts
