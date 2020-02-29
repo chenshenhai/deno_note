@@ -81,10 +81,9 @@ HTTP请求内容中
 ```js
 // 表单二进制数据流单个数据偏移量
 interface FieldChunkOffset {
-  start?: number;
-  end?: number;
+  start: number;
+  end: number;
 }
-
 
 /**
  * 将 multipart/form-data 的表单类型按照表单的数据域
@@ -139,6 +138,7 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
         }
         fieldOffsetList.push({
           start: startIndex + lineChunkLen,
+          end: -1,
         });
       }
     }
@@ -148,9 +148,11 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
   // 根据 表单内存空间/数据流里每个数据的起始和终止偏移量
   // 切割出每个数据的数据流
   fieldOffsetList.forEach((offset: FieldChunkOffset) => {
-    if(offset && offset.start >= 0 && offset.end >= 0) {
-      const fieldChunk: Uint8Array = stream.subarray(offset.start, offset.end);
-      fieldChunkList.push(fieldChunk);
+    if(offset) {
+      if(offset.start >= 0 && offset.end >= 0) {
+        const fieldChunk: Uint8Array = stream.subarray(offset.start, offset.end);
+        fieldChunkList.push(fieldChunk);
+      }
     }
   })
 
@@ -214,7 +216,7 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
       const value: string = await reader.readLine();
       if (nullLine === '') {
         const fieldData = {
-          name: execRs[1],
+          name: execRs![1],
           value,
         }
         yield fieldData
@@ -231,9 +233,9 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
         const valueStart = (contentDescChunk.length + CRLF_LEN) + (contentTypeChunk.length + CRLF_LEN) + CRLF_LEN;
         const valueEnd = field.length - CRLF_LEN;
         const fieldData = {
-          name: execRs[1],
-          type: typeRs[1],
-          filename: execRs[2],
+          name: execRs![1],
+          type: typeRs![1],
+          filename: execRs![2],
           value: field.subarray(valueStart, valueEnd),
         }
         yield fieldData;
@@ -263,14 +265,14 @@ Deno.writeFileSync(`./assets/${formData[1].filename}`, formData[1].value)
 
 [https://github.com/chenshenhai/deno_note/blob/master/demo/web_upload/bodyparser.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/web_upload/bodyparser.ts)
 
+
+`./demo/web_upload/bodyparser.ts`
+
 ```js
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const CRLF_LEN = 2;
 const decoder = new TextDecoder();
-
-
-
 const textFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?"$/i;
 const fileFieldReg = /^Content-Disposition\:\sform\-data\;\sname\="([^\"]+)?";\sfilename="([^\"]+)?"$/i;
 const fileTypeReg = /^Content-Type\:\s([^\;]+)?$/i;
@@ -323,7 +325,7 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
       const value: string = await reader.readLine();
       if (nullLine === '') {
         const fieldData = {
-          name: execRs[1],
+          name: execRs![1],
           value,
         }
         yield fieldData
@@ -340,9 +342,9 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
         const valueStart = (contentDescChunk.length + CRLF_LEN) + (contentTypeChunk.length + CRLF_LEN) + CRLF_LEN;
         const valueEnd = field.length - CRLF_LEN;
         const fieldData = {
-          name: execRs[1],
-          type: typeRs[1],
-          filename: execRs[2],
+          name: execRs![1],
+          type: typeRs![1],
+          filename: execRs![2],
           value: field.subarray(valueStart, valueEnd),
         }
         yield fieldData;
@@ -355,8 +357,8 @@ async function* parseMultipartFormField(fields: Uint8Array[]): AsyncGenerator<Fo
 
 // 表单二进制数据流单个数据偏移量
 interface FieldChunkOffset {
-  start?: number;
-  end?: number;
+  start: number;
+  end: number;
 }
 
 
@@ -413,6 +415,7 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
         }
         fieldOffsetList.push({
           start: startIndex + lineChunkLen,
+          end: -1,
         });
       }
     }
@@ -422,9 +425,11 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
   // 根据 表单内存空间/数据流里每个数据的起始和终止偏移量
   // 切割出每个数据的数据流
   fieldOffsetList.forEach((offset: FieldChunkOffset) => {
-    if(offset && offset.start >= 0 && offset.end >= 0) {
-      const fieldChunk: Uint8Array = stream.subarray(offset.start, offset.end);
-      fieldChunkList.push(fieldChunk);
+    if(offset) {
+      if(offset.start >= 0 && offset.end >= 0) {
+        const fieldChunk: Uint8Array = stream.subarray(offset.start, offset.end);
+        fieldChunkList.push(fieldChunk);
+      }
     }
   })
 
@@ -470,6 +475,8 @@ export function parseContentType(contentType: string): FormContentType {
 
 [https://github.com/chenshenhai/deno_note/blob/master/demo/web_upload/example.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/web_upload/example.ts)
 
+`./demo/web_upload/example.ts`
+
 ```js 
 import { Application } from "./../web/mod.ts";
 import { parseContentType, parseMultipartForm } from "./bodyparser.ts";
@@ -504,7 +511,6 @@ app.use(async function(ctx, next) {
       <button type="submit">submit</button>
     </form>`;
   }
-
   ctx.res.setStatus(200);
   ctx.res.setHeader('Content-Type', 'text/html');
   ctx.res.setBody(body);
