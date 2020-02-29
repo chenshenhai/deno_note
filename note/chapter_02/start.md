@@ -7,6 +7,8 @@
 - `example.ts`
 
 ```js
+// deno --allow-net  mod.ts
+
 /**
  * helloworld HTTP服务
  * @param opts {Deno.ListenOptions}
