@@ -160,7 +160,7 @@
 - 修改文件流获取判断
 
 ```js
-import { Application } from "./../web/mod.ts";
+import { Application, Context } from "./../web/mod.ts";
 import { parseContentType, parseMultipartForm } from "./../web_upload/bodyparser.ts";
 
 const app = new Application();
@@ -175,12 +175,12 @@ async function getPage(path: string): Promise<string> {
   return page;
 }
 
-app.use(async function(ctx, next) {
+app.use(async function(ctx: Context, next: Function) {
   const general = await ctx.req.getGeneral();
   const headers = await ctx.req.getHeaders();
   const bodyStream = await ctx.req.getBodyStream();
 
-  const contentType = headers.get('Content-Type');
+  const contentType = headers.get('Content-Type') || '';
   let body: string = ``;
   if (general.method === 'POST' && general.pathname === "/upload") {
     const formType = parseContentType(contentType);
@@ -215,7 +215,7 @@ https://github.com/chenshenhai/deno_note/blob/master/demo/web_upload_async/
 ./demo/web_upload_async/example.ts
 
 ```js
-import { Application } from "./../web/mod.ts";
+import { Application, Context } from "./../web/mod.ts";
 import { parseContentType, parseMultipartForm } from "./../web_upload/bodyparser.ts";
 
 const app = new Application();
@@ -230,12 +230,12 @@ async function getPage(path: string): Promise<string> {
   return page;
 }
 
-app.use(async function(ctx, next) {
+app.use(async function(ctx: Context, next: Function) {
   const general = await ctx.req.getGeneral();
   const headers = await ctx.req.getHeaders();
   const bodyStream = await ctx.req.getBodyStream();
 
-  const contentType = headers.get('Content-Type');
+  const contentType = headers.get('Content-Type') || '';
   let body: string = ``;
   if (general.method === 'POST' && general.pathname === "/upload") {
     const formType = parseContentType(contentType);
