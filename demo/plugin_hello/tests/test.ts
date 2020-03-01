@@ -25,7 +25,7 @@ const textEncoder = new TextEncoder();
 const response = testSync.dispatch(
   textEncoder.encode('hello'),
   textEncoder.encode('sync'),
-);
+) as Uint8Array;
 console.log(`[Deno] testSync Response: ${textDecoder.decode(response)}`);
 
 console.log('-------------------------------')

@@ -64,8 +64,8 @@ crate-type = ["cdylib"]
 
 [dependencies]
 futures = "0.3.1"
-deno_core = "0.32"
-deno = "0.32"
+deno_core = "0.35"
+deno = "0.35"
 ```
 
 ### 编写Rust插件内容
@@ -198,7 +198,7 @@ const textEncoder = new TextEncoder();
 const response = testSync.dispatch(
   textEncoder.encode('hello'),
   textEncoder.encode('sync'),
-);
+) as Uint8Array;
 console.log(`[Deno] testSync Response: ${textDecoder.decode(response)}`);
 
 console.log('-------------------------------')
@@ -213,7 +213,6 @@ testAsync.dispatch(
   textEncoder.encode('test'),
   textEncoder.encode('test'),
 );
-
 
 ```
 
