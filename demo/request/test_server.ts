@@ -44,7 +44,7 @@ async function response(conn: Deno.Conn) {
 
 async function server(opts: Deno.ListenOptions) {
   console.log("listening on", `${opts.hostname}:${opts.port}\r\n`);
-  const listener = listen(opts);
+  const listener: Deno.Listener = Deno.listen(opts) as Deno.Listener;
   while (true) {
     const conn = await listener.accept();
     await response(conn);

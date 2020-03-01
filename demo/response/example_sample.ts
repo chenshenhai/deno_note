@@ -33,7 +33,7 @@ async function response(conn: Deno.Conn) {
  */
 async function server(opts: Deno.ListenOptions) {
   // 创建TCP服务
-  const listener = listen(opts);
+  const listener: Deno.Listener = Deno.listen(opts) as Deno.Listener;
   console.log(`listening on ${opts.hostname}:${opts.port}`);
   // 死循环监听TCP请求
   while (true) {

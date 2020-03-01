@@ -7,9 +7,9 @@ const baseDir = [Deno.cwd()].join("/");
 
 
 async function startServer() {
-  const addr = "127.0.0.1:3001";
-  const listener = Deno.listen("tcp", addr);
-  console.log(`listening on ${addr} \r\n`,);
+  const opts: Deno.ListenOptions = { hostname: "127.0.0.1", port: 3001 };
+  const listener: Deno.Listener = Deno.listen(opts) as Deno.Listener;
+  console.log(`listening on ${opts.hostname}:${opts.port} \r\n`,);
   while (true) {
     const conn = await listener.accept();
     const req: Request = new RequestReader(conn);
