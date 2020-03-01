@@ -10,7 +10,7 @@
 > deno -h
 
 
-deno 0.31.0
+deno 0.35.0
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
@@ -48,7 +48,7 @@ SUBCOMMANDS:
     completions    Generate shell completions
     eval           Eval script
     fetch          Fetch the dependencies
-    fmt            Format files
+    fmt            Format source files
     help           Prints this message or the help of the given subcommand(s)
     info           Show info about cache or info related to source file
     install        Install script as executable

@@ -143,7 +143,7 @@ function serveContext(env: ContextEnv, conn: Deno.Conn, ctx?: Context) {
  */
 async function* serve(opts: Deno.ListenOptions) {
   // 监听 TCP 端口
-  const listener = listen(opts);
+  const listener: Deno.Listener = Deno.listen(opts) as Deno.Listener;
   // 初始化一个HTTP上下文环境
   const env: ContextEnv = {
     queue: [], 

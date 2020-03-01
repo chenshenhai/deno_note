@@ -393,7 +393,7 @@ async function response(conn: Deno.Conn) {
 }
 
 async function server(opts: Deno.ListenOptions) {
-  const listener = listen(opts);
+  const listener: Deno.Listener = Deno.listen(opts) as Deno.Listener;
   console.log(`listening on ${opts.hostname}:${opts.port}`);
   while (true) {
     const conn = await listener.accept();
@@ -488,7 +488,7 @@ async function response(conn: Deno.Conn) {
 }
 
 async function server(opts: Deno.ListenOptions) {
-  const listener = listen(opts);
+  const listener: Deno.Listener = Deno.listen(opts) as Deno.Listener;
   console.log(`listening on ${opts.hostname}:${opts.port}`);
   while (true) {
     const conn = await listener.accept();
