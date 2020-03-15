@@ -86,7 +86,7 @@ console.log(helloworld);
 
 ## API
 
-> 注：以下都是基于 Deno@v0.35.0 版本支持的 API
+> 注：以下都是基于 Deno@v0.36.0 版本支持的 API
 
 ### Deno原生 API
 

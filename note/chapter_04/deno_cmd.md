@@ -10,7 +10,7 @@
 > deno -h
 
 
-deno 0.35.0
+deno 0.36.0
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
