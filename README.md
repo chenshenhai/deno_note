@@ -5,7 +5,7 @@
 
 <hr/>
 
-<img  width="240"  src="https://user-images.githubusercontent.com/8216630/52873226-771a3e80-3189-11e9-9bf9-59de7091dbfa.png">
+<img  width="240"  src="./note/image/deno-mini.jpg">
 
 
 <hr/>
@@ -22,7 +22,7 @@
 - 以 `TDD` 开发模式结合集成测试保证 例子demo适应各种生产环境
 
 ## 关于作者
-- [关于作者(我)](https://chenshenhai.github.io)
+- [关于作者(我)](https://chenshenhai.com)
 - [关于作者(我) GitHub](https://github.com/chenshenhai)
 - 本书笔记内容不定时更新，如果想第一时间知道本书进展，可以 `watch` 本项目 或者 [关注公众号](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_01/01.md#关注本书)。
 
