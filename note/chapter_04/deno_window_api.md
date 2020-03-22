@@ -7,7 +7,11 @@
 在`Deno`下执行这个代码
 
 ```js
-const apiList = Object.keys(window)
+// 获取 所有可枚举 属性/方法 名称
+// const apiList = Object.keys(window)
+
+// 获取 所有全局属性/方法 名称
+const apiList = Object.getOwnPropertyNames(window)
 
 console.log(`Supported global API [count: ${apiList.length}]: \r\n`);
 console.log(`${apiList.join(',\r\n')}`);
@@ -16,22 +20,77 @@ console.log(`${apiList.join(',\r\n')}`);
 会看到支持的全局`API`的情况
 
 ```sh
-Supported global API [count: 37]: 
+Supported global API [count: 93]: 
 
+Object,
+Function,
+Array,
+Number,
+parseFloat,
+parseInt,
+Infinity,
+NaN,
+undefined,
+Boolean,
+String,
+Symbol,
+Date,
+Promise,
+RegExp,
+Error,
+EvalError,
+RangeError,
+ReferenceError,
+SyntaxError,
+TypeError,
+URIError,
+globalThis,
+JSON,
+Math,
+console,
+ArrayBuffer,
+Uint8Array,
+Int8Array,
+Uint16Array,
+Int16Array,
+Uint32Array,
+Int32Array,
+Float32Array,
+Float64Array,
+Uint8ClampedArray,
+BigUint64Array,
+BigInt64Array,
+DataView,
+Map,
+BigInt,
+Set,
+WeakMap,
+WeakSet,
+Proxy,
+Reflect,
+decodeURI,
+decodeURIComponent,
+encodeURI,
+encodeURIComponent,
+escape,
+unescape,
+eval,
+isFinite,
+isNaN,
 Deno,
 queueMicrotask,
-window,
+bootstrapMainRuntime,
+bootstrapWorkerRuntime,
+SharedArrayBuffer,
+Atomics,
+WebAssembly,
 atob,
 btoa,
-fetch,
-clearTimeout,
 clearInterval,
-setTimeout,
+clearTimeout,
+fetch,
 setInterval,
-location,
-onload,
-onunload,
-crypto,
+setTimeout,
 Blob,
 File,
 CustomEvent,
@@ -46,15 +105,17 @@ TextDecoder,
 Request,
 Response,
 performance,
-onmessage,
-workerMain,
-workerClose,
-postMessage,
 Worker,
 addEventListener,
 dispatchEvent,
 removeEventListener,
-denoMain 
+window,
+self,
+crypto,
+onload,
+onunload,
+location
+
 ```
 ### 特性
 
