@@ -24,6 +24,7 @@
 ## 关于作者
 - [关于作者(我)](https://chenshenhai.com)
 - [关于作者(我) GitHub](https://github.com/chenshenhai)
+- 本书便捷阅读入口 [https://chenshenhai.com/deno_note](https://chenshenhai.com/deno_note)
 - 本书笔记内容不定时更新，如果想第一时间知道本书进展，可以 `watch` 本项目 或者 [关注公众号](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_01/01.md#关注本书)。
 
 ## 免责声明
