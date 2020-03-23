@@ -7,7 +7,7 @@ console.log(_env);
 // Linux export: { HOME:'...', PWD:'...', SHELL:'...',  }
 
 // 判断是否在 terminal 控制台中
-const _tty = Deno.isTTY();
+const _tty = Deno.isatty(0);
 console.log(_tty);
 // export: { stdin: true, stdout: true, stderr: true }
 //  stdin: 是否为标准输入
