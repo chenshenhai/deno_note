@@ -9,38 +9,32 @@
 ```sh
 > deno -h
 
-
-deno 0.36.0
+deno 0.37.1
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
-Modules: https://deno.land/x/
+Modules: https://deno.land/std/ https://deno.land/x/
 Bugs: https://github.com/denoland/deno/issues
 
-To run the REPL supply no arguments:
-
+To start the REPL, supply no arguments:
   deno
 
-To evaluate code from the command line:
-
-  deno eval "console.log(30933 + 404)"
-
 To execute a script:
-
+  deno run https://deno.land/std/examples/welcome.ts
   deno https://deno.land/std/examples/welcome.ts
 
-The default subcommand is 'run'. The above is equivalent to
+To evaluate code in the shell:
+  deno eval "console.log(30933 + 404)"
 
-  deno run https://deno.land/std/examples/welcome.ts
-
-See 'deno help run' for run specific flags.
+Run 'deno help run' for 'run'-specific flags.
 
 USAGE:
-    deno [SUBCOMMAND]
+    deno [OPTIONS] [SUBCOMMAND]
 
 OPTIONS:
     -h, --help                     Prints help information
     -L, --log-level <log-level>    Set log level [possible values: debug, info]
+    -q, --quiet                    Suppress diagnostic output
     -V, --version                  Prints version information
 
 SUBCOMMANDS:
@@ -53,9 +47,10 @@ SUBCOMMANDS:
     info           Show info about cache or info related to source file
     install        Install script as executable
     repl           Read Eval Print Loop
-    run            Run a program given a filename or url to the source code
+    run            Run a program given a filename or url to the module
     test           Run tests
     types          Print runtime TypeScript declarations
+    upgrade        Upgrade deno executable to newest version
 
 ENVIRONMENT VARIABLES:
     DENO_DIR       Set deno's base directory
