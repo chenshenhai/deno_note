@@ -231,7 +231,7 @@ let httpServer: Deno.Process;
 
 async function startHTTPServer() {
   httpServer = run({
-    args: [
+    cmd: [
       Deno.execPath(),
       "--allow-net",
       "./demo/request/test_server.ts",

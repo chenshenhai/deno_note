@@ -76,7 +76,7 @@ let httpServer: Deno.Process;
 
 async function startHTTPServer() {
   httpServer = Deno.run({
-    args: ["deno", "run", "--allow-net", "./server.ts", "--", ".", "--cors"],
+    cmd: [Deno.execPath(), "run", "--allow-net", "./server.ts", "--", ".", "--cors"],
     stdout: "piped"
   });
   const buffer = httpServer.stdout;

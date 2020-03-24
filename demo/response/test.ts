@@ -12,7 +12,7 @@ let jsonServer: Deno.Process;;
 
 async function startTextServer() {
   textServer = run({
-    args: [
+    cmd: [
       Deno.execPath(),
       "--allow-net",
       "./demo/response/test_server_text.ts",
@@ -39,7 +39,7 @@ function closeTextServer() {
 
 async function startJSONServer() {
   jsonServer = run({
-    args: [
+    cmd: [
       Deno.execPath(),
       "--allow-run",
       "--allow-net",

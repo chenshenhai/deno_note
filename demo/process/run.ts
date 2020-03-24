@@ -1,6 +1,6 @@
 
 const process = Deno.run({
-  args: ["deno", "run", "--allow-net", "./server.ts"]
+  cmd: [Deno.execPath(), "run", "--allow-net", "./server.ts"]
 });
 
 setTimeout(() => {

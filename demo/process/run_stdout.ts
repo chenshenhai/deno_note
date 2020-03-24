@@ -1,7 +1,7 @@
 
 async function main() {
   const process: Deno.Process = Deno.run({
-    args: ["deno", "run", "--allow-net", "./server.ts"],
+    cmd: [Deno.execPath(), "run", "--allow-net", "./server.ts"],
     stdout: "piped",
   });
   const stdout: Deno.ReadCloser|undefined = process.stdout;

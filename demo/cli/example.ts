@@ -35,7 +35,7 @@ async function install() {
   Deno.writeFileSync(binFilePath, encoder.encode(cliBinContext));
 
   // 对可执行文件的目录.deno_cli/bin/进行chmod +x权限赋予操作
-  const execAuth = Deno.run({args: ["chmod", "+x", binFilePath]});
+  const execAuth = Deno.run({cmd: ["chmod", "+x", binFilePath]});
   await execAuth.status();
   execAuth.close();
 
