@@ -5,7 +5,7 @@
 
 <hr/>
 
-<img  width="240"  src="./note/image/deno-mini.jpg">
+![deno_note_logo](./note/image/deno-mini.jpg)
 
 
 <hr/>
