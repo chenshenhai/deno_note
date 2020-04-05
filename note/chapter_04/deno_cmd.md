@@ -2,14 +2,13 @@
 
 ## 前言
 
-截至目前(2019年6月初)为止，`Deno` 已经升级到`v0.7.0+`，与`v0.4.0`以前的版本对比，命令的使用方式做了重构，引入了`子命令`的模式，根据不同操作功能划分了 `subcommand`和`flag`。
 
 安装了`Deno`(v0.7.0+)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
 
-deno 0.38.0
+deno 0.39.0
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
