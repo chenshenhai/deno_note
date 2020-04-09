@@ -8,7 +8,7 @@
 ```sh
 > deno -h
 
-deno 0.39.0
+deno 0.40.0
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
@@ -38,10 +38,10 @@ OPTIONS:
 
 SUBCOMMANDS:
     bundle         Bundle module and dependencies into single file
+    cache          Cache the dependencies
     completions    Generate shell completions
     doc            Show documentation for module
     eval           Eval script
-    fetch          Fetch the dependencies
     fmt            Format source files
     help           Prints this message or the help of the given subcommand(s)
     info           Show info about cache or info related to source file
