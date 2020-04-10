@@ -33,7 +33,7 @@ curl -fsSL https://deno.land/x/install/install.sh | sh -s v0.40.0
 
 ```sh
 ## 注意: $HOME 是当前系统用户目录
-export PATH=$HOME/.local/bin/:$PATH
+export PATH=$HOME/.deno/bin/:$PATH
 ```
 
 - 验证

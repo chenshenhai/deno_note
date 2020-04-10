@@ -2,7 +2,7 @@ language: node_js
 
 install:
   - curl -L https://deno.land/x/install/install.sh | sh -s v0.40.0
-  - export PATH="$HOME/.local/bin:$PATH"
+  - export PATH="$HOME/.deno/bin:$PATH"
 
 script:
   - deno run --allow-all test.ts

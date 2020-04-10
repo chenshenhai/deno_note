@@ -1,5 +1,9 @@
 # Deno常见问题点
 
+### Deno@0.40.0 后安装Mac/Linux目录调整 
+
+在 `Deno` 0.40.0 版本开始，安装目录从 `$HOME/.local/bin` 又改回到 `$HOME/.deno/bin` 下。
+
 
 ### Deno@0.34.0后默认 TS strict mode
 
