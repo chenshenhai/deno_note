@@ -26,7 +26,7 @@ mkdir plugin_hello
 cd plugin_hello
 
 # 执行 Rust项目初始化
-cargo init
+cargo init --lib
 ```
 
 ### 初始化插件设置
@@ -37,9 +37,9 @@ cargo init
 
 ```toml
 [dependencies]
-futures = "0.3.1"
-deno_core = "0.31"
-deno = "0.31"
+futures = "0.3"
+deno_core = "0.40"
+deno = "0.40"
 ```
 
 设置编译类型
@@ -63,9 +63,9 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
-futures = "0.3.1"
-deno_core = "0.35"
-deno = "0.35"
+futures = "0.3"
+deno_core = "0.40"
+deno = "0.40"
 ```
 
 ### 编写Rust插件内容
