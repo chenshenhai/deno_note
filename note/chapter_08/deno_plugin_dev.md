@@ -39,7 +39,6 @@ cargo init --lib
 [dependencies]
 futures = "0.3"
 deno_core = "0.40"
-deno = "0.40"
 ```
 
 设置编译类型
@@ -65,7 +64,6 @@ crate-type = ["cdylib"]
 [dependencies]
 futures = "0.3"
 deno_core = "0.40"
-deno = "0.40"
 ```
 
 ### 编写Rust插件内容
@@ -148,12 +146,8 @@ pub fn op_test_async(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
 cargo build
 ```
 
-初次编译会等待很久，因为要下载 `deno`和`deno_core` 这两个 Rust 依赖。
+初次编译会等待很久，因为要下载 `deno_core` 这个 Rust 依赖。
 
-同时背后又依赖了 `rust_v8` 还要下载 `chromium` 包，所以要等待很久。
-短则十几分钟，长则一个小时，o(╯□╰)o！
-
-![deno_plugin_001.jpg](./../image/deno_plugin_dev_001.jpg)
 
 最后编译成功会显示这样子 
 
