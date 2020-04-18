@@ -83,7 +83,7 @@ function serve(baseDir: string, options?: ServeOptions): Function {
       try {
         const stat = lstatSync(fullPath);
         // 判断是否为文件路径
-        if (stat.isFile() === true) {
+        if (stat.isFile === true) {
           result = renderFile(fullPath);
           res.setStatus(200);
         }
