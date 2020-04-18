@@ -20,7 +20,7 @@ function createResponse (bodyStr: string): Uint8Array {
 async function response(conn: Deno.Conn) {
   const requestReader: Request = new RequestReader(conn);
   const headers: Headers = await requestReader.getHeaders();
-  const headerObj = {};
+  const headerObj:{[key: string]: string|null} = {};
   for(const key of headers.keys()) {
     headerObj[key] = headers.get(key); 
   }

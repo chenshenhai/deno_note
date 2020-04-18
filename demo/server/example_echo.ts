@@ -10,7 +10,7 @@ server.createServer(async ctx => {
   const gen = await ctx.req.getGeneral();
   const headers = await ctx.req.getHeaders();
   const bodyStream = await ctx.req.getBodyStream();
-  const headerObj = {};
+  const headerObj: {[key: string]: string|null} = {};
   for (const key of headers.keys()) {
     headerObj[key] = headers.get(key);
   }
