@@ -8,7 +8,7 @@
 ```sh
 > deno -h
 
-deno 0.40.0
+deno 0.41.0
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
