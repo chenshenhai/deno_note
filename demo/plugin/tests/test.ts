@@ -12,7 +12,7 @@ if (Deno.build.os === "mac") {
   filenameSuffix = ".dylib";
 }
 
-const filename = `../target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+const filename = `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
 
 const plugin = Deno.openPlugin(filename);
 
@@ -23,12 +23,11 @@ const textEncoder = new TextEncoder();
 
 // 执行 调用插件的 同步方法
 const response = testSync.dispatch(
-  textEncoder.encode('hello'),
-  textEncoder.encode('sync'),
+  textEncoder.encode('Hello! Sync control'),
+  textEncoder.encode('Hello! Sync zeroCopy'),
 ) as Uint8Array;
 console.log(`[Deno] testSync Response: ${textDecoder.decode(response)}`);
 
-console.log('-------------------------------')
 
 // 执行 调用插件的 异步方法
 // 注册异步的回调操作
@@ -37,6 +36,6 @@ testAsync.setAsyncHandler(res => {
 });
 // 触发异步方法事件
 testAsync.dispatch(
-  textEncoder.encode('test'),
-  textEncoder.encode('test'),
+  textEncoder.encode('Hello! Async control'),
+  textEncoder.encode('Hello! Async zeroCopy'),
 );

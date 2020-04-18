@@ -1,11 +1,12 @@
 #![cfg(not(windows))]
 
-use deno::test_util::*;
+// use deno::test_util::*;
 use std::process::Command;
 
 fn deno_cmd() -> Command {
-    assert!(deno_exe_path().exists());
-    Command::new(deno_exe_path())
+    // assert!(deno_exe_path().exists());
+	// Command::new(deno_exe_path())
+	Command::new("deno")
 }
 
 #[cfg(debug_assertions)]
@@ -17,14 +18,16 @@ const BUILD_VARIANT: &str = "release";
 #[test]
 fn basic() {
     let mut build_plugin_base = Command::new("cargo");
-    let mut build_plugin = build_plugin_base.arg("build").arg("-p").arg("test_plugin");
+    // let mut build_plugin = build_plugin_base.arg("build").arg("-p").arg("test_plugin");
+    let mut build_plugin = build_plugin_base.arg("build");
     if BUILD_VARIANT == "release" {
         build_plugin = build_plugin.arg("--release");
     }
-    let _build_plugin_output = build_plugin.output().unwrap();
+    let build_plugin_output = build_plugin.output().unwrap();
+    assert!(build_plugin_output.status.success());
     let output = deno_cmd()
         .arg("--allow-plugin")
-        .arg("tests/test.js")
+        .arg("tests/test.ts")
         .arg(BUILD_VARIANT)
         .output()
         .unwrap();
@@ -36,9 +39,9 @@ fn basic() {
     }
     assert!(output.status.success());
     let expected = if cfg!(target_os = "windows") {
-        "Hello from plugin. data: test | zero_copy: test\nPlugin Sync Response: test\r\nHello from plugin. data: test | zero_copy: test\nPlugin Async Response: test\r\n"
+        "[Rust] op_test_sync:receive (\"Hello! Sync control\", \"Hello! Sync zeroCopy\")\r\n[Deno] testSync Response: Ok! Sync\r\n[Rust] op_test_async:receive (\"Hello! Async control\", \"Hello! Async zeroCopy\")\r\n[Deno] testAsync Response: Ok! Async\r\n"
     } else {
-        "Hello from plugin. data: test | zero_copy: test\nPlugin Sync Response: test\nHello from plugin. data: test | zero_copy: test\nPlugin Async Response: test\n"
+        "[Rust] op_test_sync:receive (\"Hello! Sync control\", \"Hello! Sync zeroCopy\")\n[Deno] testSync Response: Ok! Sync\n[Rust] op_test_async:receive (\"Hello! Async control\", \"Hello! Async zeroCopy\")\n[Deno] testAsync Response: Ok! Async\n"
     };
     assert_eq!(stdout, expected);
     assert_eq!(stderr, "");
