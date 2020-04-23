@@ -3,7 +3,7 @@
 ## local
 
 ```sh
-git clone --recurse-submodules git@github.com:denoland/deno.git
+git clone --recurse-submodules https://github.com/denoland/deno.git
 
 cd deno
 
