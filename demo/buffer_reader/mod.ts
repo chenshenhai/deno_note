@@ -147,8 +147,8 @@ export class BufferReader implements BufReader {
       return isNeedRead;
     }
     const chunk = new Uint8Array(this._size);
-    const result = await this._reader.read(chunk);
-    const nread: number = result === Deno.EOF ? 0 : result;
+    const result: number | null = await this._reader.read(chunk);
+    const nread: number = result === null ? 0 : result;
     if (nread === 0) {
       this._eof = true;
       return isNeedRead;
