@@ -24,7 +24,7 @@ async function startHTTPServer() {
     ],
     stdout: "piped"
   });
-  const buffer: Deno.ReadCloser|undefined = httpServer.stdout;
+  const buffer: (Deno.Reader & Deno.Closer) | undefined = httpServer.stdout;
   if (buffer) {
     const bufReader: BufferReader = new BufferReader(buffer);
 
@@ -44,7 +44,7 @@ function closeHTTPServer() {
   console.log('\r\nclose http server\r\n')
 }
 
-test(async function serverGetRequest() {
+test('serverGetRequest', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();
@@ -88,7 +88,7 @@ test(async function serverGetRequest() {
 });
 
 
-test(async function serverPostRequest() {
+test('serverPostRequest', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();

@@ -26,7 +26,7 @@ function closeHTTPServer() {
   httpServer.stdout && httpServer.stdout.close();
 }
 
-test(async function testMultipart(): Promise<void> {
+test('testMultipart', async function(): Promise<void> {
   await startHTTPServer();
   const multipartBody = `------WebKitFormBoundaryF2FPVKMYJmaBhBnJ\r\nContent-Disposition: form-data; name="a"\r\n\r\n001\r\n------WebKitFormBoundaryF2FPVKMYJmaBhBnJ\r\nContent-Disposition: form-data; name="b"; filename="file.txt"\r\nContent-Type: text/plain\r\n\r\nhello world!\r\nhello deno!\r\n------WebKitFormBoundaryF2FPVKMYJmaBhBnJ--\r\n`;
 

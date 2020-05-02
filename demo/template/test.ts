@@ -4,7 +4,7 @@ import { compileTemplate } from "./mod.ts";
 
 const test = Deno.test;
 
-test(function testCompileTemplate() {
+test('testCompileTemplate', function() {
   const tpl = `
   <div>
   #if( datalist && datalist.length > 0 )

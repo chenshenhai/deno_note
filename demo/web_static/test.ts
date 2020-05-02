@@ -36,7 +36,7 @@ function closeHTTPServer() {
   httpServer.stdout && httpServer.stdout.close();
 }
 
-test(async function testWebStatic() {
+test('testWebStatic', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();
