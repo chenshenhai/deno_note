@@ -13,7 +13,7 @@ async function install() {
   const encoder = new TextEncoder();
 
   // 初始化 Linux 主目录下的cli工具文件夹
-  const { HOME } = Deno.env();
+  const HOME = Deno.env.get('HOME');
   const cliBaseDir = `${HOME}/.deno_cli`;
   const cliBinDir = `${cliBaseDir}/bin`;
   const cliSrcDir = `${cliBaseDir}/src`;
@@ -47,7 +47,7 @@ async function install() {
   await execAuth.status();
   execAuth.close();
 
-  console.log("\r\n[INFO]: denocli is installed successfully!\r\n");
+  console.log("\r\n[INFO][2020-05-01]: denocli is installed successfully!\r\n");
   // 执行成功后提示全局变量设置
   console.log(`
     export PATH=$PATH:${HOME}/.deno_cli/bin  >> ~/.bash_profile\r\n
