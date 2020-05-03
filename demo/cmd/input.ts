@@ -8,10 +8,10 @@ class Input {
 
   public async listenInput(): Promise<string> {
     let result: string = '';
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
       while(1) {
         this._print(this._tip);
-        const text: string = this._getInput();
+        const text: string = await this._getInput();
         if (text.length > 0) {
           result = text;
           break;
@@ -27,9 +27,9 @@ class Input {
     Deno.stdout.writeSync(chunk);
   }
 
-  private _getInput(maxLen: number = 64): string {
+  private async _getInput(maxLen: number = 64): Promise<string> {
     const chunk = new Uint8Array(maxLen);
-    const len: number = Deno.stdin.readSync(chunk) as number;
+    const len: number = await Deno.stdin.read(chunk) as number;
     const text = decoder.decode(chunk.slice(0, len));
     return text;
   }
