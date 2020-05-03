@@ -1,8 +1,6 @@
 // deno --allow-read read.ts
 
-function main(): void {
-  const rs = Deno.readDirSync("./assets/");
-  console.log(rs);
+const rs = Deno.readDirSync("./assets/");
+for (const item of rs) {
+  console.log(item);
 }
-
-main();
