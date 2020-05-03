@@ -1,5 +1,5 @@
-#!/usr/bin/env deno run --allow-run --allow-net
-import { assertEquals, equal } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
+#!/usr/bin/env deno test --allow-all test.ts
+import { assertEquals } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
 
 const test = Deno.test;
 const decoder = new TextDecoder();
@@ -26,7 +26,7 @@ function closeHTTPServer() {
   httpServer.stdout && httpServer.stdout.close();
 }
 
-test(async function server() {
+test('server', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();
@@ -41,6 +41,3 @@ test(async function server() {
     throw new Error(err);
   }
 });
-
-// 启动测试
-Deno.runTests();

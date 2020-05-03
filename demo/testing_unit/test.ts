@@ -1,16 +1,16 @@
-import { assertEquals, equal } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
+#!/usr/bin/env deno test --allow-all test.ts
+
+import { assertEquals } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
 import { add, addAsync } from "./mod.ts";
 
-const { test, runTests } = Deno;
+const { test } = Deno;
 
-test(function example() {
+test('example', function() {
   const result = add(1, 2);
   assertEquals(result, 3);
 });
 
-test(async function exampleAsync() {
+test('exampleAsync', async function() {
   const result = await addAsync(1, 2);
   assertEquals(result, 3);
 });
-
-runTests();
