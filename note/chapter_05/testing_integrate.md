@@ -23,7 +23,7 @@
 `./demo/testing_integrate/test.js`
 
 ```js
-#!/usr/bin/env deno run --allow-run --allow-net test.ts
+#!/usr/bin/env deno test --allow-all test.ts
 
 const decoder = new TextDecoder();
 
@@ -85,4 +85,4 @@ main();
 deno run --allow-all test.ts
 ```
 
-![test_i_001](https://user-images.githubusercontent.com/8216630/52529392-e9bf9000-2d2b-11e9-99e6-50892a56fb71.jpg)
+![test_i_001](../image/testing_integrate_001.jpg)

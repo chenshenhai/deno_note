@@ -64,8 +64,8 @@ server(opts);
 - 测试代码 `./demo/testing_progress/test.ts`
 
 ```js
-#!/usr/bin/env deno run --allow-run --allow-net
-import { assertEquals, equal } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
+#!/usr/bin/env deno test --allow-all test.ts
+import { assertEquals } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
 
 const test = Deno.test;
 const decoder = new TextDecoder();
@@ -88,11 +88,13 @@ async function startHTTPServer() {
 }
 
 function closeHTTPServer() {
-  httpServer.close();
-  httpServer.stdout && httpServer.stdout.close();
+  if(httpServer) {
+    httpServer.close();
+    httpServer.stdout && httpServer.stdout.close();
+  }
 }
 
-test(async function server() {
+test('server', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();
@@ -107,17 +109,13 @@ test(async function server() {
     throw new Error(err);
   }
 });
-
-// 启动测试
-Deno.runTests();
 ```
 
 ### 执行单元测试
 
 ```sh
-## --allow-run 是直接允许 执行子进程脚本
-## --allow-net 是直接允许 启动网络服务
-deno test.ts --allow-run --allow-net 
+## --allow-all 是直接允许所有权限
+deno test --allow-all test.ts
 ```
 
-![deno-note-testing_progress](https://user-images.githubusercontent.com/8216630/51621138-d1e7be00-1f6e-11e9-8edd-cc542b47b07d.jpg)
+![deno-note-testing_progress](../image/testing_progress.jpg)

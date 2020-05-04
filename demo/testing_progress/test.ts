@@ -22,8 +22,10 @@ async function startHTTPServer() {
 }
 
 function closeHTTPServer() {
-  httpServer.close();
-  httpServer.stdout && httpServer.stdout.close();
+  if(httpServer) {
+    httpServer.close();
+    httpServer.stdout && httpServer.stdout.close();
+  }
 }
 
 test('server', async function() {
