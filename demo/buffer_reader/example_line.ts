@@ -54,7 +54,7 @@ async function readChunk(): Promise<boolean> {
   const tempChunk = new Uint8Array(size);
   const result = await reader.read(tempChunk);
 
-  const nread: number = result === Deno.EOF ? 0 : result;
+  const nread: number = result === null ? 0 : result;
   if (nread === 0) {
     eof = true;
     return isNeedRead;

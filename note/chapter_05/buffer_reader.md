@@ -114,7 +114,7 @@ async function readChunk(): Promise<boolean> {
   const tempChunk = new Uint8Array(size);
   const result = await reader.read(tempChunk);
 
-  const nread: number = result === Deno.EOF ? 0 : result;
+  const nread: number = result === null ? 0 : result;
   if (nread === 0) {
     eof = true;
     return isNeedRead;
@@ -196,11 +196,6 @@ main();
 // 参考源码: https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
 
 
-// Based on https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
-// Copyright (c) 2018 Daniel Lenksjö. All rights reserved.
-// 参考源码: https://github.com/lenkan/deno-http/blob/master/src/buffered-reader.ts
-
-
 const decoder = new TextDecoder();
 
 // 回车符
@@ -234,7 +229,7 @@ export class BufferReader implements BufReader {
 
   constructor(reader: Deno.Reader, size?: number) {
     this._reader = reader;
-    if (size <= MAX_BUFFER_SIZE && size >= MIN_BUFFER_SIZE) {
+    if (size && size <= MAX_BUFFER_SIZE && size >= MIN_BUFFER_SIZE) {
       this._size = size;
     }
     this._chunk = new Uint8Array(0);
@@ -253,6 +248,16 @@ export class BufferReader implements BufReader {
    * @return {Promise<string>}
    * */
   async readLine (): Promise<string>  {
+    const chunk = await this.readLineChunk();
+    const line: string = decoder.decode(chunk);
+    return line;
+  }
+
+  /** 
+   * 读取一行的块
+   * @return {Promise<Uint8Array>}
+   * */
+  async readLineChunk (): Promise<Uint8Array>  {
     let lineBuf = new Uint8Array(0);
     while(!this._eof || this._chunk.length > 0) {
       const current = this._current;
@@ -264,7 +269,7 @@ export class BufferReader implements BufReader {
         if (this._isCRLF(buf) === true) {
           lineBuf = current.subarray(0, i);
           this._currentReadIndex += i + 2;
-          return decoder.decode(lineBuf);
+          return lineBuf;
         }
       }
       const result = await this._readChunk();
@@ -275,7 +280,7 @@ export class BufferReader implements BufReader {
 
     const result = this._current;
     this._chunk = new Uint8Array(0);
-    return decoder.decode(result);
+    return result;
   }
 
   /** 
@@ -312,7 +317,7 @@ export class BufferReader implements BufReader {
    * @param {Uint8Array} buf
    * @return {bollean}
    * */ 
-  private _isCRLF(buf): boolean {
+  private _isCRLF(buf: Uint8Array): boolean {
     return buf.byteLength === 2 && buf[0] === CR && buf[1] === LF;
   }
 
@@ -335,8 +340,8 @@ export class BufferReader implements BufReader {
       return isNeedRead;
     }
     const chunk = new Uint8Array(this._size);
-    const result = await this._reader.read(chunk);
-    const nread: number = result === Deno.EOF ? 0 : result;
+    const result: number | null = await this._reader.read(chunk);
+    const nread: number = result === null ? 0 : result;
     if (nread === 0) {
       this._eof = true;
       return isNeedRead;
@@ -360,85 +365,91 @@ export class BufferReader implements BufReader {
 
 }
 
-
 ```
 
 ### 单元测试
 
 ```js
-import { assertEquals, assert, equal } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
 import { BufferReader } from "./mod.ts";
 
-const { test, runTests } = Deno;
+const { test } = Deno;
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
-test(async function testBufferReaderMinSize() {
-  const strList = [
-    "",
-    "hello",
-    "world",
-    "!",
-    "",
-    "",
-  ];
-  const str = strList.join(`\r\n`);
-  const stream = encoder.encode(str);
-  const buf = new Deno.Buffer(stream);
-  const bufReader : BufferReader = new BufferReader(buf, 4);
-  let readLineIndex = 0;
-  while(!bufReader.isFinished()) {
-    const line = await bufReader.readLine();
-    equal(line, strList[readLineIndex]);
-    readLineIndex ++;
+test({
+  name: 'testBufferReaderMinSize',
+  async fn(): Promise<void> {
+    const strList = [
+      "",
+      "hello",
+      "world",
+      "!",
+      "",
+      "",
+    ];
+    const str = strList.join(`\r\n`);
+    const stream = encoder.encode(str);
+    const buf = new Deno.Buffer(stream);
+    const bufReader : BufferReader = new BufferReader(buf, 4);
+    let readLineIndex = 0;
+    while(!bufReader.isFinished()) {
+      const line = await bufReader.readLine();
+      assertEquals(line, strList[readLineIndex]);
+      readLineIndex ++;
+    }
   }
 });
 
 
-test(async function testBufferReaderMaxSize() {
-  const strList = [
-    "",
-    "hello",
-    "world",
-    "!",
-    "",
-    "",
-  ];
-  const str = strList.join(`\r\n`);
-  const stream = encoder.encode(str);
-  const buf = new Deno.Buffer(stream);
-  const bufReader : BufferReader = new BufferReader(buf, 4096);
-  let readLineIndex = 0;
-  while(!bufReader.isFinished()) {
-    const line = await bufReader.readLine();
-    equal(line, strList[readLineIndex]);
-    readLineIndex ++;
+test({
+  name: 'testBufferReaderMaxSize', 
+  async fn(): Promise<void> {
+    const strList = [
+      "",
+      "hello",
+      "world",
+      "!",
+      "",
+      "",
+    ];
+    const str = strList.join(`\r\n`);
+    const stream = encoder.encode(str);
+    const buf = new Deno.Buffer(stream);
+    const bufReader : BufferReader = new BufferReader(buf, 4096);
+    let readLineIndex = 0;
+    while(!bufReader.isFinished()) {
+      const line = await bufReader.readLine();
+      assertEquals(line, strList[readLineIndex]);
+      readLineIndex ++;
+    }
   }
 });
 
-test(async function testBufferReaderCustomSize() {
-  const strList = [
-    "\r\n",
-    "hello",
-    "\r\n",
-    "world",
-    "\r\n",
-    "!",
-    "\r\n",
-    "ha!"
-  ];
-  const str = strList.join("");
-  const stream = encoder.encode(str);
-  const buf = new Deno.Buffer(stream);
-  const bufReader : BufferReader = new BufferReader(buf, 4096);
-  const line1 = await bufReader.readLine();
-  equal(line1, "");
-  const line2 = await bufReader.readLine();
-  equal(line2, "hello");
-  const customChunk = await bufReader.readCustomChunk(8);
-  const customStr = decoder.decode(customChunk);
-  equal(customStr, "world\r\n!");
+test({
+  name: 'testBufferReaderCustomSize',
+  async fn(): Promise<void> {
+    const strList = [
+      "\r\n",
+      "hello",
+      "\r\n",
+      "world",
+      "\r\n",
+      "!",
+      "\r\n",
+      "ha!"
+    ];
+    const str = strList.join("");
+    const stream = encoder.encode(str);
+    const buf = new Deno.Buffer(stream);
+    const bufReader : BufferReader = new BufferReader(buf, 4096);
+    const line1 = await bufReader.readLine();
+    assertEquals(line1, "");
+    const line2 = await bufReader.readLine();
+    assertEquals(line2, "hello");
+    const customChunk = await bufReader.readCustomChunk(8);
+    const customStr = decoder.decode(customChunk);
+    assertEquals(customStr, "world\r\n!");
+  }
 });
-
-runTests();
 ```
