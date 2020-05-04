@@ -18,7 +18,7 @@
 
 ### 实现效果
 
-![output](https://user-images.githubusercontent.com/8216630/68530421-e6047c80-0342-11ea-89cd-22aa7adae73e.gif)
+![cmd_output.gif](../image/cmd_output.gif)
 
 ### 实现源码
 
@@ -56,14 +56,13 @@ main();
 
 ### 实现效果
 
-![progress_simple](https://user-images.githubusercontent.com/8216630/68530423-e735a980-0342-11ea-9e11-5799d19f9202.gif)
+![progress_simple](../image/cmd_progress_simple.gif)
 
 ### 实现源码
 
 源码地址 [https://github.com/chenshenhai/deno_note/blob/master/demo/cmd/progress_simple.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/cmd/progress_simple.ts)
 
 ```js
-  
 import { sleep, printNewLine } from "./util.ts";
 
 const frame: string = "▊";
@@ -96,7 +95,7 @@ progress.run(1000, 100);
 
 ### 实现效果
 
-![001-progress](https://user-images.githubusercontent.com/8216630/68530422-e69d1300-0342-11ea-834c-c5a44899b9cb.gif)
+![001-progress](../image/cmd_progress.gif)
 
 ### 实现源码
 
@@ -143,7 +142,7 @@ class Progress {
   private _print(text: string, leftMoveCols?: number): number {
     const encode = new TextEncoder();
     let code: string = `\x1b[K${text}`;
-    if (leftMoveCols >= 0) {
+    if (leftMoveCols! >= 0) {
       code = `\x1b[${leftMoveCols}D\x1b[K${text}`;
     }
 
@@ -162,7 +161,7 @@ progress.run(1000, 100);
 
 ### 实现效果
 
-![005-input](https://user-images.githubusercontent.com/8216630/68530419-e43ab900-0342-11ea-9d20-21c2e83b7f32.gif)
+![005-input](../image/cmd_input.gif)
 
 ### 实现源码
 
@@ -177,10 +176,10 @@ class Input {
 
   public async listenInput(): Promise<string> {
     let result: string = '';
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
       while(1) {
         this._print(this._tip);
-        const text: string = this._getInput();
+        const text: string = await this._getInput();
         if (text.length > 0) {
           result = text;
           break;
@@ -196,9 +195,9 @@ class Input {
     Deno.stdout.writeSync(chunk);
   }
 
-  private _getInput(maxLen: number = 64): string {
+  private async _getInput(maxLen: number = 64): Promise<string> {
     const chunk = new Uint8Array(maxLen);
-    const len: number = Deno.stdin.readSync(chunk) as number;
+    const len: number = await Deno.stdin.read(chunk) as number;
     const text = decoder.decode(chunk.slice(0, len));
     return text;
   }
