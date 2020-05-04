@@ -1,0 +1,1 @@
+ deno --unstable --allow-plugin test.js

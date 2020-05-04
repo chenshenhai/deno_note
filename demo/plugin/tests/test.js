@@ -1,4 +1,4 @@
-const filenameBase = "test_plugin";
+const filenameBase = "plugin";
 
 let filenameSuffix = ".so";
 let filenamePrefix = "lib";
@@ -11,7 +11,7 @@ if (Deno.build.os === "darwin") {
   filenameSuffix = ".dylib";
 }
 
-const filename = `../target/${Deno.args[0]}/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+const filename = `../target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
 
 // This will be checked against open resources after Plugin.close()
 // in runTestClose() below.
@@ -39,7 +39,7 @@ function runTestSync() {
   console.log(`Plugin Sync Response: ${textDecoder.decode(response)}`);
 }
 
-Deno.core.setAsyncHandler(testAsync, (response: any) => {
+Deno.core.setAsyncHandler(testAsync, (response) => {
   console.log(`Plugin Async Response: ${textDecoder.decode(response)}`);
 });
 

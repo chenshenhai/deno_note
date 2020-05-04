@@ -5,8 +5,8 @@ use std::process::Command;
 
 fn deno_cmd() -> Command {
     // assert!(deno_exe_path().exists());
-	// Command::new(deno_exe_path())
-	Command::new("deno")
+    // Command::new(deno_exe_path())
+    Command::new("deno")
 }
 
 #[cfg(debug_assertions)]
