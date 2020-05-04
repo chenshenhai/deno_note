@@ -1,7 +1,5 @@
 import { Response, ResponseWriter } from "./mod.ts";
 
-const listen = Deno.listen
-
 async function server(opts: Deno.ListenOptions) {
   const listener: Deno.Listener = Deno.listen(opts) as Deno.Listener;
   console.log(`listening on ${opts.hostname}:${opts.port}`);

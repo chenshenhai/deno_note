@@ -2,7 +2,7 @@
 
 ## 前言
 
-前面的文章讲述了[5.7 原生Deno处理HTTP请求](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/08.md)，有`HTTP`请求，必须有`HTTP`响应。对比于`HTTP`请求操作，`HTTP`的响应操作会比较简单，因为只要对`HTTP`响应报文有了解的，按照报文的响应行，响应头和响应体按照顺序依次写入`TCP`对话连接，最后关闭`TCP`对话连接，就完成了次`HTTP`的响应过程。
+前面的文章讲述了[原生Deno处理HTTP请求](https://github.com/chenshenhai/deno_note/blob/master/note/chapter_05/08.md)，有`HTTP`请求，必须有`HTTP`响应。对比于`HTTP`请求操作，`HTTP`的响应操作会比较简单，因为只要对`HTTP`响应报文有了解的，按照报文的响应行，响应头和响应体按照顺序依次写入`TCP`对话连接，最后关闭`TCP`对话连接，就完成了次`HTTP`的响应过程。
 
 ## 实现原理
 
@@ -269,8 +269,6 @@ export class ResponseWriter implements Response {
 
 ```ts
 import { Response, ResponseWriter } from "./mod.ts";
-
-const listen = Deno.listen
 
 async function server(opts: Deno.ListenOptions) {
   const listener: Deno.Listener = Deno.listen(opts) as Deno.Listener;
