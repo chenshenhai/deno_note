@@ -41,7 +41,7 @@ export PATH=$HOME/.deno/bin/:$PATH
 在命令窗口中执行 `deno --version`，就会出现`Deno` 的版本已经依赖 `V8` 的版本
 
 ```sh
-deno 0.41.0
+deno 0.42.0
 v8 8.2.308
 typescript 3.8.3
 ```
