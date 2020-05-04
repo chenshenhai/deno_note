@@ -28,17 +28,27 @@
 
 #### 源码地址
 
-[https://github.com/chenshenhai/deno_note/blob/master/demo/cli/example.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/cli/example.ts)
+[https://github.com/chenshenhai/deno_note/blob/master/demo/cli/install.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/cli/install.ts)
 
 #### 源码讲解
 
 ```js
+// deno --allow-all install.ts
+
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
+
+function readSrcFile(filePath: string): string {
+  const buf = Deno.readFileSync(filePath);
+  const context = decoder.decode(buf);
+  return context;
+}
 
 async function install() {
   const encoder = new TextEncoder();
 
   // 初始化 Linux 主目录下的cli工具文件夹
-  const { HOME } = Deno.env();
+  const HOME = Deno.env.get('HOME');
   const cliBaseDir = `${HOME}/.deno_cli`;
   const cliBinDir = `${cliBaseDir}/bin`;
   const cliSrcDir = `${cliBaseDir}/src`;
@@ -58,9 +68,7 @@ async function install() {
   
 
   // 在源文件目录.deno_cli/src/下写入需要执行程序的源码文件
-  const cliSource = `
-    console.log("\\r\\nHello Deno CLI\\r\\n");
-  `;
+  const cliSource = readSrcFile('./src/denocli.ts');
   const srcFilePath = `${cliSrcDir}/deno_cli.ts`;
   Deno.writeFileSync(srcFilePath, encoder.encode(cliSource));
 
@@ -83,8 +91,6 @@ async function install() {
 }
 
 install();
-
-install();
 ```
 
 ### 执行例子
@@ -95,7 +101,7 @@ install();
 deno example.ts --allow-all
 ```
 
-![cli-001](https://user-images.githubusercontent.com/8216630/53697061-27ce4200-3e08-11e9-826c-97a815c8dc0c.jpg)
+![cli-001](../image/cli_002.jpg)
 
 
 根据提示配置对应 `Linux` 系统中 `CLI` 工具的环境变量
@@ -109,4 +115,4 @@ denocli
 
 会出现以下结果，一个简单的 `Deno` Linux系统的`CLI`工具就大功告成！
 
-![cli-002](https://user-images.githubusercontent.com/8216630/53697062-28ff6f00-3e08-11e9-845b-debb3368fbb4.jpg)
+![cli-002](../image/cli_002.jpg)
