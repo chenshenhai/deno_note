@@ -21,8 +21,6 @@
 `./demo/http/example.ts`
 
 ```js
-// example.ts
-
 /**
  * 创建响应内容
  * @param {string} bodyStr
@@ -87,7 +85,7 @@ deno run --allow-net example.ts
 
 打开浏览器，输入连接 [http://127.0.0.1:3001/](http://127.0.0.1:3001/)，就可以看到以下结果。
 
-![http_helloworld](https://user-images.githubusercontent.com/8216630/52638362-c869ca00-2f0c-11e9-850e-991eaf296a63.jpg)
+![http_helloworld](../image/http_helloworld.jpg)
 
 
 ## 注意事项
@@ -104,7 +102,7 @@ deno run --allow-net example.ts
 - 发起 `100个对话` 测试 `autocannon http://127.0.0.1:3001/ -c 100`
 - 就会出现以下结果
 
-![http-error](https://user-images.githubusercontent.com/8216630/53253685-d1bd1880-36fc-11e9-845e-897c4b5198c3.jpg)
+![http-error](../image/http_error.jpg)
 
 
 ### 解决方案
