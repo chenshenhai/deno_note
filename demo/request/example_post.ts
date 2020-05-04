@@ -1,5 +1,4 @@
 import { Request, ReqGeneral, RequestReader } from "./mod.ts";
-const listen = Deno.listen;
 
 const decoder = new TextDecoder();
 

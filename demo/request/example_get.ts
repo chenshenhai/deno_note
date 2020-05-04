@@ -1,5 +1,4 @@
 import { Request, RequestReader } from "./mod.ts";
-const listen = Deno.listen;
 
 function createResponse (bodyStr: string): Uint8Array {
   const CRLF = "\r\n";

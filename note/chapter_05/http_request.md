@@ -205,7 +205,6 @@ export class RequestReader implements Request {
   
 }
 
-
 ```
 
 #### 实现代码的单元测试
@@ -241,7 +240,7 @@ async function startHTTPServer() {
     ],
     stdout: "piped"
   });
-  const buffer: Deno.ReadCloser|undefined = httpServer.stdout;
+  const buffer: (Deno.Reader & Deno.Closer) | undefined = httpServer.stdout;
   if (buffer) {
     const bufReader: BufferReader = new BufferReader(buffer);
 
@@ -261,7 +260,7 @@ function closeHTTPServer() {
   console.log('\r\nclose http server\r\n')
 }
 
-test(async function serverGetRequest() {
+test('serverGetRequest', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();
@@ -288,7 +287,7 @@ test(async function serverGetRequest() {
       "headers": {
         "content-type": "application/json",
         "content-test": "helloworld",
-        "accept-encoding": "gzip",
+        "accept-encoding": "gzip, br",
         "user-agent": `Deno/${Deno.version.deno}`,
         "accept": "*/*",
         "host": "127.0.0.1:3001"
@@ -305,7 +304,7 @@ test(async function serverGetRequest() {
 });
 
 
-test(async function serverPostRequest() {
+test('serverPostRequest', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();
@@ -335,7 +334,7 @@ test(async function serverPostRequest() {
         "accept":"*/*",
         "host":"127.0.0.1:3001",
         "content-length":"23",
-        "accept-encoding": "gzip",
+        "accept-encoding": "gzip, br",
       },
       "body":"formData1=1&formData1=2",
       "beforeFinish":false,
@@ -347,7 +346,6 @@ test(async function serverPostRequest() {
     closeHTTPServer();
   }
 });
-
 ```
 
 ### 处理GET请求使用例子
@@ -361,7 +359,6 @@ test(async function serverPostRequest() {
 
 ```js
 import { Request, RequestReader } from "./mod.ts";
-const listen = Deno.listen;
 
 function createResponse (bodyStr: string): Uint8Array {
   const CRLF = "\r\n";
@@ -382,7 +379,7 @@ function createResponse (bodyStr: string): Uint8Array {
 async function response(conn: Deno.Conn) {
   const requestReader: Request = new RequestReader(conn);
   const headers: Headers = await requestReader.getHeaders();
-  const headerObj: {[key: string]: string|null} = {};
+  const headerObj:{[key: string]: string|null} = {};
   for(const key of headers.keys()) {
     headerObj[key] = headers.get(key); 
   }
@@ -418,7 +415,7 @@ deno run --allow-net example_get.ts
 
 浏览器访问 [http://127.0.0.1:3001/page/hello?a=1&b=2](http://127.0.0.1:3001/page/hello?a=1&b=2) 可看到一下结果
 
-![req_01](https://user-images.githubusercontent.com/8216630/52649086-95323580-2f22-11e9-9f48-0693830131dc.jpg)
+![req_01](../image/request_01.jpg)
 
 
 ### 处理POST请求例子
@@ -432,7 +429,6 @@ deno run --allow-net example_get.ts
 
 ```js
 import { Request, ReqGeneral, RequestReader } from "./mod.ts";
-const listen = Deno.listen;
 
 const decoder = new TextDecoder();
 
@@ -514,9 +510,9 @@ deno run --allow-net example_post.ts
 - 浏览器访问 [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
 - 输入提交表单可以看到结果如下
 
-![req_post_01](https://user-images.githubusercontent.com/8216630/52649594-8ac46b80-2f23-11e9-93d6-69c29ba15494.jpg)
+![req_post_01](../image/request_post_01.jpg)
 
-![req_post_02](https://user-images.githubusercontent.com/8216630/52649599-8c8e2f00-2f23-11e9-83f8-96acfd023f62.jpg)
+![req_post_02](../image/request_post_02.jpg)
 
 
 
