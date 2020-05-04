@@ -23,7 +23,7 @@ app.use(async function(ctx: Context, next: Function) {
   if (general.method === 'POST' && general.pathname === "/upload") {
     const formType = parseContentType(contentType);
     const formData = await parseMultipartForm(formType.boundary, bodyStream);
-    if (formData[0].value instanceof Uint8Array && formData[0].value.length > 0) {
+    if (formData && formData[0].value instanceof Uint8Array && formData[0].value.length > 0) {
       Deno.writeFileSync(`./assets/${formData[0].filename}`, formData[0].value)
     }
     body = JSON.stringify(formData);;
@@ -31,7 +31,7 @@ app.use(async function(ctx: Context, next: Function) {
     body = await getPage("./index.html");
   }
   ctx.res.setStatus(200);
-  ctx.res.setHeader('Content-Type', 'text/html');
+  ctx.res.setHeader('Content-Type', 'text/html;charset=utf-8');
   ctx.res.setBody(body);
   await next();
 });

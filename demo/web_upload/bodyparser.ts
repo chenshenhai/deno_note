@@ -121,11 +121,12 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
   // 来读取和计算表单内存空间/数据流里每个数据的起始和终止偏移量
   while(!isFinish) {
     const lineChunk = await bufReader.readLineChunk();
-    const lineChunkLen = lineChunk.length + CRLF_LEN;
+    const lineChunkLen = lineChunk.byteLength + CRLF_LEN;
     const startIndex = index;
     const endIndex = index + lineChunkLen;
+    const line: string = decoder.decode(lineChunk);
 
-    if (lineChunk.length === endChunk.length) {
+    if (lineChunk.byteLength === endChunk.byteLength) {
       const line: string = decoder.decode(lineChunk);
       if (line === end) {
         isFinish = true;
@@ -136,7 +137,7 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
       }
     }
 
-    if (lineChunk.length === newFieldChunk.length) {
+    if (lineChunk.byteLength === newFieldChunk.byteLength) {
       const line: string = decoder.decode(lineChunk);
       if (line === newField) {
         if (fieldOffsetList[fieldOffsetList.length - 1]) {
@@ -147,6 +148,9 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
           end: -1,
         });
       }
+    }
+    if (endIndex >= stream.byteLength) {
+      break;
     }
     index = endIndex;
   }

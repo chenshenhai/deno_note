@@ -1,4 +1,4 @@
-import { Application } from "./../web/mod.ts";
+import { Application, Context } from "./../web/mod.ts";
 import { parseContentType, parseMultipartForm } from "./bodyparser.ts";
 
 const app = new Application();
@@ -7,7 +7,7 @@ const opts: Deno.ListenOptions = {
   port: 3001
 }
 
-app.use(async function(ctx, next) {
+app.use(async function(ctx: Context, next: Function) {
   const general = await ctx.req.getGeneral();
   const headers = await ctx.req.getHeaders();
   const bodyStream = await ctx.req.getBodyStream();
@@ -15,7 +15,7 @@ app.use(async function(ctx, next) {
   const contentType = headers.get('Content-Type');
   let body: string = ``;
   if (general.method === 'POST') {
-    const formType = parseContentType(contentType);
+    const formType = parseContentType(contentType || '');
     const formData = await parseMultipartForm(formType.boundary, bodyStream);
     if (formData[1].value instanceof Uint8Array && formData[1].value.length > 0) {
       Deno.writeFileSync(`./assets/${formData[1].filename}`, formData[1].value)
@@ -32,7 +32,7 @@ app.use(async function(ctx, next) {
     </form>`;
   }
   ctx.res.setStatus(200);
-  ctx.res.setHeader('Content-Type', 'text/html');
+  ctx.res.setHeader('Content-Type', 'text/html;charset=utf-8');
   ctx.res.setBody(body);
   await next();
 });
