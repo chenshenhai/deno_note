@@ -248,7 +248,7 @@ app.use(async function(ctx: Context, next: Function) {
     body = await getPage("./index.html");
   }
   ctx.res.setStatus(200);
-  ctx.res.setHeader('Content-Type', 'text/html');
+  ctx.res.setHeader('Content-Type', 'text/html;charset=utf-8');
   ctx.res.setBody(body);
   await next();
 });
@@ -410,12 +410,12 @@ deno --allow-net --allow-write --allow-read example.ts
 
 #### 异步上传前
 
-![web_pload_async_001](https://user-images.githubusercontent.com/8216630/70670265-8982dd00-1cb3-11ea-8086-d4482ab30ef6.jpg)
+![web_pload_async_001](../image/upload_async_001.jpg)
 
 
 #### 异步上传后
 
-![web_upload_async_002](https://user-images.githubusercontent.com/8216630/70670258-85ef5600-1cb3-11ea-8aa5-4e47bc18918f.jpg)
+![web_upload_async_002](../image/upload_async_002.jpg)
 
 
 

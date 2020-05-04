@@ -392,11 +392,12 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
   // 来读取和计算表单内存空间/数据流里每个数据的起始和终止偏移量
   while(!isFinish) {
     const lineChunk = await bufReader.readLineChunk();
-    const lineChunkLen = lineChunk.length + CRLF_LEN;
+    const lineChunkLen = lineChunk.byteLength + CRLF_LEN;
     const startIndex = index;
     const endIndex = index + lineChunkLen;
+    const line: string = decoder.decode(lineChunk);
 
-    if (lineChunk.length === endChunk.length) {
+    if (lineChunk.byteLength === endChunk.byteLength) {
       const line: string = decoder.decode(lineChunk);
       if (line === end) {
         isFinish = true;
@@ -407,7 +408,7 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
       }
     }
 
-    if (lineChunk.length === newFieldChunk.length) {
+    if (lineChunk.byteLength === newFieldChunk.byteLength) {
       const line: string = decoder.decode(lineChunk);
       if (line === newField) {
         if (fieldOffsetList[fieldOffsetList.length - 1]) {
@@ -418,6 +419,9 @@ async function parseMultipartStreamToFields(boundary: string, stream: Uint8Array
           end: -1,
         });
       }
+    }
+    if (endIndex >= stream.byteLength) {
+      break;
     }
     index = endIndex;
   }
@@ -466,10 +470,7 @@ export function parseContentType(contentType: string): FormContentType {
     boundary,
   }
 }
-
 ```
-
-
 
 #### 例子主程序
 
@@ -512,7 +513,7 @@ app.use(async function(ctx, next) {
     </form>`;
   }
   ctx.res.setStatus(200);
-  ctx.res.setHeader('Content-Type', 'text/html');
+  ctx.res.setHeader('Content-Type;charset=utf-8', 'text/html');
   ctx.res.setBody(body);
   await next();
 });
@@ -533,12 +534,12 @@ deno --allow-net --allow-write example.ts
 
 - [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
 
-![image](https://user-images.githubusercontent.com/8216630/70634773-c926d600-1c6d-11ea-8ac8-fc530033ffd7.png)
+![upload_001](../image/upload_001.png)
 
 #### 提交表单
 
 
-![image](https://user-images.githubusercontent.com/8216630/70635185-7568bc80-1c6e-11ea-86e3-6d816179c130.png)
+![upload_002](../image/upload_001.png)
 
 
 #### 单元测试用例可查看
