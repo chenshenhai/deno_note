@@ -3,12 +3,12 @@
 ## 前言
 
 
-安装了`Deno`(v0.7.0+)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v0.42.0)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
 
-deno 0.41.0
+deno 0.42.0
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
@@ -40,12 +40,12 @@ SUBCOMMANDS:
     bundle         Bundle module and dependencies into single file
     cache          Cache the dependencies
     completions    Generate shell completions
-    doc            Show documentation for module
+    doc            Show documentation for a module
     eval           Eval script
     fmt            Format source files
     help           Prints this message or the help of the given subcommand(s)
     info           Show info about cache or info related to source file
-    install        Install script as executable
+    install        Install script as an executable
     repl           Read Eval Print Loop
     run            Run a program given a filename or url to the module
     test           Run tests
@@ -53,10 +53,14 @@ SUBCOMMANDS:
     upgrade        Upgrade deno executable to newest version
 
 ENVIRONMENT VARIABLES:
-    DENO_DIR       Set deno's base directory
-    NO_COLOR       Set to disable color
-    HTTP_PROXY     Proxy address for HTTP requests (module downloads, fetch)
-    HTTPS_PROXY    Same but for HTTPS
+    DENO_DIR             Set deno's base directory (defaults to $HOME/.deno)
+    DENO_INSTALL_ROOT    Set deno install's output directory
+                         (defaults to $HOME/.deno/bin)
+    NO_COLOR             Set to disable color
+    HTTP_PROXY           Proxy address for HTTP requests
+                         (module downloads, fetch)
+    HTTPS_PROXY          Same but for HTTPS
+
 ```
 
 ## 使用方式
@@ -105,31 +109,23 @@ demo run https://xxx.xx/mod.ts
 # 会出现以下说明
 
 deno-run 
-Run a program given a filename or url to the source code.
+Run a program given a filename or url to the module.
 
 By default all programs are run in sandbox without access to disk, network or
 ability to spawn subprocesses.
-
   deno run https://deno.land/std/examples/welcome.ts
 
-With all permissions
-
+Grant all permissions:
   deno run -A https://deno.land/std/http/file_server.ts
 
-With only permission to read from disk and listen to network
+Grant permission to read from disk and listen to network:
+  deno run --allow-read --allow-net https://deno.land/std/http/file_server.ts
 
-  deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts
-
-With only permission to read whitelist files from disk
-
+Grant permission to read whitelisted files from disk:
   deno run --allow-read=/etc https://deno.land/std/http/file_server.ts
 
-Any arguments that should be passed to the script should be prefixed by '--'
-
-  deno run -A https://deno.land/std/examples/cat.ts -- /etc/passwd
-
 USAGE:
-    deno run [OPTIONS] [SCRIPT] [-- <SCRIPT_ARGS>...]
+    deno run [OPTIONS] <SCRIPT_ARG>...
 
 OPTIONS:
     -A, --allow-all                    Allow all permissions
@@ -141,21 +137,24 @@ OPTIONS:
         --allow-run                    Allow running subprocesses
         --allow-write=<allow-write>    Allow file system write access
         --cached-only                  Require that remote dependencies are already cached
+        --cert <FILE>                  Load certificate authority from PEM encoded file
     -c, --config <FILE>                Load tsconfig.json configuration file
-        --current-thread               Use tokio::runtime::current_thread
     -h, --help                         Prints help information
-        --importmap <FILE>             Load import map file
+        --importmap <FILE>             UNSTABLE: Load import map file
+        --inspect=<HOST:PORT>          activate inspector on host:port (default: 127.0.0.1:9229)
+        --inspect-brk=<HOST:PORT>      activate inspector on host:port and break at start of user script
         --lock <FILE>                  Check the specified lock file
         --lock-write                   Write lock file. Use with --lock.
     -L, --log-level <log-level>        Set log level [possible values: debug, info]
         --no-remote                    Do not resolve remote modules
+    -q, --quiet                        Suppress diagnostic output
     -r, --reload=<CACHE_BLACKLIST>     Reload source code cache (recompile TypeScript)
         --seed <NUMBER>                Seed Math.random()
+        --unstable                     Enable unstable APIs
         --v8-flags=<v8-flags>          Set V8 command line options. For help: --v8-flags=--help
 
 ARGS:
-    <SCRIPT>            script
-    <SCRIPT_ARGS>...    script args
+    <SCRIPT_ARG>...    script args
 ```
 
 #### run 主要功能
@@ -196,7 +195,7 @@ deno eval "console.log('hello world! ' + new Date().getTime())"
 
 
 ```sh
-> deno run -h
+> deno eval -h
 
 # 会出现以下说明
 USAGE:

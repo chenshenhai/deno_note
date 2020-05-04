@@ -2,6 +2,9 @@
 
 ## API使用方式
 
+更多详细信息可参考官方API文档 [https://doc.deno.land/https/github.com/denoland/deno/releases/latest/download/lib.deno.d.ts#Deno.run](https://doc.deno.land/https/github.com/denoland/deno/releases/latest/download/lib.deno.d.ts#Deno.run)
+
+
 - `Deno.run({ cmd:[], stdout: '' })`
   - `cmd` 为字符串数组，拼接起来是子进程的执行命令
   - `stdout` 是输出方式，可选。

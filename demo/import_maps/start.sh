@@ -1,1 +1,1 @@
-deno run --importmap map.json mod.ts
+deno run --unstable --importmap map.json mod.ts

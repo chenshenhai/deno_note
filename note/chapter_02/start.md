@@ -4,7 +4,7 @@
 
 ### 准备代码
 
-- `example.ts`
+- [example.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/hello/mod.ts);
 
 ```js
 // deno --allow-net  mod.ts
@@ -54,4 +54,4 @@ deno --allow-net example.ts
 - 访问: [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
 - 访问结果
 
-![chapter_0_02](https://user-images.githubusercontent.com/8216630/52131726-7311fb00-2678-11e9-94f7-674146c2cf2a.jpg)
+![chapter_0_02](./../image/hello_server.jpg)

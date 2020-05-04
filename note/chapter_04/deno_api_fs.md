@@ -2,6 +2,8 @@
 
 ## API使用方式
 
+更多详细信息可参考官方API文档 [https://doc.deno.land/https/github.com/denoland/deno/releases/latest/download/lib.deno.d.ts#Deno.readFileSync](https://doc.deno.land/https/github.com/denoland/deno/releases/latest/download/lib.deno.d.ts#Deno.readFileSync)
+
 ### 读取文件
 
 #### 同步读取文件

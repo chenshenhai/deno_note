@@ -47,6 +47,7 @@
 ### Deno对import-maps的支持程度
 
 `Deno`在`v0.9.0`版本就支持了`import-maps`功能，经过多次迭代，目前已经完全支持了该能力。
+`Deno`在`v0.42.0` 版本就把该能力设置为 `UNSTABLE` 不支持，所以在 `0.42.0` 后，要加上`--unstable`才能正常运行才能力
 
 ## 如何在Deno中使用
 
@@ -92,11 +93,13 @@ export function add(x: number, y: number): number {
 
 在当前目录下执行
 
+> 注: `Deno`在`v0.42.0` 版本就把该能力设置为 `UNSTABLE` 不支持，所以在 `0.42.0` 后，要加上`--unstable`才能正常运行才能力
+
 ```sh
-deno run --importmap map.json mod.ts
+deno run --unstable --importmap map.json mod.ts
 ```
 
 就可以运行起 `import-maps` 对 mod.ts 引用的配置
 
-![image](https://user-images.githubusercontent.com/8216630/71538696-450d6780-296a-11ea-8b33-619e83a2af87.png)
+![image](../image/import_map_result.png)
 
