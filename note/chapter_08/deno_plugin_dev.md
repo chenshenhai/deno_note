@@ -38,7 +38,7 @@ cargo init --lib
 ```toml
 [dependencies]
 futures = "0.3"
-deno_core = "0.40"
+deno_core = "0.42"
 ```
 
 设置编译类型
@@ -63,7 +63,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 futures = "0.3"
-deno_core = "0.40"
+deno_core = "0.42"
 ```
 
 ### 编写Rust插件内容
@@ -74,28 +74,27 @@ deno_core = "0.40"
 - 在文件里定义`Deno`插件的异步和同步的两个方法
 
 ```rs
-#[macro_use]
 extern crate deno_core;
 extern crate futures;
 
-use deno_core::CoreOp;
 use deno_core::Op;
-use deno_core::PluginInitContext;
+use deno_core::CoreIsolate;
 use deno_core::{Buf, ZeroCopyBuf};
 use futures::future::FutureExt;
 
 // 初始化
-fn init(context: &mut dyn PluginInitContext) {
-  // 注册方法名为 testSync 的插件同步调用方法
-  context.register_op("testSync", Box::new(op_test_sync));
-  // 注册方法名为 testAsync 的插件异步调用方法
-  context.register_op("testAsync", Box::new(op_test_async));
+#[no_mangle]
+pub fn deno_plugin_init(isolate: &mut CoreIsolate) {
+  isolate.register_op("testSync", op_test_sync);
+  isolate.register_op("testAsync", op_test_async);
 }
-init_fn!(init);
 
 // 定义插件的同步方法
-pub fn op_test_sync(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
-
+pub fn op_test_sync(
+  _isolate: &mut CoreIsolate,
+  data: &[u8], 
+  zero_copy: Option<ZeroCopyBuf>
+) -> Op {
   // 解析接收到的两个 参数信息，转换成字符串
   let controll = std::str::from_utf8(&data[..]).unwrap().to_string();
   let &mut opts;
@@ -116,22 +115,31 @@ pub fn op_test_sync(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
   Op::Sync(result_box)
 }
 
+
 // 定义插件的异步方法
-pub fn op_test_async(data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> CoreOp {
-
+pub fn op_test_async(
+  _isolate: &mut CoreIsolate,
+  data: &[u8],
+  zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
   // 解析接收到的第一个 参数信息，转换成字符串
-  let controll = std::str::from_utf8(&data[..]).unwrap().to_string();
-
+  let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
   let fut = async move {
     // 异步解析第二个参数
     if let Some(buf) = zero_copy {
       let opts = std::str::from_utf8(&buf[..]).unwrap();
-      println!("[Rust] op_test_async:receive (\"{}\", \"{}\")", controll, opts);
+      println!("[Rust] op_test_async:receive (\"{}\", \"{}\")", data_str, opts);
     }
+    let (tx, rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
+    std::thread::spawn(move || {
+      std::thread::sleep(std::time::Duration::from_secs(1));
+      // 结束异步操作
+      tx.send(Ok(())).unwrap();
+    });
+    assert!(rx.await.is_ok());
     let result = b"test";
     let result_box: Buf = Box::new(*result);
-    // 结束异步操作
-    Ok(result_box)
+    result_box
   };
 
   Op::Async(fut.boxed())
@@ -161,7 +169,9 @@ cargo build
 
 ### 编写Deno调用的测试用例
 
-在项目目录 `./tests/` 下建一个 `test.ts` 文件
+在项目目录 `./tests/` 下建一个 `test.js` 文件
+
+> 注意: 由于目前 Deno v0.42.0 对插件的支持属于 实验阶段，所以对 *.ts 支持不稳定，选用 *.js 的文件格式进行操作
 
 
 ```js
@@ -170,44 +180,54 @@ const filenameBase = "libplugin_hello";
 let filenameSuffix = ".so";
 let filenamePrefix = "lib";
 
-if (Deno.build.os === "win") {
+if (Deno.build.os === "windows") {
   filenameSuffix = ".dll";
   filenamePrefix = "";
 }
-if (Deno.build.os === "mac") {
+if (Deno.build.os === "darwin") {
   filenamePrefix = "";
   filenameSuffix = ".dylib";
 }
 
 const filename = `../target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
 
-const plugin = Deno.openPlugin(filename);
-
-const { testSync, testAsync } = plugin.ops;
+// 开启插件，并获取进程的 ID
+const rid = Deno.openPlugin(filename);
+const { testSync, testAsync } = Deno.core.ops();
+if (!(testSync > 0)) {
+  throw "bad op id for testSync";
+}
+if (!(testAsync > 0)) {
+  throw "bad op id for testAsync";
+}
 
 const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
 
 // 执行 调用插件的 同步方法
-const response = testSync.dispatch(
+const response = Deno.core.dispatch(
+  testSync,
   textEncoder.encode('hello'),
   textEncoder.encode('sync'),
-) as Uint8Array;
+);
 console.log(`[Deno] testSync Response: ${textDecoder.decode(response)}`);
 
 console.log('-------------------------------')
 
 // 执行 调用插件的 异步方法
 // 注册异步的回调操作
-testAsync.setAsyncHandler(res => {
+Deno.core.setAsyncHandler(testAsync, (res) => {
   console.log(`[Deno] testAsync Response: ${textDecoder.decode(res)}`);
 });
 // 触发异步方法事件
-testAsync.dispatch(
+Deno.core.dispatch(
+  testAsync,
   textEncoder.encode('test'),
   textEncoder.encode('test'),
 );
 
+// 关闭 插件调用
+Deno.close(rid);
 ```
 
 
@@ -216,7 +236,7 @@ testAsync.dispatch(
 在 `./test/` 下执行
 
 ```sh
-deno run --allow-plugin test.ts 
+ deno --unstable --allow-plugin test.js
 ```
 
 会输出一下结果，就说明 Rust 插件调通了
