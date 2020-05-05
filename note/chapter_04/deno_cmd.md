@@ -3,29 +3,26 @@
 ## 前言
 
 
-安装了`Deno`(v0.42.0)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v1.0.0-rc1)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
 
-deno 0.42.0
+deno 1.0.0-rc1
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
 Modules: https://deno.land/std/ https://deno.land/x/
 Bugs: https://github.com/denoland/deno/issues
 
-To start the REPL, supply no arguments:
+To start the REPL:
   deno
 
 To execute a script:
   deno run https://deno.land/std/examples/welcome.ts
-  deno https://deno.land/std/examples/welcome.ts
 
 To evaluate code in the shell:
   deno eval "console.log(30933 + 404)"
-
-Run 'deno help run' for 'run'-specific flags.
 
 USAGE:
     deno [OPTIONS] [SUBCOMMAND]
@@ -60,7 +57,6 @@ ENVIRONMENT VARIABLES:
     HTTP_PROXY           Proxy address for HTTP requests
                          (module downloads, fetch)
     HTTPS_PROXY          Same but for HTTPS
-
 ```
 
 ## 使用方式

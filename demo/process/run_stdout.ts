@@ -4,7 +4,7 @@ async function main() {
     cmd: [Deno.execPath(), "run", "--allow-net", "./server.ts"],
     stdout: "piped",
   });
-  const stdout: Deno.ReadCloser|undefined = process.stdout;
+  const stdout:  (Deno.Reader & Deno.Closer) | undefined = process.stdout;
   if (stdout) {
     const chunk = new Uint8Array(1024);
     await stdout.read(chunk);

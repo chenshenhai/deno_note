@@ -1,5 +1,5 @@
 #!/usr/bin/env deno run --allow-run --allow-net
-import { assertEquals, equal } from "https://deno.land/std@v0.42.0/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std@v1.0.0-rc1/testing/asserts.ts";
 import {BufferReader} from "./../buffer_reader/mod.ts";
 
 const test = Deno.test;
@@ -14,6 +14,7 @@ async function startTextServer() {
   textServer = run({
     cmd: [
       Deno.execPath(),
+      "run",
       "--allow-net",
       "./demo/response/test_server_text.ts",
       "--",
@@ -41,6 +42,7 @@ async function startJSONServer() {
   jsonServer = run({
     cmd: [
       Deno.execPath(),
+      "run",
       "--allow-run",
       "--allow-net",
       "./demo/response/test_server_json.ts",
