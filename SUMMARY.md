@@ -21,18 +21,16 @@
     * [4.7 Deno删除操作](./note/chapter_04/deno_api_del.md)
     * [4.8 Deno进程操作](./note/chapter_04/deno_api_process.md)
     * [4.9 Deno使用import-maps](./note/chapter_04/deno_import_maps.md)
-    * [4.x Deno其他常用API] `// TODO`
 * [5 基础进阶学习]
     * [5.1 单元测试](./note/chapter_05/testing.md)
     * [5.2 单元测试进阶](./note/chapter_05/testing_unit.md)
     * [5.3 集成测试](./note/chapter_05/testing_integrate.md)
     * [5.4 文件/目录操作](./note/chapter_05/fs_dir.md)
     * [5.5 Buffer进阶读操作](./note/chapter_05/buffer_reader.md)
-    * [5.6 Buffer进阶写操作]
-    * [5.7 原生Deno实现简单HTTP服务](./note/chapter_05/http_simple.md)
-    * [5.8 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
-    * [5.9 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
-    * [5.10 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
+    * [5.6 原生Deno实现简单HTTP服务](./note/chapter_05/http_simple.md)
+    * [5.7 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
+    * [5.8 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
+    * [5.9 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
 * [6 WEB进阶开发]
     * [6.1 中间件式框架简单实现](./note/chapter_06/web_framework_middleware.md)
     * [6.2 中间件-路由实现](./note/chapter_06/web_framework_router.md)
