@@ -1,6 +1,7 @@
-#! /usr/bin/env deno run --allow-run --allow-net test.ts
+#!/usr/bin/env deno run --allow-all test.ts
 
 import "./demo/buffer_reader/test.ts";
+import "./demo/buffer_reader/example_chunk_test.ts";
 import "./demo/request/test.ts";
 import "./demo/response/test.ts";
 import "./demo/server/test.ts";
