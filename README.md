@@ -49,38 +49,35 @@
     * [4.1 Deno常用命令简介](./note/chapter_04/deno_cmd.md)
     * [4.2 Deno模块体系](./note/chapter_04/deno_mod.md)
     * [4.3 window全局API](./note/chapter_04/deno_window_api.md)
-    * [4.4 Deno平台](./note/chapter_04/deno_api_platform.md)
-    * [4.5 Deno系统信息](./note/chapter_04/deno_api_sys.md)
-    * [4.6 Deno文件操作](./note/chapter_04/deno_api_fs.md)
-    * [4.7 Deno目录操作](./note/chapter_04/deno_api_dir.md)
-    * [4.8 Deno删除操作](./note/chapter_04/deno_api_del.md)
-    * [4.9 Deno进程操作](./note/chapter_04/deno_api_process.md)
-    * [4.10 Deno使用import-maps](./note/chapter_04/deno_import_maps.md)
-    * [4.x Deno其他常用API] `// TODO`
+    * [4.4 Deno系统信息](./note/chapter_04/deno_api_sys.md)
+    * [4.5 Deno文件操作](./note/chapter_04/deno_api_fs.md)
+    * [4.6 Deno目录操作](./note/chapter_04/deno_api_dir.md)
+    * [4.7 Deno删除操作](./note/chapter_04/deno_api_del.md)
+    * [4.8 Deno进程操作](./note/chapter_04/deno_api_process.md)
+    * [4.9 Deno使用import-maps](./note/chapter_04/deno_import_maps.md)
 * [5 基础进阶学习]
     * [5.1 单元测试](./note/chapter_05/testing.md)
     * [5.2 单元测试进阶](./note/chapter_05/testing_unit.md)
     * [5.3 集成测试](./note/chapter_05/testing_integrate.md)
     * [5.4 文件/目录操作](./note/chapter_05/fs_dir.md)
     * [5.5 Buffer进阶读操作](./note/chapter_05/buffer_reader.md)
-    * [5.6 Buffer进阶写操作]  `// TODO`
-    * [5.7 原生Deno实现简单HTTP服务](./note/chapter_05/http_simple.md)
-    * [5.8 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
-    * [5.9 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
-    * [5.10 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
+    * [5.6 原生Deno实现简单HTTP服务](./note/chapter_05/http_simple.md)
+    * [5.7 原生Deno处理HTTP请求](./note/chapter_05/http_request.md)
+    * [5.8 原生Deno处理HTTP响应](./note/chapter_05/http_response.md)
+    * [5.9 原生Deno实现稳定HTTP服务](./note/chapter_05/http_stable.md)
 * [6 WEB进阶开发]
     * [6.1 中间件式框架简单实现](./note/chapter_06/web_framework_middleware.md)
     * [6.2 中间件-路由实现](./note/chapter_06/web_framework_router.md)
     * [6.3 中间件-静态资源实现](./note/chapter_06/web_framework_static.md)
     * [6.4 表单文件上传功能实现](./note/chapter_06/web_upload.md)
     * [6.5 异步文件上传功能实现](./note/chapter_06/web_upload_async.md)
-    * [6.x HTML模板编译实现]`// TODO`
+    * [6.x HTML模板编译实现]
 * [7 工具类开发]
     * [7.1 Linux系统下CLI原始功能实现](./note/chapter_07/deno_cli.md)  
     * [7.2 终端输入/输出 效果处理](./note/chapter_07/deno_cmd.md) 
-* [8 Deno的Rust插件开发]
+* [8 Rust插件开发]
     * [8.1 插件开发入门](./note/chapter_08/deno_plugin_dev.md)  
-    * [8.2 Rust基础学习] `// TODO`
+    * [8.2 Rust基础学习]
 
 
 ## 前言
