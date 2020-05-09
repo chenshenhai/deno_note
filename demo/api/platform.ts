@@ -1,4 +1,4 @@
-console.log(Deno.platform);
+console.log(Deno.build);
 
 // export: 
 /* 
@@ -7,10 +7,9 @@ console.log(Deno.platform);
   arch: "x64";
 
   // 操作系统的平台名称
-  // mac: 苹果Mac OS系统
+  // darwin: 苹果Mac OS系统
   // win: Windows 系统
   // linux: Linux 系统
-  os: "mac" | "win" | "linux";
+  os: "darwin" | "linux" | "windows";
 }
 */
- 
