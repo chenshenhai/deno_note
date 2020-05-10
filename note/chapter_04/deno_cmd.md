@@ -3,12 +3,12 @@
 ## 前言
 
 
-安装了`Deno`(v1.0.0-rc1)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v1.0.0-rc2)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
 
-deno 1.0.0-rc1
+deno 1.0.0-rc2
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md
@@ -47,7 +47,7 @@ SUBCOMMANDS:
     run            Run a program given a filename or url to the module
     test           Run tests
     types          Print runtime TypeScript declarations
-    upgrade        Upgrade deno executable to newest version
+    upgrade        Upgrade deno executable to given version
 
 ENVIRONMENT VARIABLES:
     DENO_DIR             Set deno's base directory (defaults to $HOME/.deno)

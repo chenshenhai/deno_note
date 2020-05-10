@@ -370,7 +370,7 @@ export class BufferReader implements BufReader {
 ### 单元测试
 
 ```js
-import { assertEquals } from "https://deno.land/std@v1.0.0-rc1/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@v0.50.0/testing/asserts.ts";
 import { BufferReader } from "./mod.ts";
 
 const { test } = Deno;

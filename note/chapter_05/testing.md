@@ -53,7 +53,7 @@ export { add, addAsync };
 ```js
 #!/usr/bin/env deno test --allow-all test.ts
 
-import { assertEquals } from "https://deno.land/std@v1.0.0-rc1/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@v0.50.0/testing/asserts.ts";
 import { add, addAsync } from "./mod.ts";
 
 const { test } = Deno;
