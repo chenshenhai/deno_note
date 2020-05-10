@@ -10,4 +10,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 futures = "0.3"
-deno_core = "0.42"
+deno_core = "0.43"

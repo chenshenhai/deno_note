@@ -38,7 +38,7 @@ cargo init --lib
 ```toml
 [dependencies]
 futures = "0.3"
-deno_core = "0.42"
+deno_core = "0.43"
 ```
 
 设置编译类型
@@ -63,7 +63,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 futures = "0.3"
-deno_core = "0.42"
+deno_core = "0.43"
 ```
 
 ### 编写Rust插件内容
@@ -236,7 +236,7 @@ Deno.close(rid);
 在 `./test/` 下执行
 
 ```sh
- deno --unstable --allow-plugin test.js
+deno run --unstable --allow-plugin test.js
 ```
 
 会输出一下结果，就说明 Rust 插件调通了

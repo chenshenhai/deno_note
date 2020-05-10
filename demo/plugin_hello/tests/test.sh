@@ -1,1 +1,1 @@
- deno --unstable --allow-plugin test.js
+ deno run --unstable --allow-plugin test.js
