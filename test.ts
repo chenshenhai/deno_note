@@ -3,6 +3,7 @@
 import "./demo/buffer_reader/test.ts";
 import "./demo/buffer_reader/example_chunk_test.ts";
 import "./demo/buffer_reader/example_line_test.ts";
+import "./demo/cli/install_test.ts";
 import "./demo/request/test.ts";
 import "./demo/response/test.ts";
 import "./demo/server/test.ts";

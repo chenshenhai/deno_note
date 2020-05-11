@@ -47,7 +47,7 @@ async function install() {
   await execAuth.status();
   execAuth.close();
 
-  console.log("\r\n[INFO][2020-05-01]: denocli is installed successfully!\r\n");
+  console.log("\r\n[INFO]: denocli is installed successfully!\r\n");
   // 执行成功后提示全局变量设置
   console.log(`
     export PATH=$PATH:${HOME}/.deno_cli/bin  >> ~/.bash_profile\r\n
