@@ -6,15 +6,13 @@ import { BufferReader } from "./../buffer_reader/mod.ts";
 const test = Deno.test;
 const run = Deno.run;
 
-test('cli/install_test', async function() {
+test('cmd/input', async function() {
   let process = run({
     cwd: "./demo/cmd",
     cmd: [
       Deno.execPath(), 
       "run", 
-      // "--allow-env", "--allow-write", "--allow-read", "--allow-run",
       "input.ts", 
-      // "--", ".", "--cors"
     ],
     stdout: "piped"
   });

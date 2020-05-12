@@ -7,7 +7,7 @@ import { sleep } from './util.ts';
 const test = Deno.test;
 const run = Deno.run;
 
-test('cli/install_test', async function() {
+test('cmd/loading_test', async function() {
   let process = run({
     cwd: "./demo/cmd",
     cmd: [
