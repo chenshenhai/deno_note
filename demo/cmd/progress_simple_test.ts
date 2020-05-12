@@ -19,7 +19,7 @@ test('cmd/progress_simple_test', async function() {
   });
   const buffer: (Deno.Reader & Deno.Closer) | undefined = process.stdout;
   if (buffer) {
-    await sleep(1000);
+    await sleep(1200);
     const bufReader = new BufferReader(buffer);
     const line1 = await bufReader.readLine();
     assertEquals(line1, `[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[K▊[0C [K`);

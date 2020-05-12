@@ -9,6 +9,7 @@ import "./demo/cmd/loading_test.ts";
 import "./demo/cmd/output_test.ts";
 import "./demo/cmd/progress_simple_test.ts";
 import "./demo/cmd/progress_test.ts";
+// import "./demo/hello/mod_test.ts";
 import "./demo/request/test.ts";
 import "./demo/response/test.ts";
 import "./demo/server/test.ts";

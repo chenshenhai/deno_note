@@ -19,7 +19,7 @@ test('cmd/loading_test', async function() {
   });
   const buffer: (Deno.Reader & Deno.Closer) | undefined = process.stdout;
   if (buffer) {
-    await sleep(1000);
+    await sleep(2000);
     const bufReader = new BufferReader(buffer);
     const line1 = await bufReader.readLine();
     assertEquals(line1, `[0D [K [==>         ][23D [K [ ==>        ][24D [K [  ==>       ][24D [K [   ==>      ][24D [K [    ==>     ][24D [K [     ==>    ][24D [K [      ==>   ][24D [K [       ==>  ][24D [K [        ==> ][24D [K [         ==>][24D [K [==>         ][24D [K [ ==>        ][24D [K [  ==>       ][24D [K [   ==>      ][24D [K [    ==>     ][24D [K [     ==>    ][24D [K [      ==>   ][24D [K [       ==>  ][24D [K [        ==> ][24D [K [         ==>][0C [K`);
