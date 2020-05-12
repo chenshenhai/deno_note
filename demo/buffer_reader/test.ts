@@ -6,7 +6,7 @@ const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
 test({
-  name: 'testBufferReaderMinSize',
+  name: 'buffer_reader/test/testBufferReaderMinSize',
   async fn(): Promise<void> {
     const strList = [
       "",
@@ -31,7 +31,7 @@ test({
 
 
 test({
-  name: 'testBufferReaderMaxSize', 
+  name: 'buffer_reader/test/testBufferReaderMaxSize', 
   async fn(): Promise<void> {
     const strList = [
       "",
@@ -55,7 +55,7 @@ test({
 });
 
 test({
-  name: 'testBufferReaderCustomSize',
+  name: 'buffer_reader/test/testBufferReaderCustomSize',
   async fn(): Promise<void> {
     const strList = [
       "\r\n",
