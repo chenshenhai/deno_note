@@ -1,8 +1,6 @@
 #!/usr/bin/env deno --allow-run --allow-net
 import { assertEquals, equal } from "https://deno.land/std@0.50.0/testing/asserts.ts";
 
-import { BufferReader } from "./../buffer_reader/mod.ts";
-
 const test = Deno.test;
 const run = Deno.run;
 const testSite = "http://127.0.0.1:3001";
@@ -31,7 +29,7 @@ async function sleep(time: number = 10): Promise<void> {
 }
 
 
-test('hello/mod_test', async function() {
+test('http/example_test', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();
