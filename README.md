@@ -80,18 +80,15 @@
     * [8.2 Rust基础学习]
 
 
-## 前言
-
-- Deno自2018年6月诞生，引发JavaScript开发社区的强烈讨论，很多开发者误解甚至还纷纷传言`ry`大神将以`Deno`作为下一代`Node.js`，甚至还闹出了啼笑皆非的`issue`盖楼闹剧。
-- 到了2018年底至2019年初，在JavaScript社区里，Deno的相关讨论声音渐渐消退，更多是谈论`TypeScript`是否将引领下一波前端开发潮流，甚至带动`Deno`起飞。
-
 ## 为啥要写这本书  
 
-- 2020年
+- 2020年 感想
     - Deno官方API基本稳定下来，也官宣将于2020年5月13日两周年之际发布 1.0 版本
     - Deno官方也出了 API 的使用文档 [Deno官方API文档](https://doc.deno.land/https/github.com/denoland/deno/releases/latest/download/lib.deno.d.ts)
     - 意味着 Deno 趋近完善，后续用于生产环境指日可待
-- 2019年
+- 2019年 感想
+    - Deno自2018年6月诞生，引发JavaScript开发社区的强烈讨论，很多开发者误解甚至还纷纷传言`ry`大神将以`Deno`作为下一代`Node.js`，甚至还闹出了啼笑皆非的`issue`盖楼闹剧。
+    - 到了2018年底至2019年初，在JavaScript社区里，Deno的相关讨论声音渐渐消退，更多是谈论`TypeScript`是否将引领下一波前端开发潮流，甚至带动`Deno`起飞。
     - 既然有新东西可以玩，先不管别人怎么议论，工具好不好得自己用了才知道。面对一个新生技术，人云亦云和断章取义不是一个技术开发者的应有的行为。
     - 趁着2019年春节在家，好好利用这个“寒假”玩玩这个新技术。截止2019年初，`Deno`国内外资料实在太少。
         - 除了出现 [《Deno核心指南》](https://github.com/denolib/guide) 以及对应的GitHub组织`denolib`推荐的学习文档比较有建设性，除此之外，对于deno的开发资料乏善可陈。
