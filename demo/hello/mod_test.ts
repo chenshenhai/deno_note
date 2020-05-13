@@ -15,18 +15,6 @@ async function startHTTPServer() {
     cmd: [Deno.execPath(), "run", "--allow-net", "./demo/hello/mod.ts"],
     stdout: "piped"
   });
-  const buffer: (Deno.Reader & Deno.Closer) | undefined = httpServer.stdout;
-  if (buffer) {
-    const bufReader = new BufferReader(buffer);
-    console.log(`before------`)
-    const line = await bufReader.readCustomChunk(1024);
-    console.log(`line = ${line}`)
-    const line2 = await bufReader.readLine();
-    console.log(`line2 = ${line2}`)
-    equal("listening on 127.0.0.1:3001", line)
-  } else {
-    throw Error('Testing server started failfully!');
-  }
 }
 
 function closeHTTPServer() {
@@ -34,11 +22,21 @@ function closeHTTPServer() {
   httpServer.stdout && httpServer.stdout.close();
 }
 
+async function sleep(time: number = 10): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time)
+  })
+}
+
+
 test('hello/mod_test', async function() {
   try {
     // 等待服务启动
     await startHTTPServer();
-    const res1 = await fetch(`${testSite}/hello`);
+    await sleep(1000);
+    const res1 = await fetch(`${testSite}`);
     const result = await res1.text();
     const expectResult = "hello world!";
     assertEquals(result, expectResult);
