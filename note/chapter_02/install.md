@@ -17,7 +17,7 @@
 - 安装最新版本
 
 ```sh
-curl -fsSL https://deno.land/x/install/install.sh
+curl -fsSL https://deno.land/x/install/install.sh | sh
 ```
 
 - 安装制定版本 (例如安装v1.0.0)
