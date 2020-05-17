@@ -1,4 +1,4 @@
-# 通过 jspm 调用npm
+# Deno借助jspm使用npm
 
 ## 前言
 
