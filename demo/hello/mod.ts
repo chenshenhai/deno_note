@@ -1,5 +1,5 @@
 
-// deno --allow-net  mod.ts
+// deno run --allow-net  mod.ts
 
 /**
  * helloworld HTTP服务

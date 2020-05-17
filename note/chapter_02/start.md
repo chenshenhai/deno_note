@@ -4,10 +4,10 @@
 
 ### 准备代码
 
-- [example.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/hello/mod.ts);
+- [mod.ts](https://github.com/chenshenhai/deno_note/blob/master/demo/hello/mod.ts);
 
 ```js
-// deno --allow-net  mod.ts
+// deno run --allow-net
 
 /**
  * helloworld HTTP服务
@@ -46,7 +46,7 @@ simpleServer({
 ### 执行代码
 
 ```js
-deno --allow-net example.ts
+deno run --allow-net mod.ts
 ```
 
 ### 浏览器访问
