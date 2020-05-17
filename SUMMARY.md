@@ -45,3 +45,5 @@
 * [8 Rust插件开发]
     * [8.1 插件开发入门](./note/chapter_08/deno_plugin_dev.md)  
     * [8.2 Rust基础学习]
+* [9 生态]
+    * [9.1 通过jspm调用npm](./note/chapter_09/use_npm_by_jspm.md) 
