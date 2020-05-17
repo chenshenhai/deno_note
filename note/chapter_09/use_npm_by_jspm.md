@@ -2,7 +2,7 @@
 
 ## 前言
 
-Deno的诞生过程中，有个因素是是为了抛掉 `node_modules` 的历史问题，但是不可避免的会带来暂时无法利用 `npm` 生态的遗憾。毕竟`npm`沉淀了10余年的`JS`生态，如果直接放弃是有点遗憾的。目前（截至2020年5月），`Deno`的官方标准库 `deno/std`在建设对 `Node.js` 的兼容 [deno/std/node](https://github.com/denoland/deno/blob/master/std/node/README.md)，这也对后续能否利用 `npm` 生态带来曙光。
+Deno的诞生过程中，有个因素是为了抛掉 `node_modules` 的历史问题，但是不可避免的会带来暂时无法利用 `npm` 生态的遗憾。毕竟`npm`沉淀了10余年的`JS`生态，如果直接放弃是有点遗憾的。目前（截至2020年5月），`Deno`的官方标准库 `deno/std`在建设对 `Node.js` 的兼容 [deno/std/node](https://github.com/denoland/deno/blob/master/std/node/README.md)，这也对后续能否利用 `npm` 生态带来曙光。
 
 至于目前 `Deno` 暂时无法直接使用 `npm` 生态，我们可以换种方式间接去使用，本篇是主要探讨如何在 `Deno`环境里，借助 `jspm`调用`npm`的模块能力。
 
