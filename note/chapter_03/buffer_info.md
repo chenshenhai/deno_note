@@ -39,7 +39,7 @@ console.log(buffer.byteLength);
 ### Uint8Array
 
 - 8位无符号整型数组-缓冲区操作视图
-- [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/DataView)
+- [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array)
 
 
 ### TextEncoder
