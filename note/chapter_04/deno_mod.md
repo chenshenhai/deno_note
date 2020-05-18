@@ -15,7 +15,7 @@
 
 ### 模块风格规范
 
-> 参考: deno 官方模块风格指南 [https://github.com/denoland/deno_std#style-guide](https://deno.land/style_guide.html)
+> 参考: deno 官方模块风格指南 [https://deno.land/manual/contributing/style_guide](https://deno.land/manual/contributing/style_guide#use-the-term-module-instead-of-library-or-package)
 
 - 使用名词术语 `module` 而不是 `lib` 或 `package`
 - 如果需要一个入口文件，则建议使用`mod.ts`而不是`index.js`或`index.ts`
@@ -53,7 +53,7 @@ import { Module1, Module2 } from "./mod/xxx.ts";
 import { assertEquals } from "https://deno.land/std@v0.50.0/testing/asserts.ts";
 ```
 
-同时`Deno`团队为了规范远程模块的使用，特地建立了`deno_std`作为官方远程模块的标准模块，代码仓库[https://github.com/denoland/deno_std](https://github.com/denoland/deno_std)。官方的说明如下：
+同时`Deno`团队为了规范远程模块的使用，特地建立了`deno_std`作为官方远程模块的标准模块，存放在`deno`仓库下 [https://github.com/denoland/deno/tree/master/std](https://github.com/denoland/deno/tree/master/std)。官方的说明如下：
 > These modules do not have external dependencies and they are reviewed by the Deno core team. The intention is to have a standard set of high quality code that all Deno projects can use fearlessly.
 > Contributions are welcome!
 
@@ -69,7 +69,7 @@ import { assertEquals } from "https://deno.land/std@v0.50.0/testing/asserts.ts";
 
 ## 模块编译
 
-`Deno` 官方提到`Deno`是一个  `TypeScript`运行环境，并不是直接的`runtime`，而是在`Deno`使用中，虽然是把开发者的`TypeScript`源码编译成`JavaScript`，然后调用`V8`去执行代码 。
+`Deno` 官方提到`Deno`是一个  `TypeScript`运行环境，并不是直接的`runtime`，而是在`Deno`使用中，把开发者的`TypeScript`源码编译成`JavaScript`，然后调用`V8`去执行代码 。
 
 因此，这里就有一个编译`TypeScript`的过程。`Deno`将开发者本地`TypeScript`源码、源码中URL引用的远程代码，一并下载并且编译到本地系统中，并且用`hash`命名编译后的`js`文件和`sourceMap`文件。
 
