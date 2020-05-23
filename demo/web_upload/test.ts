@@ -1,5 +1,5 @@
 #!/usr/bin/env deno --allow-run --allow-net
-import { assertEquals, equal } from "https://deno.land/std@0.51.0/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std@0.53.0/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const testSite = "http://127.0.0.1:3001";

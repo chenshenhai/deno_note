@@ -1,5 +1,5 @@
 #!/usr/bin/env deno --allow-run --allow-net
-import { assertEquals, equal } from "https://deno.land/std@0.51.0/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std@0.53.0/testing/asserts.ts";
 
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
@@ -15,7 +15,11 @@ test('buffer_reader/example_chunk_test', async function() {
   if (buffer) {
     const bufReader = new BufferReader(buffer);
     const chunk1 = await bufReader.readLineChunk();
-    assertEquals(chunk1, new Uint8Array([56,10,104,101,108,108,111]));
+    assertEquals(chunk1, new Uint8Array([
+      27, 91, 51, 51, 109, 56,
+      27, 91, 51, 57, 109, 10,
+      104, 101, 108, 108, 111
+    ]));
 
     const chunk2 = await bufReader.readLineChunk();
     assertEquals(chunk2, new Uint8Array([119, 10 ]));

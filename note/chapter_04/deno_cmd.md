@@ -3,12 +3,12 @@
 ## 前言
 
 
-安装了`Deno`(v1.0.0)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v1.0.2)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
 
-deno 1.0.0
+deno 1.0.2
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/std/manual.md

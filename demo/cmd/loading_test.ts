@@ -1,5 +1,5 @@
 #!/usr/bin/env deno --allow-all
-import { assertEquals } from "https://deno.land/std@0.51.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.53.0/testing/asserts.ts";
 
 import { BufferReader } from "./../buffer_reader/mod.ts";
 import { sleep } from './util.ts';
@@ -19,7 +19,7 @@ test('cmd/loading_test', async function() {
   });
   const buffer: (Deno.Reader & Deno.Closer) | undefined = process.stdout;
   if (buffer) {
-    await sleep(2000);
+    await sleep(2500);
     const bufReader = new BufferReader(buffer);
     const line1 = await bufReader.readLine();
     assertEquals(line1, `[0D [K [==>         ][23D [K [ ==>        ][24D [K [  ==>       ][24D [K [   ==>      ][24D [K [    ==>     ][24D [K [     ==>    ][24D [K [      ==>   ][24D [K [       ==>  ][24D [K [        ==> ][24D [K [         ==>][24D [K [==>         ][24D [K [ ==>        ][24D [K [  ==>       ][24D [K [   ==>      ][24D [K [    ==>     ][24D [K [     ==>    ][24D [K [      ==>   ][24D [K [       ==>  ][24D [K [        ==> ][24D [K [         ==>][0C [K`);
