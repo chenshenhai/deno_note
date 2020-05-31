@@ -92,7 +92,7 @@ deno run --allow-all  --reload mod.ts
 deno run mod.ts
 
 
-demo run https://xxx.xx/mod.ts
+deno run https://xxx.xx/mod.ts
 ```
 
 
