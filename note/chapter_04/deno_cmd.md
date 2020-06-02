@@ -92,7 +92,7 @@ deno run --allow-all  --reload mod.ts
 deno run mod.ts
 
 
-demo run https://xxx.xx/mod.ts
+deno run https://xxx.xx/mod.ts
 ```
 
 
@@ -166,7 +166,6 @@ ARGS:
 - `deno run --allow-write mod.ts` 执行代码 允许直接使用文件写权限
 - `deno run --allow-run mod.ts` 执行代码 允许直接执行子程序
 - `deno run --allow-env mod.ts` 执行代码 允许直接使用操作环境权限
-- `deno run --allow-run mod.ts` 执行代码 允许执行子进程
 - `deno run --allow-hrtime mod.ts` 执行代码 允许测量高分辨率时间
 - `deno run --allow-all mod.ts` 执行代码 允许以上所有权限
 
