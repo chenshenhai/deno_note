@@ -240,7 +240,7 @@ async function startHTTPServer() {
     ],
     stdout: "piped"
   });
-  const buffer: (Deno.Reader & Deno.Closer) | undefined = httpServer.stdout;
+  const buffer: (Deno.Reader & Deno.Closer) | null = process.stdout as (Deno.Reader & Deno.Closer) | null;
   if (buffer) {
     const bufReader: BufferReader = new BufferReader(buffer);
 
@@ -252,10 +252,12 @@ async function startHTTPServer() {
   }
 }
 
-function closeHTTPServer() {
+async function closeHTTPServer() {
   if (httpServer) {
     httpServer.close();
-    httpServer.stdout && httpServer.stdout.close();
+    await Deno.readAll(httpServer.stdout!);
+    const stdout = httpServer.stdout as Deno.Reader & Deno.Closer | null;
+    stdout!.close();
   }
   console.log('\r\nclose http server\r\n')
 }
@@ -299,7 +301,7 @@ test('serverGetRequest', async function() {
     
     assertEquals(json, acceptResult);
   } finally {
-    closeHTTPServer();
+    await closeHTTPServer();
   }
 });
 
@@ -343,7 +345,7 @@ test('serverPostRequest', async function() {
     
     assertEquals(json, acceptResult);
   } finally {
-    closeHTTPServer();
+    await closeHTTPServer();
   }
 });
 ```

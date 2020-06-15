@@ -24,7 +24,7 @@ async function startHTTPServer() {
     cmd: [Deno.execPath(), "run", "--allow-net", "./demo/web_router/test_server.ts", "--", ".", "--cors"],
     stdout: "piped"
   });
-  const buffer: (Deno.Reader & Deno.Closer) | undefined = httpServer.stdout;
+  const buffer: (Deno.Reader & Deno.Closer) | null = httpServer.stdout as (Deno.Reader & Deno.Closer) | null;
   if (buffer) {
     const bufReader = new BufferReader(buffer);
     const line = await bufReader.readLine();
@@ -32,9 +32,11 @@ async function startHTTPServer() {
   }
 }
 
-function closeHTTPServer() {
+async function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout && httpServer.stdout.close();
+  await Deno.readAll(httpServer.stdout!);
+  const stdout = httpServer.stdout as Deno.Reader & Deno.Closer | null;
+  stdout!.close();
 }
 
 test('testWebRouter', async function() {
@@ -62,6 +64,6 @@ test('testWebRouter', async function() {
     assertEquals(result4, {"pageId":"p001","userId":"u001"});
   } finally {
     // 关闭测试服务
-    closeHTTPServer();
+    await closeHTTPServer();
   }
 });

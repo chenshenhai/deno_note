@@ -23,7 +23,7 @@ async function startTextServer() {
     ],
     stdout: "piped"
   });
-  const buffer: (Deno.Reader & Deno.Closer) | undefined = textServer.stdout;
+  const buffer: (Deno.Reader & Deno.Closer) | null = textServer.stdout as (Deno.Reader & Deno.Closer) | null;
   if (buffer) {
     const bufReader = new BufferReader(buffer);
     const line = await bufReader.readLine();
@@ -33,9 +33,11 @@ async function startTextServer() {
   }
 }
 
-function closeTextServer() {
+async function closeTextServer() {
   textServer.close();
-  textServer.stdout && textServer.stdout.close();
+  await Deno.readAll(textServer.stdout!);
+  const stdout = textServer.stdout as Deno.Reader & Deno.Closer | null;
+  stdout!.close();
 }
 
 async function startJSONServer() {
@@ -52,7 +54,7 @@ async function startJSONServer() {
     ],
     stdout: "piped"
   });
-  const buffer: (Deno.Reader & Deno.Closer) | undefined | undefined = jsonServer.stdout;
+  const buffer: (Deno.Reader & Deno.Closer) | null = jsonServer.stdout as (Deno.Reader & Deno.Closer) | null;
   if (buffer) {
     const bufReader = new BufferReader(buffer);
     const line = await bufReader.readLine();
@@ -62,9 +64,11 @@ async function startJSONServer() {
   }
 }
 
-function closeJSONServer() {
+async function closeJSONServer() {
   jsonServer.close();
-  jsonServer.stdout && jsonServer.stdout.close();
+  await Deno.readAll(jsonServer.stdout!);
+  const stdout = jsonServer.stdout as Deno.Reader & Deno.Closer | null;
+  stdout!.close();
 }
 
 test('serverTextResponse', async function() {
@@ -78,7 +82,7 @@ test('serverTextResponse', async function() {
     
   } finally {
     // 关闭测试服务
-    closeTextServer();
+    await closeTextServer();
   }
 });
 
@@ -95,6 +99,6 @@ test('serverJSONResponse', async function() {
     assertEquals(json, acceptResult);
   } finally {
     // 关闭测试服务
-    closeJSONServer();
+    await closeJSONServer();
   }
 });

@@ -3,11 +3,11 @@
 ## 前言
 
 
-安装了`Deno`(v1.0.5)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v1.1.0)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
-deno 1.0.5
+deno 1.1.0
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/manual
@@ -42,8 +42,9 @@ SUBCOMMANDS:
     help           Prints this message or the help of the given subcommand(s)
     info           Show info about cache or info related to source file
     install        Install script as an executable
+    lint           Lint source files
     repl           Read Eval Print Loop
-    run            Run a program given a filename or url to the module
+    run            Run a program given a filename or url to the module. Use '-' as a filename to read from stdin.
     test           Run tests
     types          Print runtime TypeScript declarations
     upgrade        Upgrade deno executable to given version
@@ -55,7 +56,8 @@ ENVIRONMENT VARIABLES:
     NO_COLOR             Set to disable color
     HTTP_PROXY           Proxy address for HTTP requests
                          (module downloads, fetch)
-    HTTPS_PROXY          Same but for HTTPS
+    HTTPS_PROXY          Proxy address for HTTPS requests
+                         (module downloads, fetch)
 ```
 
 ## 使用方式
@@ -118,6 +120,9 @@ Grant permission to read from disk and listen to network:
 
 Grant permission to read whitelisted files from disk:
   deno run --allow-read=/etc https://deno.land/std/http/file_server.ts
+  
+Deno allows specifying the filename '-' to read the file from stdin.
+  curl https://deno.land/std/examples/welcome.ts | target/debug/deno run -
 
 USAGE:
     deno run [OPTIONS] <SCRIPT_ARG>...
@@ -192,22 +197,32 @@ deno eval "console.log('hello world! ' + new Date().getTime())"
 > deno eval -h
 
 # 会出现以下说明
-USAGE:
-    deno eval [FLAGS] [OPTIONS] <code>
+deno-eval 
+Evaluate JavaScript from the command line.
+  deno eval "console.log('hello world')"
 
-FLAGS:
-    -h, --help          Prints help information
-    -D, --log-debug     Log debug output
-    -r, --reload        Reload source code cache (recompile TypeScript)
-        --v8-options    Print V8 command line options
+To evaluate as TypeScript:
+  deno eval -T "const v: string = 'hello'; console.log(v)"
+
+This command has implicit access to all permissions (--allow-all).
+
+USAGE:
+    deno eval [OPTIONS] <code>
 
 OPTIONS:
-    -c, --config <FILE>          Load compiler configuration file
-        --v8-flags=<v8-flags>    Set V8 command line options
+        --cert <FILE>                Load certificate authority from PEM encoded file
+    -h, --help                       Prints help information
+        --inspect=<HOST:PORT>        activate inspector on host:port (default: 127.0.0.1:9229)
+        --inspect-brk=<HOST:PORT>    activate inspector on host:port and break at start of user script
+    -L, --log-level <log-level>      Set log level [possible values: debug, info]
+    -p, --print                      print result to stdout
+    -q, --quiet                      Suppress diagnostic output
+    -T, --ts                         Treat eval input as TypeScript
+        --unstable                   Enable unstable APIs
+        --v8-flags=<v8-flags>        Set V8 command line options. For help: --v8-flags=--help
 
 ARGS:
-    <code>  
-
+    <code>
 ```
 
 

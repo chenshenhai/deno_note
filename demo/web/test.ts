@@ -15,7 +15,7 @@ async function startHTTPServer() {
     cmd: [Deno.execPath(), "run", "--allow-net", "./demo/web/test_server.ts", "--", ".", "--cors"],
     stdout: "piped"
   });
-  const buffer: (Deno.Reader & Deno.Closer) | undefined = httpServer.stdout;
+  const buffer: (Deno.Reader & Deno.Closer) | null = httpServer.stdout as (Deno.Reader & Deno.Closer) | null;
   if (buffer) {
     const bufReader = new BufferReader(buffer);
     const line = await bufReader.readLine();
@@ -23,9 +23,11 @@ async function startHTTPServer() {
   }
 }
 
-function closeHTTPServer() {
+async function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout && httpServer.stdout.close();
+  await Deno.readAll(httpServer.stdout!);
+  const stdout = httpServer.stdout as Deno.Reader & Deno.Closer | null;
+  stdout!.close();
 }
 
 test('testWeb', async function() {
@@ -38,6 +40,6 @@ test('testWeb', async function() {
     assertEquals(result, expectResult);
   } finally {
     // 关闭测试服务
-    closeHTTPServer();
+    await closeHTTPServer();
   }
 });

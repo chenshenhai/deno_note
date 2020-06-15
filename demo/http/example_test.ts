@@ -15,9 +15,11 @@ async function startHTTPServer() {
   });
 }
 
-function closeHTTPServer() {
+async function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout && httpServer.stdout.close();
+  await Deno.readAll(httpServer.stdout!);
+  const stdout = httpServer.stdout as Deno.Reader & Deno.Closer | null;
+  stdout!.close();
 }
 
 async function sleep(time: number = 10): Promise<void> {
@@ -40,6 +42,6 @@ test('http/example_test', async function() {
     assertEquals(result, expectResult);
   } finally {
     // 关闭测试服务
-    closeHTTPServer();
+    await closeHTTPServer();
   }
 });

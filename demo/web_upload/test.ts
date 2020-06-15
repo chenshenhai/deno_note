@@ -21,9 +21,11 @@ async function startHTTPServer() {
   
 }
 
-function closeHTTPServer() {
+async function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout && httpServer.stdout.close();
+  await Deno.readAll(httpServer.stdout!);
+  const stdout = httpServer.stdout as Deno.Reader & Deno.Closer | null;
+  stdout!.close();
 }
 
 test('testMultipart', async function(): Promise<void> {
@@ -48,6 +50,6 @@ test('testMultipart', async function(): Promise<void> {
     const bodyData = await res.json();
     assertEquals(bodyData, expectData);
   } finally {
-    closeHTTPServer();
+    await closeHTTPServer();
   }
 });

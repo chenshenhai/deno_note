@@ -11,7 +11,7 @@ test('buffer_reader/example_chunk_test', async function() {
     cmd: [Deno.execPath(), "run", "./demo/buffer_reader/example_chunk.ts", "--", ".", "--cors"],
     stdout: "piped"
   });
-  const buffer: (Deno.Reader & Deno.Closer) | undefined = process.stdout;
+  const buffer: (Deno.Reader & Deno.Closer) | null = process.stdout as (Deno.Reader & Deno.Closer) | null;
   if (buffer) {
     const bufReader = new BufferReader(buffer);
     const chunk1 = await bufReader.readLineChunk();

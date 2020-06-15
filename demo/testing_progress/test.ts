@@ -21,10 +21,12 @@ async function startHTTPServer() {
   }
 }
 
-function closeHTTPServer() {
+async function closeHTTPServer() {
   if(httpServer) {
     httpServer.close();
-    httpServer.stdout && httpServer.stdout.close();
+    await Deno.readAll(httpServer.stdout!);
+    const stdout = httpServer.stdout as Deno.Reader & Deno.Closer | null;
+    stdout!.close();
   }
 }
 
@@ -39,7 +41,7 @@ test('server', async function() {
     closeHTTPServer();
   } catch (err) {
     // 关闭测试服务
-    closeHTTPServer();
+    await closeHTTPServer();
     throw new Error(err);
   }
 });

@@ -31,9 +31,11 @@ async function startHTTPServer() {
   
 }
 
-function closeHTTPServer() {
+async function closeHTTPServer() {
   httpServer.close();
-  httpServer.stdout && httpServer.stdout.close();
+  await Deno.readAll(httpServer.stdout!);
+  const stdout = httpServer.stdout as Deno.Reader & Deno.Closer | null;
+  stdout!.close();
 }
 
 test('testWebStatic', async function() {
@@ -51,6 +53,6 @@ test('testWebStatic', async function() {
     // const result2 = await res2.text();
     // assertEquals(result2, `body {background: #f0f0f0;}`);
   } finally {
-    closeHTTPServer();
+    await closeHTTPServer();
   }
 });
