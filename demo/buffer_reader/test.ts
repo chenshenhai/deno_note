@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.56.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.59.0/testing/asserts.ts";
 import { BufferReader } from "./mod.ts";
 
 const { test } = Deno;

@@ -50,7 +50,7 @@ import { Module1, Module2 } from "./mod/xxx.ts";
 `Deno`官方有个目标是 `Aims to be browser compatible.`，也就代表着模块也可以像浏览器一下，用js链接使用模块。例如:
 
 ```js
-import { assertEquals } from "https://deno.land/std@v0.50.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@v0.59.0/testing/asserts.ts";
 ```
 
 同时`Deno`团队为了规范远程模块的使用，特地建立了`deno_std`作为官方远程模块的标准模块，存放在`deno`仓库下 [https://github.com/denoland/deno/tree/master/std](https://github.com/denoland/deno/tree/master/std)。官方的说明如下：
