@@ -1,5 +1,5 @@
 #!/usr/bin/env deno --allow-all
-import { assertEquals } from "https://deno.land/std@0.59.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.66.0/testing/asserts.ts";
 
 import { BufferReader } from "./../buffer_reader/mod.ts";
 import { sleep } from './util.ts';

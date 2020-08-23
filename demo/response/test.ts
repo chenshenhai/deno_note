@@ -1,5 +1,5 @@
 #!/usr/bin/env deno run --allow-run --allow-net
-import { assertEquals, equal } from "https://deno.land/std@0.59.0/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std@0.66.0/testing/asserts.ts";
 import {BufferReader} from "./../buffer_reader/mod.ts";
 
 const test = Deno.test;

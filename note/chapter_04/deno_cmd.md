@@ -3,11 +3,11 @@
 ## 前言
 
 
-安装了`Deno`(v1.1.2)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v1.3.1)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
-deno 1.1.2
+deno 1.3.1
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/manual
@@ -50,13 +50,16 @@ SUBCOMMANDS:
     upgrade        Upgrade deno executable to given version
 
 ENVIRONMENT VARIABLES:
-    DENO_DIR             Set deno's base directory (defaults to $HOME/.deno)
+    DENO_DIR             Set the cache directory
     DENO_INSTALL_ROOT    Set deno install's output directory
                          (defaults to $HOME/.deno/bin)
+    DENO_CERT            Load certificate authority from PEM encoded file
     NO_COLOR             Set to disable color
     HTTP_PROXY           Proxy address for HTTP requests
                          (module downloads, fetch)
     HTTPS_PROXY          Proxy address for HTTPS requests
+                         (module downloads, fetch)
+    NO_PROXY             Comma-separated list of hosts which do not use a proxy
                          (module downloads, fetch)
 ```
 
