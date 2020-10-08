@@ -3,11 +3,11 @@
 ## 前言
 
 
-安装了`Deno`(v1.3.1)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v1.4.4)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
-deno 1.3.1
+deno 1.4.4
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/manual
@@ -30,6 +30,7 @@ OPTIONS:
     -h, --help                     Prints help information
     -L, --log-level <log-level>    Set log level [possible values: debug, info]
     -q, --quiet                    Suppress diagnostic output
+        --unstable                 Enable unstable features and APIs
     -V, --version                  Prints version information
 
 SUBCOMMANDS:

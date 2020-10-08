@@ -1,7 +1,7 @@
 language: node_js
 
 install:
-  - curl -L https://deno.land/x/install/install.sh | sh -s v1.3.1
+  - curl -L https://deno.land/x/install/install.sh | sh -s v1.4.4
   - export PATH="$HOME/.deno/bin:$PATH"
 
 script:
