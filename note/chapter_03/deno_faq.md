@@ -2,6 +2,11 @@
 
 ## 版本变更问题
 
+#### Deno@1.7.4 deno_std的迁移
+
+后把 denoland/deno/std 签回到 denoland/deno_std仓库里
+
+
 #### Deno@0.42.0 后暂时不支持 importmap 能力
 
 [https://github.com/denoland/deno/pull/4934](https://github.com/denoland/deno/pull/4934)

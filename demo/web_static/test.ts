@@ -1,11 +1,11 @@
 #!/usr/bin/env deno --allow-run --allow-net
-import { assertEquals, equal } from "https://deno.land/std@0.73.0/testing/asserts.ts";
+import { assertEquals, equal } from "https://deno.land/std@0.87.0/testing/asserts.ts";
 import { BufferReader } from "./../buffer_reader/mod.ts";
 
 const run = Deno.run;
 const test = Deno.test;
 
-async function delay(time: number = 100) {
+async function delay(time: number = 100): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();

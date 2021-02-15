@@ -3,11 +3,11 @@
 ## 前言
 
 
-安装了`Deno`(v1.4.6)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v1.7.4)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
-deno 1.4.6
+deno 1.7.4
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/manual
@@ -36,6 +36,7 @@ OPTIONS:
 SUBCOMMANDS:
     bundle         Bundle module and dependencies into single file
     cache          Cache the dependencies
+    compile        Compile the script into a self contained executable
     completions    Generate shell completions
     doc            Show documentation for a module
     eval           Eval script
@@ -44,6 +45,7 @@ SUBCOMMANDS:
     info           Show info about cache or info related to source file
     install        Install script as an executable
     lint           Lint source files
+    lsp            Start the language server
     repl           Read Eval Print Loop
     run            Run a program given a filename or url to the module. Use '-' as a filename to read from stdin.
     test           Run tests

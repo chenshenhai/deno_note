@@ -20,10 +20,10 @@
 curl -fsSL https://deno.land/x/install/install.sh | sh
 ```
 
-- 安装制定版本 (例如安装v1.4.6)
+- 安装制定版本 (例如安装v1.7.4)
 
 ```sh
-curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.4.6
+curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.7.4
 ```
 
 - 环境变量设置
