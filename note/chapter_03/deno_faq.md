@@ -2,7 +2,7 @@
 
 ## 版本变更问题
 
-#### Deno@1.7.4 deno_std的迁移
+#### Deno@1.9.2 deno_std的迁移
 
 后把 denoland/deno/std 签回到 denoland/deno_std仓库里
 

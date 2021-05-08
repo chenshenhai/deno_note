@@ -3,11 +3,11 @@
 ## 前言
 
 
-安装了`Deno`(v1.7.4)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
+安装了`Deno`(v1.9.2)之后，执行帮助`deno -h`命令，就可以看到相关的命令参数列表
 
 ```sh
 > deno -h
-deno 1.7.4
+deno 1.9.2
 A secure JavaScript and TypeScript runtime
 
 Docs: https://deno.land/manual
@@ -15,12 +15,15 @@ Modules: https://deno.land/std/ https://deno.land/x/
 Bugs: https://github.com/denoland/deno/issues
 
 To start the REPL:
+
   deno
 
 To execute a script:
+
   deno run https://deno.land/std/examples/welcome.ts
 
 To evaluate code in the shell:
+
   deno eval "console.log(30933 + 404)"
 
 USAGE:
@@ -38,6 +41,7 @@ SUBCOMMANDS:
     cache          Cache the dependencies
     compile        Compile the script into a self contained executable
     completions    Generate shell completions
+    coverage       Print coverage reports
     doc            Show documentation for a module
     eval           Eval script
     fmt            Format source files
@@ -47,21 +51,26 @@ SUBCOMMANDS:
     lint           Lint source files
     lsp            Start the language server
     repl           Read Eval Print Loop
-    run            Run a program given a filename or url to the module. Use '-' as a filename to read from stdin.
+    run            Run a JavaScript or TypeScript program
     test           Run tests
     types          Print runtime TypeScript declarations
     upgrade        Upgrade deno executable to given version
 
 ENVIRONMENT VARIABLES:
+    DENO_AUTH_TOKENS     A semi-colon separated list of bearer tokens and
+                         hostnames to use when fetching remote modules from
+                         private repositories
+                         (e.g. "abcde12345@deno.land;54321edcba@github.com")
+    DENO_CERT            Load certificate authority from PEM encoded file
     DENO_DIR             Set the cache directory
     DENO_INSTALL_ROOT    Set deno install's output directory
                          (defaults to $HOME/.deno/bin)
-    DENO_CERT            Load certificate authority from PEM encoded file
-    NO_COLOR             Set to disable color
+    DENO_WEBGPU_TRACE    Directory to use for wgpu traces
     HTTP_PROXY           Proxy address for HTTP requests
                          (module downloads, fetch)
     HTTPS_PROXY          Proxy address for HTTPS requests
                          (module downloads, fetch)
+    NO_COLOR             Set to disable color
     NO_PROXY             Comma-separated list of hosts which do not use a proxy
                          (module downloads, fetch)
 ```
