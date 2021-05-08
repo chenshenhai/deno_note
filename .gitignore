@@ -73,3 +73,6 @@ note/tpl.md
 # ./example.ts
 ./target
 /target
+
+Cargo.lock
+target
